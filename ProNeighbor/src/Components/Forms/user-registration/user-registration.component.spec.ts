@@ -21,4 +21,11 @@ describe('UserRegistrationComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  it('should disable the button initially', () => {
+    const button = compiled.querySelector('button') as HTMLButtonElement;
+    expect(button.disabled).toBeTrue();
+  });
+
 });
