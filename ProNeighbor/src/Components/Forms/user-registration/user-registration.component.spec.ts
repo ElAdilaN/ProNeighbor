@@ -8,7 +8,6 @@ describe('UserRegistrationComponent', () => {
   let compiled: HTMLElement;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UserRegistrationComponent],
       imports: [UserRegistrationComponent],
     }).compileComponents();
 

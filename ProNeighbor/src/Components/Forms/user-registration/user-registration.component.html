@@ -1,1 +1,94 @@
-<p>user-registration works!</p>
+<fieldset>
+  <legend>User Registration</legend>
+
+  <div>
+    <label for="name">Name:</label>
+    <input
+      type="text"
+      id="name"
+      [(ngModel)]="user.name"
+      (input)="validateForm()"
+      required
+      aria-required="true"
+      [attr.aria-invalid]="!user.name ? 'true' : null"
+      aria-describedby="name-error"
+    />
+    @if(!user.name){
+
+    <span id="name-error" class="error">Name is required</span>
+    }
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input
+      type="email"
+      id="email"
+      [(ngModel)]="user.email"
+      (input)="validateForm()"
+      required
+      aria-required="true"
+      [attr.aria-invalid]="!user.email ? 'true' : null"
+      aria-describedby="email-error"
+    />
+    @if(!user.email){
+
+    <span id="email-error" class="error">Email is required</span>
+    }
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      id="password"
+      [(ngModel)]="user.password"
+      (input)="validateForm()"
+      required
+      aria-required="true"
+    />
+  </div>
+
+  <div>
+    <label for="confirm-password">Confirm Password:</label>
+    <input
+      type="password"
+      id="confirm-password"
+      [(ngModel)]="user.confirmPassword"
+      (input)="validateForm()"
+      required
+      aria-required="true"
+      [attr.aria-invalid]="
+        user.password !== user.confirmPassword ? 'true' : null
+      "
+      aria-describedby="password-match-error"
+    />
+    @if(user.password !== user.confirmPassword && user.confirmPassword){
+
+    <span id="password-match-error" class="error">
+      Passwords do not match
+    </span>
+    }
+  </div>
+
+  <div>
+    <label>
+      <input
+        type="checkbox"
+        [(ngModel)]="user.acceptedTerms"
+        (change)="validateForm()"
+        required
+        aria-required="true"
+      />
+      I accept the <a href="/terms" target="_blank">terms and conditions</a>
+    </label>
+  </div>
+@if(!isFormValid && formSubmitted){
+
+    <div role="alert"  class="error">
+        Please correct the highlighted fields before submitting.
+    </div>
+}
+
+  <button (click)="onSubmit()" [disabled]="!isFormValid">Submit</button>
+</fieldset>
