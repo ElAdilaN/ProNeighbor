@@ -22,19 +22,23 @@ describe('UserRegistrationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   it('should disable the button initially', () => {
     const button = compiled.querySelector('button') as HTMLButtonElement;
     expect(button.disabled).toBeTrue();
   });
 
-
   it('should enable the button when the form is valid', () => {
     const nameInput = compiled.querySelector('#name') as HTMLInputElement;
     const emailInput = compiled.querySelector('#email') as HTMLInputElement;
-    const passwordInput = compiled.querySelector('#password') as HTMLInputElement;
-    const confirmPasswordInput = compiled.querySelector('#confirm-password') as HTMLInputElement;
-    const termsCheckbox = compiled.querySelector('input[type="checkbox"]') as HTMLInputElement;
+    const passwordInput = compiled.querySelector(
+      '#password'
+    ) as HTMLInputElement;
+    const confirmPasswordInput = compiled.querySelector(
+      '#confirm-password'
+    ) as HTMLInputElement;
+    const termsCheckbox = compiled.querySelector(
+      'input[type="checkbox"]'
+    ) as HTMLInputElement;
     const button = compiled.querySelector('button') as HTMLButtonElement;
 
     nameInput.value = 'John Doe';
@@ -54,5 +58,23 @@ describe('UserRegistrationComponent', () => {
     expect(button.disabled).toBeFalse();
   });
 
+  it('should keep the button disabled if passwords do not match', () => {
+    const passwordInput = compiled.querySelector(
+      '#password'
+    ) as HTMLInputElement;
+    const confirmPasswordInput = compiled.querySelector(
+      '#confirm-password'
+    ) as HTMLInputElement;
+    const button = compiled.querySelector('button') as HTMLButtonElement;
 
+    passwordInput.value = 'password123';
+    confirmPasswordInput.value = 'wrongpassword';
+
+    passwordInput.dispatchEvent(new Event('input'));
+    confirmPasswordInput.dispatchEvent(new Event('input'));
+
+    fixture.detectChanges();
+
+    expect(button.disabled).toBeTrue();
+  });
 });
