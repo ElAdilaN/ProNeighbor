@@ -77,4 +77,22 @@ describe('UserRegistrationComponent', () => {
 
     expect(button.disabled).toBeTrue();
   });
+
+  it('should show error message if passwords do not match', () => {
+    const passwordInput = compiled.querySelector('#password') as HTMLInputElement;
+    const confirmPasswordInput = compiled.querySelector('#confirm-password') as HTMLInputElement;
+    const errorMessage = compiled.querySelector('#password-match-error') as HTMLElement;
+
+    passwordInput.value = 'password123';
+    confirmPasswordInput.value = 'wrongpassword';
+
+    passwordInput.dispatchEvent(new Event('input'));
+    confirmPasswordInput.dispatchEvent(new Event('input'));
+
+    fixture.detectChanges();
+
+    expect(errorMessage).toBeTruthy();
+    expect(errorMessage.textContent).toContain('Passwords do not match');
+  });
+
 });
