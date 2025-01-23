@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // Import HttpClientTestingModule
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login.component';
 import { AuthService } from '../../../auth.service';
+import { of } from 'rxjs';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -11,8 +12,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LoginComponent],
-      imports: [LoginComponent, FormsModule],
+      imports: [LoginComponent, FormsModule, HttpClientTestingModule], // Include HttpClientTestingModule and LoginComponent
       providers: [AuthService],
     }).compileComponents();
 
@@ -33,7 +33,7 @@ describe('LoginComponent', () => {
       user: { id: 1, name: 'John Doe', email: 'johndoe@example.com' },
     };
 
-    spyOn(authService, 'login').and.returnValue(of(mockResponse));
+    spyOn(authService, 'login').and.returnValue(of(mockResponse)); // Mock AuthService login method
     component.loginData = {
       email: 'johndoe@example.com',
       password: 'password123',
