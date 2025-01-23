@@ -4,11 +4,6 @@ import { LoginComponent } from '../Components/Forms/login/login.component';
 
 export const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/register',
-    pathMatch: 'full',
-  },
-  {
     path: 'register',
     component: UserRegistrationComponent,
   },
