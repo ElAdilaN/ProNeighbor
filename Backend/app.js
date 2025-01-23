@@ -1,9 +1,19 @@
 const express = require("express");
-const testRoutes = require("./routes/test"); // New query routes
-const PORT = process.env.PORT || 3000;
+const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
+
+dotenv.config();
+
 const app = express();
-app.use(express.json());
-app.use("/api/test", testRoutes);
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(bodyParser.json());
+
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes); // Protected routes
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
