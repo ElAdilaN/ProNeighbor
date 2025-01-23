@@ -43,4 +43,25 @@ describe('LoginComponent', () => {
 
     expect(localStorage.getItem('authToken')).toBe('mock-jwt-token');
   });
+
+  it('should disable submit button when waiting for login', () => {
+    const mockResponse = {
+      message: 'Successfully logged in',
+      token: 'mock-jwt-token',
+      user: { id: 1, name: 'John Doe', email: 'johndoe@example.com' },
+    };
+
+    spyOn(authService, 'login').and.returnValue(of(mockResponse));
+    const fixture = TestBed.createComponent(LoginComponent);
+    fixture.detectChanges();
+
+    const submitButton: HTMLButtonElement =
+      fixture.nativeElement.querySelector('button');
+    expect(submitButton.disabled).toBeFalsy();
+
+    submitButton.click();
+    fixture.detectChanges();
+
+    expect(submitButton.disabled).toBeTruthy();
+  });
 });
