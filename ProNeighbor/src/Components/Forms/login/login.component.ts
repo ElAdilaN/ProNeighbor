@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../auth.service';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { AuthService } from '../../../auth.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   loginData = {
     email: '',
@@ -24,12 +25,14 @@ export class LoginComponent {
   }
 
   onLogin() {
+    localStorage.setItem('blaba', 'teeeeee');
+
     const { email, password } = this.loginData;
 
     this.authService.login(email, password).subscribe(
       (response) => {
-        this.authService.saveToken(response.token);
-
+        this.authService.saveToken(response.token, 'user');
+        this.router.navigate(['/home']);
         this.message = 'Successfully logged in!';
         console.log('Token:', response.token); // Debugging
       },
