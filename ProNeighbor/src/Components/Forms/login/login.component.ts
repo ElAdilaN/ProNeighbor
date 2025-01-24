@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -29,19 +30,23 @@ export class LoginComponent {
 
     const { email, password } = this.loginData;
 
-    this.authService.login(email, password).subscribe(
-      (response) => {
-        this.authService.saveToken(response.token, 'user');
-        this.router.navigate(['/home']);
-        this.message = 'Successfully logged in!';
-        console.log('Token:', response.token); // Debugging
-      },
-      (error) => {
-        // Handle errors
-        this.message =
-          error.error.message || 'An error occurred while logging in.';
-        console.error('Login error:', error);
-      }
-    );
+    this.authService
+      .login(email, password)
+      .pipe(
+        tap((response) => {
+          this.authService.saveToken(response.token, response.user_type);
+          this.router.navigate(['/home']);
+          this.message = 'Successfully logged in!';
+          console.log('Token:', response.token); // Debugging
+        }),
+        catchError((error) => {
+          // Handle errors
+          this.message =
+            error.error?.message || 'An error occurred while logging in.';
+          console.error('Login error:', error);
+          return of(null); // Return a safe fallback value
+        })
+      )
+      .subscribe();
   }
 }
