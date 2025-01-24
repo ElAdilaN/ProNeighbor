@@ -59,7 +59,7 @@ exports.login = async (req, res) => {
       .request()
       .input("Email", email)
       .query(
-        "SELECT Id, Name, Email, Password FROM Users WHERE Email = @Email"
+        "SELECT Id, Name, Email, Password , User_type FROM Users WHERE Email = @Email"
       );
 
     if (result.recordset.length === 0) {
@@ -82,12 +82,13 @@ exports.login = async (req, res) => {
 
     // Return token and success message
     res.status(200).json({
-      message: "Successfully logged in",
+      message: "Successfully logged in updated ",
       token,
       user: {
         id: user.Id,
         name: user.Name,
         email: user.Email,
+        user_type: user.User_type,
       },
     });
   } catch (error) {

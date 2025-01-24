@@ -2,6 +2,7 @@ import { CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ROLS } from '../enums/enum';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService); // Inject AuthService to access token and user_type
@@ -10,11 +11,17 @@ export const authGuard: CanActivateFn = (route, state) => {
   // Check if the token is available
   const token = authService.getToken();
   const userType = authService.getUserType();
+  const requiredRoles: ROLS[] = route.data?.['roles'] || [];
 
   // If no token or no user type, redirect to login
   if (!token || !userType) {
     authService.clearToken(); // Clear any stored data
     router.navigate(['/login']); // Redirect to login page
+    return false;
+  }
+
+  if (!requiredRoles.includes(userType)) {
+    router.navigate(['/unauthorized']); // Redirect to an unauthorized page if necessary
     return false;
   }
 
