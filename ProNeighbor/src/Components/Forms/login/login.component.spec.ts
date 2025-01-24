@@ -2,8 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing'; // Import HttpClientTestingModule
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login.component';
-import { AuthService } from '../../../auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { of } from 'rxjs';
+import { HomeComponent } from '../../home/home.component';
+import { provideRouter, Router } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -63,5 +66,58 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
 
     expect(submitButton.disabled).toBeTruthy();
+  });
+});
+describe('Home Component Routing - Token Based Access', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+  let router: Router;
+  let authService: AuthService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HomeComponent, LoginComponent],
+      providers: [
+        provideRouter([
+          { path: 'home', component: HomeComponent },
+          { path: 'login', component: LoginComponent },
+        ]),
+        provideHttpClient(),
+        AuthService,
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    router = TestBed.inject(Router);
+    authService = TestBed.inject(AuthService);
+  });
+
+  it('should redirect to login if no token is available', async () => {
+    
+    //use servie to remove 
+
+    // Simulate no token in localStorage
+    localStorage.removeItem('authToken');
+
+    // Attempt to navigate to the /home route
+    await router.navigate(['/home']);
+
+    // Wait for the navigation to stabilize
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    // Assert that the user is redirected to the login page
+    expect(router.url).toBe('/login');
+  });
+
+  it('should allow access to home page if a token is present', async () => {
+    spyOn(authService, 'getToken').and.returnValue('validToken');
+
+    router.navigate(['/home']);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(router.url).toBe('/home');
   });
 });
