@@ -34,7 +34,7 @@ export class LoginComponent {
       .login(email, password)
       .pipe(
         tap((response) => {
-          this.authService.saveToken(response.token, response.user_type);
+          this.authService.saveToken(response.token);
           this.router.navigate(['/home']);
           this.message = 'Successfully logged in!';
           console.log('Token:', response.token); // Debugging

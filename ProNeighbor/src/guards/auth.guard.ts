@@ -10,7 +10,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   // Check if the token is available
   const token = authService.getToken();
-  const userType = authService.getUserType();
+  const userType = authService.getUserType(token);
   const requiredRoles: ROLS[] = route.data?.['roles'] || [];
 
   // If no token or no user type, redirect to login

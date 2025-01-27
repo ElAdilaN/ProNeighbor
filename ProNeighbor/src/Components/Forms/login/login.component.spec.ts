@@ -7,6 +7,8 @@ import { of } from 'rxjs';
 import { HomeComponent } from '../../home/home.component';
 import { provideRouter, Router } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+import { ROLS } from '../../../enums/enum';
+import { authGuard } from '../../../guards/auth.guard';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -94,21 +96,17 @@ describe('Home Component Routing - Token Based Access', () => {
   });
 
   it('should redirect to login if no token is available', async () => {
-    
-    //use servie to remove 
+    spyOn(authService, 'getToken').and.returnValue(null);
 
-    // Simulate no token in localStorage
-    localStorage.removeItem('authToken');
+    // Mock route and state
+    const route: any = { data: { roles: [ROLS.USER, ROLS.PROVIDER] } };
+    const state: any = {};
 
-    // Attempt to navigate to the /home route
-    await router.navigate(['/home']);
+    const result = authGuard(route, state);
 
-    // Wait for the navigation to stabilize
-    fixture.detectChanges();
-    await fixture.whenStable();
-
-    // Assert that the user is redirected to the login page
-    expect(router.url).toBe('/login');
+    expect(result).toBeFalse();
+    expect(authService.clearToken).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/login']);
   });
 
   it('should allow access to home page if a token is present', async () => {

@@ -43,11 +43,11 @@ exports.register = async (req, res) => {
 };
 
 // Login User
-
-const generateToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "1h" });
+const generateToken = (userId, userType) => {
+  return jwt.sign({ id: userId, role: userType }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
 };
-
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -78,18 +78,12 @@ exports.login = async (req, res) => {
     }
 
     // Generate token
-    const token = generateToken(user.Id);
+    const token = generateToken(user.Id, user.User_type);
 
     // Return token and success message
     res.status(200).json({
       message: "Successfully logged in updated ",
       token,
-      user: {
-        id: user.Id,
-        name: user.Name,
-        email: user.Email,
-        user_type: user.User_type,
-      },
     });
   } catch (error) {
     console.error(error);
