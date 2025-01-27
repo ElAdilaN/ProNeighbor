@@ -35,3 +35,24 @@ exports.checkForToken = (req, res, next) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+exports.errorHandler = (err, req, res, next) => {
+  // Log the error details (for debugging purposes)
+  console.error(err);
+
+  // Set default status code to 500 (Internal Server Error)
+  const statusCode = err.statusCode || 500;
+
+  // Prepare error response
+  const errorResponse = {
+    message: err.message || "Something went wrong. Please try again later.",
+  };
+
+  // If in development mode, include stack trace (for debugging)
+  if (process.env.NODE_ENV === "development") {
+    errorResponse.stack = err.stack;
+  }
+
+  // Send error response
+  res.status(statusCode).json(errorResponse);
+};
