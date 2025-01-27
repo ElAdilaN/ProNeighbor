@@ -6,6 +6,15 @@ const router = express.Router();
 router.post("/register", register);
 
 // Login Route
-router.post("/login", login);
+//en Xavier vol un middleware que
+// Redirect '/login' to '/token/login'
+router.post("/login", (req, res) => {
+  res.status(400).json({
+    message: "You must include 'auth' in the URL. Please use /api/auth/login",
+  });
+});
+
+// Login Route with token check middleware
+router.post("/auth/login", login);
 
 module.exports = router;

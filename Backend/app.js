@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cors = require("cors"); // Import the cors module
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const { checkForToken } = require("./middleware/authMiddleware");
 
 const app = express();
 dotenv.config();
@@ -23,7 +24,7 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // Routes
-app.use("/api/auth", authRoutes);
+app.use("/api/", checkForToken, authRoutes);
 app.use("/api/user", userRoutes); // Protected routes
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
