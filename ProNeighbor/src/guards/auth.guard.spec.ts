@@ -44,13 +44,17 @@ describe('Auth-Guards', () => {
 
   it('should deny access to home if no token exists', () => {
     spyOn(authService, 'getToken').and.returnValue(null); // Simulate no token
-
+    
     const route = {} as ActivatedRouteSnapshot; // Mock route object
     const state = {} as RouterStateSnapshot; // Mock state object
-
-    authGuard(route, state);
-
+    // Run the guard in an Angular injection context
+    const canActivate = TestBed.runInInjectionContext(() =>
+      authGuard(route, state)
+    );
+    // Assert that the guard denies access and redirects to login
+    expect(canActivate).toBe(false);
     expect(authService.getToken).toHaveBeenCalled(); // Ensure token check was called
     expect(router.navigate).toHaveBeenCalledWith(['/login']); // Ensure redirection to login
+ 
   });
 });
