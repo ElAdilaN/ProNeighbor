@@ -7,6 +7,7 @@ import { ROLS } from '../enums/enum';
 import { UnauthorizedComponent } from '../Components/unauthorized/unauthorized.component';
 import { UserAreaComponent } from '../Components/user-area/user-area.component';
 import { ProviderAreaComponent } from '../Components/provider-area/provider-area.component';
+import { UserProfileComponent } from '../Components/Forms/Profiles/user-profile/user-profile.component';
 authGuard;
 export const routes: Routes = [
   {
@@ -45,5 +46,9 @@ export const routes: Routes = [
     component: ProviderAreaComponent,
     canActivate: [authGuard],
     data: { roles: [ROLS.PROVIDER] },
+  },
+  {
+    path: 'UserProfile',
+    component: UserProfileComponent,
   },
 ];

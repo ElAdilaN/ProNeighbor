@@ -15,8 +15,8 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   loginData = {
-    email: ' ',
-    password: ' ',
+    email: '',
+    password: '',
   };
   message: string = '';
 

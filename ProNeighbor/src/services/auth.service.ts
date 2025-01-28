@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, signal, effect, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { ROLS } from '../enums/enum';
@@ -15,13 +15,13 @@ interface TokenPayload {
   providedIn: 'root',
 })
 export class AuthService {
-  token$ = signal<string | null>(localStorage.getItem('authToken'));
+  public authTokenChanged: EventEmitter<void> = new EventEmitter<void>(); // Event emitter for token change
 
   constructor(private http: HttpClient, private router: Router) {
-    effect(() => {
-      const token = this.token$();
-      if (token) {
-        this.logout();
+    // Listen for changes in localStorage from other tabs/windows
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'authToken') {
+        this.authTokenChanged.emit(); // Emit the event when the authToken changes in another tab
       }
     });
   }
