@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { UserRegistrationComponent } from '../Components/Forms/user-registration/user-registration.component';
-import { LoginComponent } from '../Components/Forms/login/login.component';
+import { UserRegistrationComponent } from '../Components/Forms/Auth/user-registration/user-registration.component';
+import { LoginComponent } from '../Components/Forms/Auth/login/login.component';
 import { HomeComponent } from '../Components/home/home.component';
 import { authGuard } from '../guards/auth.guard';
 import { ROLS } from '../enums/enum';

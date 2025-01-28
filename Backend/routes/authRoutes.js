@@ -3,7 +3,7 @@ const { register, login } = require("../controllers/authController");
 const router = express.Router();
 
 // Register Route
-router.post("/register", register);
+router.post("/auth/register", register);
 
 // Login Route
 //en Xavier vol un middleware que

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../../services/auth.service';
 import { Router } from '@angular/router';
 import { catchError, of, tap } from 'rxjs';
 
@@ -15,8 +15,8 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   loginData = {
-    email: '',
-    password: '',
+    email: ' ',
+    password: ' ',
   };
   message: string = '';
 
@@ -38,6 +38,7 @@ export class LoginComponent {
           this.router.navigate(['/home']);
           this.message = 'Successfully logged in!';
           console.log('Token:', response.token); // Debugging
+          console.log('id', this.authService.getUserIdFromToken());
         }),
         catchError((error) => {
           // Handle errors

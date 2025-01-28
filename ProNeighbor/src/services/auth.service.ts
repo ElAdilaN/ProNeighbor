@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal, effect } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { ROLS } from '../enums/enum';
@@ -15,10 +15,33 @@ interface TokenPayload {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  token$ = signal<string | null>(localStorage.getItem('authToken'));
+
+  constructor(private http: HttpClient, private router: Router) {
+    effect(() => {
+      const token = this.token$();
+      if (token) {
+        this.logout();
+      }
+    });
+  }
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(environment.api_url_login, { email, password });
+  }
+
+  register(
+    name: string,
+    email: string,
+    password: string,
+    user_type: string
+  ): Observable<any> {
+    return this.http.post(environment.api_url_register, {
+      name,
+      email,
+      password,
+      user_type,
+    });
   }
 
   saveToken(token: string): void {
@@ -54,6 +77,28 @@ export class AuthService {
     }
   };
 
+  getUserIdFromToken = (): string | null => {
+    try {
+      let token = this.getToken();
+      if (token) {
+        const decoded = jwtDecode<TokenPayload>(token);
+
+        // Check if token is expired
+        if (decoded.exp && Date.now() >= decoded.exp * 1000) {
+          console.log('Token has expired');
+          return null;
+        }
+
+        // Return the user ID
+        return decoded.id || null;
+      }
+      return null;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
+  };
+
   clearToken(): void {
     localStorage.removeItem('authToken');
 
@@ -72,5 +117,10 @@ export class AuthService {
         this.router.navigate(['/login']);
         break;
     }
+  }
+
+  logout() {
+    this.clearToken();
+    this.router.navigate(['/login']);
   }
 }

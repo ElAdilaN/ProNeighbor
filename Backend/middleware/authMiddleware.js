@@ -48,10 +48,7 @@ exports.errorHandler = (err, req, res, next) => {
     message: err.message || "Something went wrong. Please try again later.",
   };
 
-  // If in development mode, include stack trace (for debugging)
-  if (process.env.NODE_ENV === "development") {
-    errorResponse.stack = err.stack;
-  }
+  
 
   // Send error response
   res.status(statusCode).json(errorResponse);
