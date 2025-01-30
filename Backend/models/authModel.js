@@ -26,7 +26,7 @@ const insertUser = async (name, email, password, userType) => {
       .input("Password", password)
       .input("UserType", userType)
       .query(
-        "INSERT INTO Users (Name, Email, Password, User_type) VALUES (@Name, @Email, @Password, @UserType)"
+        "INSERT INTO Users (Name, Email, hashed_password, roles) VALUES (@Name, @Email, @Password, @UserType)"
       );
   } catch (error) {
     console.error("Error inserting user:", error);
@@ -42,7 +42,7 @@ const getUserByEmail = async (email) => {
       .request()
       .input("Email", email)
       .query(
-        "SELECT Id, Name, Email, Password, User_type FROM Users WHERE Email = @Email"
+        "SELECT Id, Name, Email, hashed_password , roles FROM Users WHERE Email = @Email"
       );
     return result.recordset[0]; // Returns the user or undefined if not found
   } catch (error) {
