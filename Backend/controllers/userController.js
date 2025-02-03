@@ -1,31 +1,57 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const userModel = require("../models/authModel");
+const userModel = require("../models/userModel");
 
 exports.userById = async (req, res) => {
-  const { name, email, password, user_type } = req.body;
+  const { id } = req.body; // Assuming the ID is passed as a route parameter
 
-  const user = await userModel.getUserByEmail(email);
   try {
+    const user = await userModel.getUserById(id); // Fetch the user by ID
     if (!user) {
-      return res.status(400).json({ message: "Invalid email or password" });
+      return res.status(404).json({ message: "User not found" }); // If no user found
     }
 
-    // Compare password
-    const isMatch = await bcrypt.compare(password, user.Password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Invalid email or password" });
-    }
-
-    // Generate token
-    const token = generateToken(user.Id, user.User_type);
-
+    // Return user data
     res.status(200).json({
-      message: "Successfully logged in",
-      token,
+      user,
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+exports.uploadProfileImage = async (req, res) => {
+  const userId = req.params.id;
+  const imageFile = req.file;
+
+  if (!imageFile) {
+    return res.status(400).send("No image file uploaded");
+  }
+
+  // Convert the image buffer to binary data
+  const imageBinary = imageFile.buffer; // This is a Buffer containing binary data
+
+  try {
+    // Call the model function to update the user profile image
+    await userModel.updateUserProfileImage(userId, imageBinary);
+    res.status(200).send("Profile image updated successfully.");
+  } catch (error) {
+    console.error("Error uploading profile image:", error);
+    res.status(500).send("Database error while uploading image.");
+  }
+};
+
+exports.getUserProfileImage = async (req, res) => {
+  try {
+    const userId = req.params.id; // Get user ID from URL
+    const imageBinary = await userModel.getUserProfileImage(userId);
+
+    // Set the appropriate headers for image response
+    res.setHeader("Content-Type", "image/jpeg"); // Set the image content type, adjust based on your image format
+    res.send(imageBinary); // Send the binary image data as the response
+  } catch (error) {
+    console.error("Error uploading profile image:", error);
+    res.status(500).json({ message: "Error retrieving profile image" });
   }
 };

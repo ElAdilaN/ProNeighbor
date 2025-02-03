@@ -24,8 +24,9 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // Routes
-app.use("/api/", checkForToken, authRoutes);
-app.use("/api/user", userRoutes); // Protected routes
+//app.use("/", checkForToken, authRoutes);
+app.use("/", authRoutes);
+app.use("/user", userRoutes); // Protected routes
 
 app.use(errorHandler);
 

@@ -20,7 +20,7 @@ exports.protect = (req, res, next) => {
   }
 };
 
-exports.checkForToken = (req, res, next) => {
+exports.checkForAuth = (req, res, next) => {
   try {
     if (req.url.includes("auth")) {
       return next();
