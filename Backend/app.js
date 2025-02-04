@@ -1,10 +1,13 @@
+const { checkForToken, errorHandler } = require("./middleware/authMiddleware");
 const express = require("express");
+const cors = require("cors"); // Import the cors module
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-const cors = require("cors"); // Import the cors module
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
-const { checkForToken, errorHandler } = require("./middleware/authMiddleware");
+const reviewRoutes = require("./routes/reviewRoutes");
+const serviceRoutes = require("./routes/serviceRoutes");
+const messageRoutes = require("./routes/messageRoutes");
 
 const app = express();
 dotenv.config();
@@ -27,7 +30,9 @@ app.use(bodyParser.json());
 //app.use("/", checkForToken, authRoutes);
 app.use("/", authRoutes);
 app.use("/user", userRoutes); // Protected routes
-
+app.use("/api/services", serviceRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/messages", messageRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
