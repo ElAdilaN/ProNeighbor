@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../../services/auth.service';
-import { ROLS } from '../../../../enums/enum';
+import { ROLS } from '../../../../Model/user/enum';
 import { Router } from '@angular/router';
 
 @Component({

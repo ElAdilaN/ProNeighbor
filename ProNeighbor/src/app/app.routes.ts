@@ -3,7 +3,7 @@ import { UserRegistrationComponent } from '../Components/Forms/Auth/user-registr
 import { LoginComponent } from '../Components/Forms/Auth/login/login.component';
 import { HomeComponent } from '../Components/home/home.component';
 import { authGuard } from '../guards/auth.guard';
-import { ROLS } from '../enums/enum';
+import { ROLS } from '../Model/user/enum';
 import { UnauthorizedComponent } from '../Components/unauthorized/unauthorized.component';
 import { UserAreaComponent } from '../Components/user-area/user-area.component';
 import { ProviderAreaComponent } from '../Components/provider-area/provider-area.component';

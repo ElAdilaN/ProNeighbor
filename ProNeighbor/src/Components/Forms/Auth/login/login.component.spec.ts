@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import { HomeComponent } from '../../../home/home.component';
 import { provideRouter, Router } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
-import { ROLS } from '../../../../enums/enum';
+import { ROLS } from '../../../../Model/user/enum';
 import { authGuard } from '../../../../guards/auth.guard';
 
 describe('LoginComponent', () => {

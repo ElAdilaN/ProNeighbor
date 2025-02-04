@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, effect, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
-import { ROLS } from '../enums/enum';
+import { ROLS } from '../Model/user/enum';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 interface TokenPayload {

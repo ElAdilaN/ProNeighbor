@@ -11,7 +11,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { HomeComponent } from '../Components/home/home.component';
 import { authGuard } from '../guards/auth.guard';
-import { ROLS } from '../enums/enum';
+import { ROLS } from '../Model/user/enum';
 import { AuthService } from '../services/auth.service';
 // Define mock routes with guard applied
 const routes: Routes = [
