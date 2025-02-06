@@ -30,7 +30,7 @@ const insertUser = async (name, email, password, userType) => {
       );
   } catch (error) {
     console.error("Error inserting user:", error);
-    throw new Error("Database error while inserting user");
+    throw new Error("Database error while inserting user: " + error.message);
   }
 };
 

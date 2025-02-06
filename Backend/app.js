@@ -28,8 +28,8 @@ app.use(bodyParser.json());
 
 // Routes
 //app.use("/", checkForToken, authRoutes);
-app.use("/", authRoutes);
-app.use("/user", userRoutes); // Protected routes
+app.use("/api", authRoutes);
+app.use("/api/user", userRoutes); // Protected routes
 app.use("/api/services", serviceRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/messages", messageRoutes);
