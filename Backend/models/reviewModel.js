@@ -1,4 +1,5 @@
 const sql = require("mssql");
+const { poolPromise } = require("../config/db");
 
 // Get reviews for a specific service
 const getReviewsByServiceId = async (serviceId) => {
@@ -25,12 +26,24 @@ const addReview = async (userId, serviceId, rating, comment) => {
 
 // Update a review
 const updateReview = async (reviewId, userId, rating, comment) => {
-  const result = await sql.query`
-    UPDATE reviews 
-    SET rating = ${rating}, comment = ${comment}
-    WHERE id = ${reviewId} AND user_id = ${userId};
-  `;
-  return result.rowsAffected;
+  try {
+    const pool = await poolPromise; // Make sure you're getting the SQL pool connection
+
+    // Build the query with parameterized inputs
+    await pool
+      .request()
+      .input("ReviewId", reviewId) // Assumes reviewId is a uniqueidentifier type
+      .input("Rating", rating)
+      .input("Comment", comment)
+      .query(
+        "UPDATE reviews SET rating = @Rating, comment = @Comment WHERE id = @ReviewId;"
+      );
+
+    console.log(`Review ${reviewId} updated successfully.`);
+  } catch (error) {
+    console.error("Error updating review:", error);
+    throw new Error("Database error while updating review: " + error.message);
+  }
 };
 
 // Delete a review

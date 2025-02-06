@@ -49,7 +49,7 @@ exports.updateReview = async (req, res, next) => {
     const { reviewId } = req.params;
     const { rating, comment } = req.body;
     const user_id = req.user.id; // Get user ID from token
-
+    console.log("userid ", user_id);
     const result = await reviewModel.updateReview(
       reviewId,
       user_id,
