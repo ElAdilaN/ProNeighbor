@@ -46,4 +46,24 @@ describe('UsersService', () => {
     expect(req.request.headers.has('Authorization')).toBeTrue();
     req.flush(dummyData);
   });
+  it('Should update user profile', () => {
+    const updatedData = {
+      name: 'John Updated',
+      email: 'johnupdated@example.com',
+      phone: '+987654321',
+      address: '456 New St',
+    };
+
+    service.updateUserProfile(updatedData).subscribe((data) => {
+      expect(data.message).toEqual('Profile updated successfully');
+    });
+
+    const req = httpTestingController.expectOne(
+      'http://localhost:3000/api/user/profile'
+    );
+
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.headers.has('Authorization')).toBeTrue();
+    req.flush({ message: 'Profile updated successfully' });
+  });
 });
