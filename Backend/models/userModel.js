@@ -1,17 +1,49 @@
 const { poolPromise } = require("../config/db");
 const sql = require("mssql"); // Ensure that mssql is imported correctly
 
+const db = require("../config/db"); // Import your DB connection
+
 const getUserById = async (id) => {
   try {
-    const pool = await poolPromise;
-    const result = await pool
+    const pool = await poolPromise; // Make sure you're getting the SQL pool connection
+
+    // Fetch user info with role
+    const userResult = await pool
       .request()
-      .input("id", id)
-      .query("SELECT * FROM Users WHERE id = @id");
-    return result.recordset[0]; // Returns the user or undefined if not found
+      .input("UserId", sql.UniqueIdentifier, id).query(`
+          SELECT 
+              u.id, u.name, u.email, u.phone, u.address, u.created_at, r.role AS role
+          FROM users u
+          JOIN roles r ON u.roles = r.id
+          WHERE u.id = @UserId
+      `);
+
+    if (userResult.recordset.length === 0) {
+      return null;
+    }
+
+    const user = userResult.recordset[0];
+
+    // If user is a provider, fetch their services
+    if (user.role === "provider") {
+      const servicesResult = await pool
+        .request()
+        .input("ProviderId", sql.UniqueIdentifier, id).query(`
+            SELECT 
+                s.id, s.name, s.price, s.description, s.location, s.created_at,
+                c.name AS category
+            FROM services s
+            JOIN categories c ON s.category_id = c.id
+            WHERE s.provider_id = @ProviderId
+        `);
+
+      user.services = servicesResult.recordset;
+    }
+
+    return user;
   } catch (error) {
-    console.error("Error fetching user by Id:", error);
-    throw new Error("Database error while fetching user by Id");
+    console.error("Database Error:", error);
+    throw error;
   }
 };
 
@@ -49,4 +81,31 @@ const getUserProfileImage = async (id) => {
   }
 };
 
-module.exports = { getUserById, getUserProfileImage, updateUserProfileImage };
+const updateUserProfile = async (id, { name, email, phone, address }) => {
+  try {
+    const pool = await poolPromise;
+
+    await pool
+      .request()
+      .input("UserId", sql.UniqueIdentifier, id)
+      .input("Name", sql.NVarChar, name)
+      .input("Email", sql.NVarChar, email)
+      .input("Phone", sql.NVarChar, phone)
+      .input("Address", sql.NVarChar, address).query(`
+        UPDATE users 
+        SET name = @Name, email = @Email, phone = @Phone, address = @Address 
+        WHERE id = @UserId
+      `);
+
+    return { id, name, email, phone, address };
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw error;
+  }
+};
+module.exports = {
+  updateUserProfile,
+  getUserById,
+  getUserProfileImage,
+  updateUserProfileImage,
+};

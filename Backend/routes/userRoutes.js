@@ -2,6 +2,8 @@ const express = require("express");
 const { protect } = require("../middleware/authMiddleware");
 const router = express.Router();
 const {
+  updateUserProfile,
+  getUserProfile,
   userById,
   uploadProfileImage,
   getUserProfileImage,
@@ -12,13 +14,6 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // Example of a protected route
-router.get("/profile", protect, (req, res) => {
-  res.status(200).json({
-    message: "Access granted",
-    token: req.token, // Include the token in the response
-    user: req.user, // Include the decoded user info
-  });
-});
 
 router.post(
   "/uploadProfileImage/:id",
@@ -29,5 +24,9 @@ router.post(
 router.get("/profile-image/:id", getUserProfileImage);
 
 router.get("/userById", protect, userById);
+
+router.get("/profile", protect, getUserProfile);
+
+router.put("/profile", protect, updateUserProfile);
 
 module.exports = router;

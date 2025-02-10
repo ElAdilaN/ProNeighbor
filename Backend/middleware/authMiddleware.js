@@ -14,6 +14,7 @@ exports.protect = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded; // Attach decoded user info to the request
     req.token = token; // Attach the token to the request
+    req.userId = decoded.id; // Attach
     next();
   } catch (err) {
     return res.status(401).json({ message: "Token is not valid" });
@@ -47,8 +48,6 @@ exports.errorHandler = (err, req, res, next) => {
   const errorResponse = {
     message: err.message || "Something went wrong. Please try again later.",
   };
-
-  
 
   // Send error response
   res.status(statusCode).json(errorResponse);

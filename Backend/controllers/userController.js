@@ -2,6 +2,23 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 
+exports.getUserProfile = async (req, res) => {
+  try {
+    const userId = req.user.id; // Get ID from token
+    console.log("User ID from token:", userId);
+
+    const userProfile = await userModel.getUserById(userId);
+
+    if (!userProfile) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.json(userProfile);
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 exports.userById = async (req, res) => {
   const { id } = req.body; // Assuming the ID is passed as a route parameter
 
@@ -53,5 +70,32 @@ exports.getUserProfileImage = async (req, res) => {
   } catch (error) {
     console.error("Error uploading profile image:", error);
     res.status(500).json({ message: "Error retrieving profile image" });
+  }
+};
+
+exports.updateUserProfile = async (req, res) => {
+  try {
+    const userId = req.user.id; // Take ID from token
+    const { name, email, phone, address } = req.body;
+
+    // Call the model function to update user info
+    const updatedUser = await userModel.updateUserProfile(userId, {
+      name,
+      email,
+      phone,
+      address,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.json({
+      message: "Profile updated successfully",
+      updatedUser,
+    });
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
