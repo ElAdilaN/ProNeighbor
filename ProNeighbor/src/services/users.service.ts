@@ -20,4 +20,13 @@ export class UsersService {
       headers: this.getHeaders(),
     });
   }
+  updateUserProfile(profileData: any): Observable<any> {
+    return this.http.put<any>(
+      `${environment.api_url_PutProfileInfo}/user/profile`,
+      profileData,
+      {
+        headers: this.getHeaders(),
+      }
+    );
+  }
 }
