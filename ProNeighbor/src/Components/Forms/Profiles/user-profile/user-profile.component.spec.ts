@@ -63,4 +63,21 @@ describe('UserProfileComponent', () => {
     expect(saveButton.textContent).toContain('Save Changes');
     expect(cancelButton.textContent).toContain('Cancel');
   });
+  it('should make input fields editable when in edit mode', () => {
+    // Arrange
+    component.isEditMode = true;
+    fixture.detectChanges();
+  
+    // Act
+    const nameInput = fixture.nativeElement.querySelector('#name');
+    const emailInput = fixture.nativeElement.querySelector('#email');
+    const phoneInput = fixture.nativeElement.querySelector('#phone');
+    const addressInput = fixture.nativeElement.querySelector('#address');
+  
+    // Assert
+    expect(nameInput.readOnly).toBeFalse();
+    expect(emailInput.readOnly).toBeFalse();
+    expect(phoneInput.readOnly).toBeFalse();
+    expect(addressInput.readOnly).toBeFalse();
+  });
 });
