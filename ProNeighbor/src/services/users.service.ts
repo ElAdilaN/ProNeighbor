@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
+import { User, Provider } from '../Model/user/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,18 +16,14 @@ export class UsersService {
     });
   }
 
-  getUserProfile(): Observable<any> {
+  getUserProfile(): Observable<User | Provider> {
     return this.http.get<any>(`${environment.api_url_GetProfileInfo}`, {
       headers: this.getHeaders(),
     });
   }
   updateUserProfile(profileData: any): Observable<any> {
-    return this.http.put<any>(
-      `${environment.api_url_PutProfileInfo}/user/profile`,
-      profileData,
-      {
-        headers: this.getHeaders(),
-      }
-    );
+    return this.http.put<any>(environment.api_url_PutProfileInfo, profileData, {
+      headers: this.getHeaders(),
+    });
   }
 }

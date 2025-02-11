@@ -1,3 +1,4 @@
+test
 <fieldset>
   <legend>User Profile</legend>
 
@@ -75,3 +76,95 @@
 
   <button type="submit" id="submit-button">Update Profile</button>
 </fieldset>
+<!-- 
+<fieldset>
+  <legend>User Profile</legend>
+
+  <div>
+    <label for="name">Name:</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      [(ngModel)]="user.name"
+      required
+      aria-required="true"
+      aria-invalid="false"
+      aria-describedby="name-error"
+    />
+    <span id="name-error" class="error" aria-live="polite"></span>
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      [(ngModel)]="user.email"
+      required
+      aria-required="true"
+      aria-invalid="false"
+      aria-describedby="email-error"
+    />
+    <span id="email-error" class="error" aria-live="polite"></span>
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      [(ngModel)]="user.password"
+      required
+      aria-required="true"
+      aria-invalid="false"
+      aria-describedby="password-error"
+    />
+    <span id="password-error" class="error" aria-live="polite"></span>
+  </div>
+
+  <div>
+    <label for="phone">Phone:</label>
+    <input
+      type="tel"
+      id="phone"
+      name="phone"
+      [(ngModel)]="user.phone"
+      aria-describedby="phone-error"
+    />
+    <span id="phone-error" class="error" aria-live="polite"></span>
+  </div>
+
+  <div>
+    <label for="address">Address:</label>
+    <input
+      type="text"
+      id="address"
+      name="address"
+      [(ngModel)]="user.address"
+      aria-describedby="address-error"
+    />
+    <span id="address-error" class="error" aria-live="polite"></span>
+  </div>
+
+  <div>
+    <label for="profile_picture">Profile Picture URL:</label>
+    <input
+      type="text"
+      id="profile_picture"
+      name="profile_picture"
+      [(ngModel)]="user.profile_picture"
+      aria-describedby="profile_picture-error"
+    />
+    <span id="profile_picture-error" class="error" aria-live="polite"></span>
+  </div>
+
+  <div role="alert" class="error" id="form-error" aria-live="polite"></div>
+
+  <button type="submit" id="submit-button" (click)="updateProfile()">
+    Update Profile
+  </button>
+</fieldset>
+ -->
