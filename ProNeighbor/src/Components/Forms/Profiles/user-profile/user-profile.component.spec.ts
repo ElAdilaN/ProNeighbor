@@ -41,4 +41,26 @@ describe('UserProfileComponent', () => {
     expect(phoneInput.readOnly).toBeTrue();
     expect(addressInput.readOnly).toBeTrue();
   });
+
+  it('should display "Save Changes" and "Cancel" buttons when "Modify Profile" is clicked', () => {
+    // Arrange
+    component.isEditMode = false;
+    fixture.detectChanges();
+
+    // Act
+    const modifyButton = fixture.nativeElement.querySelector('button');
+    modifyButton.click();
+    fixture.detectChanges();
+
+    const saveButton = fixture.nativeElement.querySelector(
+      'button:nth-of-type(1)'
+    );
+    const cancelButton = fixture.nativeElement.querySelector(
+      'button:nth-of-type(2)'
+    );
+
+    // Assert
+    expect(saveButton.textContent).toContain('Save Changes');
+    expect(cancelButton.textContent).toContain('Cancel');
+  });
 });
