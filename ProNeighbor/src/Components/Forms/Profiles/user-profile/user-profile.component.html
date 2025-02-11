@@ -82,6 +82,16 @@
   }
  -->
 
+  <!-- Modify Profile Button -->
+  <div>
+    @if(!isEditMode){
+    <button (click)="enableEditMode()">Modify Profile</button>
+    } @if(isEditMode){
+    <button (click)="saveChanges()">Save Changes</button>
+    <button (click)="cancelEdit()">Cancel</button>
+    }
+  </div>
+
   <!-- Error Message -->
   <div role="alert" class="error" id="form-error" aria-live="polite"></div>
 </fieldset>
