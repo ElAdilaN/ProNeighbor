@@ -8,7 +8,7 @@ const getUserById = async (id) => {
     const pool = await poolPromise; // Make sure you're getting the SQL pool connection
 
     // Fetch user info with role
-    const userResult = await pool
+    /*   const userResult = await pool
       .request()
       .input("UserId", sql.UniqueIdentifier, id).query(`
           SELECT 
@@ -17,15 +17,23 @@ const getUserById = async (id) => {
           JOIN roles r ON u.roles = r.id
           WHERE u.id = @UserId
       `);
-
+ */
+    const userResult = await pool
+      .request()
+      .input("UserId", sql.UniqueIdentifier, id).query(`
+          SELECT 
+              u.id, u.name, u.email, u.phone, u.address, u.created_at, u.roles AS role
+          FROM users u
+          
+          WHERE u.id = @UserId
+      `);
     if (userResult.recordset.length === 0) {
       return null;
     }
-
     const user = userResult.recordset[0];
 
     // If user is a provider, fetch their services
-    if (user.role === "provider") {
+    if (user.role === "23EC3C35-1330-40B2-9024-A82E99F540F8") {
       const servicesResult = await pool
         .request()
         .input("ProviderId", sql.UniqueIdentifier, id).query(`
@@ -81,9 +89,10 @@ const getUserProfileImage = async (id) => {
   }
 };
 
-const updateUserProfile = async (id, { name, email, phone, address }) => {
+const updateUserProfile = async (id, name, email, phone, address) => {
   try {
     const pool = await poolPromise;
+    
 
     await pool
       .request()

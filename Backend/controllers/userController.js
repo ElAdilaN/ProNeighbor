@@ -76,15 +76,20 @@ exports.getUserProfileImage = async (req, res) => {
 exports.updateUserProfile = async (req, res) => {
   try {
     const userId = req.user.id; // Take ID from token
-    const { name, email, phone, address } = req.body;
-
+    const { _name, _email, _phone, _address } = req.body;
+    console.log("name", _name);
+    console.log("email", _email);
+    console.log("phone", _phone);
+    console.log("addres", _address);
     // Call the model function to update user info
-    const updatedUser = await userModel.updateUserProfile(userId, {
-      name,
-      email,
-      phone,
-      address,
-    });
+    console.log("id", userId);
+    const updatedUser = await userModel.updateUserProfile(
+      userId,
+      _name,
+      _email,
+      _phone,
+      _address
+    );
 
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
