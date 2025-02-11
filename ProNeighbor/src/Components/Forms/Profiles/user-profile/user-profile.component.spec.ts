@@ -1,16 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { UsersService } from '../../../../services/users.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule } from '@angular/forms';
+import { of } from 'rxjs';
 import { UserProfileComponent } from './user-profile.component';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
   let fixture: ComponentFixture<UserProfileComponent>;
+  let userService: UsersService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserProfileComponent]
-    })
-    .compileComponents();
+      imports: [HttpClientTestingModule, FormsModule],
+      providers: [UsersService],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UserProfileComponent);
     component = fixture.componentInstance;
@@ -19,5 +23,22 @@ describe('UserProfileComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should display "Modify Profile" button and have read-only inputs when not in edit mode', () => {
+    // Arrange
+    component.isEditMode = false;
+    fixture.detectChanges();
+
+    const modifyButton = fixture.nativeElement.querySelector('button');
+    const nameInput = fixture.nativeElement.querySelector('#name');
+    const emailInput = fixture.nativeElement.querySelector('#email');
+    const phoneInput = fixture.nativeElement.querySelector('#phone');
+    const addressInput = fixture.nativeElement.querySelector('#address');
+
+    expect(modifyButton.textContent).toContain('Modify Profile');
+    expect(nameInput.readOnly).toBeTrue();
+    expect(emailInput.readOnly).toBeTrue();
+    expect(phoneInput.readOnly).toBeTrue();
+    expect(addressInput.readOnly).toBeTrue();
   });
 });
