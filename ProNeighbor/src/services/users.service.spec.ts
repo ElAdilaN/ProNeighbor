@@ -34,9 +34,9 @@ describe('UsersService', () => {
       address: '123 Main St',
     };
 
-    /*  service.getUserProfile().subscribe((data) => {
-      expect(data).toEqual(dummyData);
-    }); */
+    service.getUserProfile().subscribe((data) => {
+      expect(data as any).toEqual(dummyData);
+    });
 
     const req = httpTestingController.expectOne(
       'http://localhost:3000/api/user/profile'
@@ -54,7 +54,7 @@ describe('UsersService', () => {
       address: '456 New St',
     };
 
-    service.updateUserProfile(updatedData).subscribe((data) => {
+    service.updateUserProfile(updatedData as any).subscribe((data) => {
       expect(data.message).toEqual('Profile updated successfully');
     });
 

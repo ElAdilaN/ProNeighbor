@@ -67,13 +67,13 @@ describe('UserProfileComponent', () => {
     // Arrange
     component.isEditMode = true;
     fixture.detectChanges();
-  
+
     // Act
     const nameInput = fixture.nativeElement.querySelector('#name');
     const emailInput = fixture.nativeElement.querySelector('#email');
     const phoneInput = fixture.nativeElement.querySelector('#phone');
     const addressInput = fixture.nativeElement.querySelector('#address');
-  
+
     // Assert
     expect(nameInput.readOnly).toBeFalse();
     expect(emailInput.readOnly).toBeFalse();
@@ -85,17 +85,19 @@ describe('UserProfileComponent', () => {
     // Arrange
     component.isEditMode = true;
     fixture.detectChanges();
-  
+
     // Act
-    const cancelButton = fixture.nativeElement.querySelector('button:nth-of-type(2)');
+    const cancelButton = fixture.nativeElement.querySelector(
+      'button:nth-of-type(2)'
+    );
     cancelButton.click();
     fixture.detectChanges();
-  
+
     const nameInput = fixture.nativeElement.querySelector('#name');
     const emailInput = fixture.nativeElement.querySelector('#email');
     const phoneInput = fixture.nativeElement.querySelector('#phone');
     const addressInput = fixture.nativeElement.querySelector('#address');
-  
+
     // Assert
     expect(component.isEditMode).toBeFalse();
     expect(nameInput.readOnly).toBeTrue();
@@ -103,5 +105,4 @@ describe('UserProfileComponent', () => {
     expect(phoneInput.readOnly).toBeTrue();
     expect(addressInput.readOnly).toBeTrue();
   });
-
 });

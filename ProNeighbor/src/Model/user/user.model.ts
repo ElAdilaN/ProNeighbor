@@ -55,6 +55,13 @@ export class User {
   get roles(): ROLS {
     return this._roles;
   }
+  get formattedMemberSince(): string {
+    return this.created_at.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  }
 
   // Setters
   set id(id: string) {
