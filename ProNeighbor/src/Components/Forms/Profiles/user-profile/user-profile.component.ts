@@ -20,7 +20,6 @@ export class UserProfileComponent implements OnInit {
 
   services: Service[] = [];
 
-
   constructor(private userService: UsersService) {}
 
   ngOnInit(): void {
@@ -55,27 +54,12 @@ export class UserProfileComponent implements OnInit {
     this.isEditMode = true;
   }
 
-  updateProfile(): void {
-    this.userService.updateUserProfile(this.user).subscribe({
-      next: (response) => {
-        console.log('Profile updated successfully:', response);
-      },
-      error: (err) => {
-        console.error('Failed to update profile:', err);
-      },
-    });
-  }
   /* trackService(index: number, service: Service): string {
     return service.getId();
   } */
-  saveChanges(): void {
- 
-
-   
+  updateProfile(): void {
     this.userService.updateUserProfile(this.user).subscribe({
       next: (response) => {
-        console.log('Profile updated successfully:', response);
-        // this.user = updatedUser; // Update the local user object
         this.isEditMode = false; // Exit edit mode
       },
       error: (err) => {
