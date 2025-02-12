@@ -86,11 +86,13 @@ describe('UserProfileComponent', () => {
     // Arrange
     component.isEditMode = true;
     fixture.detectChanges();
-
+    expect(component.isEditMode).toBeTrue();
+    
     // Act
     const cancelButton = fixture.nativeElement.querySelector(
       'button:nth-of-type(2)'
     );
+
     cancelButton.click();
     fixture.detectChanges();
 
