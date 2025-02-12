@@ -65,7 +65,8 @@ describe('UserProfileComponent', () => {
   });
   it('should make input fields editable when in edit mode', () => {
     // Arrange
-    component.isEditMode = true;
+    const modifyButton = fixture.nativeElement.querySelector('button');
+    modifyButton.click();
     fixture.detectChanges();
 
     // Act
