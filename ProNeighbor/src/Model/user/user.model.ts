@@ -33,7 +33,8 @@ export class User {
   }
 
   get name(): string {
-    return this._name;
+    
+    return this._name || '' ;
   }
 
   get email(): string {

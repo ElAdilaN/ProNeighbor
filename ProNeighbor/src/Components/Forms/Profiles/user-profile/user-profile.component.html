@@ -9,11 +9,11 @@
       id="name"
       name="name"
       [value]="user?.name"
+      [(ngModel)]="user!.name"
       [readonly]="!isEditMode"
       aria-required="true"
       aria-invalid="false"
       aria-describedby="name-error"
-      #nameInput
     />
     <span id="name-error" class="error" aria-live="polite"></span>
   </div>
@@ -30,7 +30,6 @@
       aria-required="true"
       aria-invalid="false"
       aria-describedby="email-error"
-      #emailInput
     />
     <span id="email-error" class="error" aria-live="polite"></span>
   </div>
@@ -45,7 +44,6 @@
       [value]="user?.phone"
       [readonly]="!isEditMode"
       aria-describedby="phone-error"
-      #phoneInput
     />
     <span id="phone-error" class="error" aria-live="polite"></span>
   </div>
@@ -60,12 +58,9 @@
       [value]="user?.address"
       [readonly]="!isEditMode"
       aria-describedby="address-error"
-      #addressInput
     />
     <span id="address-error" class="error" aria-live="polite"></span>
   </div>
-
-
 
   <!-- Modify Profile Button -->
   <div>

@@ -19,10 +19,7 @@ export class UserProfileComponent implements OnInit {
   isEditMode: boolean = false; // Track edit mode
 
   services: Service[] = [];
-  @ViewChild('nameInput') nameInput: any;
-  @ViewChild('emailInput') emailInput: any;
-  @ViewChild('phoneInput') phoneInput: any;
-  @ViewChild('addressInput') addressInput: any;
+
 
   constructor(private userService: UsersService) {}
 
@@ -72,26 +69,13 @@ export class UserProfileComponent implements OnInit {
     return service.getId();
   } */
   saveChanges(): void {
-    const updatedName = this.nameInput.nativeElement.value;
-    const updatedEmail = this.emailInput.nativeElement.value;
-    const updatedPhone = this.phoneInput.nativeElement.value;
-    const updatedAddress = this.addressInput.nativeElement.value;
+ 
 
-    console.log('new nam3 ', updatedName);
-    const updatedUser = new Provider(
-      this.user?.id ?? '',
-      updatedName,
-      updatedEmail,
-      this.user?.roles ?? ROLS.USER, // Provide a default role
-      this.user?.created_at ?? new Date(), // Provide a default date
-      updatedPhone,
-      updatedAddress
-    );
-
-    this.userService.updateUserProfile(updatedUser).subscribe({
+   
+    this.userService.updateUserProfile(this.user).subscribe({
       next: (response) => {
         console.log('Profile updated successfully:', response);
-        this.user = updatedUser; // Update the local user object
+        // this.user = updatedUser; // Update the local user object
         this.isEditMode = false; // Exit edit mode
       },
       error: (err) => {
