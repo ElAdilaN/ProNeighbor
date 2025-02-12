@@ -12,7 +12,7 @@ export class UsersService {
   private getHeaders(): HttpHeaders {
     // const token = localStorage.getItem('token'); // Adjust based on where you store the token
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkyQkNDMkIyLUE5RTMtNEIwNy1BQ0YyLUM4REMzNkY0NjdBOCIsImlhdCI6MTczOTI5OTAxNCwiZXhwIjoxNzM5MzAyNjE0fQ.5Rc_5ftyuWM3meUl0xMLjbI9b2KrO1t7sdH-VAcSJ3g';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkyQkNDMkIyLUE5RTMtNEIwNy1BQ0YyLUM4REMzNkY0NjdBOCIsImlhdCI6MTczOTM3Mzg1NCwiZXhwIjoxNzM5Mzc3NDU0fQ.H2mOVE4tKQB45pB1Tw1R0nSbeEB4pXgxVdB6jWzqQcA';
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });

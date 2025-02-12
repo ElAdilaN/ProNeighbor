@@ -13,7 +13,7 @@ import { Service } from '../../../../Model/servicesProvider/service.model';
   styleUrl: './user-profile.component.css',
 })
 export class UserProfileComponent implements OnInit {
-  user?: User | Provider;
+  user?: Provider;
 
   isProvider: boolean = false;
   isEditMode: boolean = false; // Track edit mode
@@ -33,35 +33,20 @@ export class UserProfileComponent implements OnInit {
   fetchUserProfile(): void {
     this.userService.getUserProfile().subscribe({
       next: (data: any) => {
-        console.log('API Response:', data); // Log the entire response
-        console.log('User Role:', data.role); // Log the role
-        console.log('Expected Provider Role:', ROLS.PROVIDER); //
+        this.user = new Provider(
+          data.id,
+          data.name,
+          data.email,
+          data.roles,
+          new Date(data.created_at),
+          data.phone,
+          data.address
+        );
         if (data.role === ROLS.PROVIDER) {
-          this.user = new Provider(
-            data.id,
-            data.name,
-            data.email,
-            data.roles,
-            new Date(data.created_at),
-            data.phone,
-            data.address
-          );
-          console.log(data);
-          (this.user as Provider).setServices(data.services);
-          this.services = (this.user as Provider).getServices();
-          console.log('here ', this.services[0]);
+          this.user.setServices(data.services);
           this.isProvider = true;
         } else {
-          console.log('not provider ');
-          this.user = new User(
-            data.id,
-            data.name,
-            data.email,
-            data.roles,
-            new Date(data.created_at),
-            data.phone,
-            data.address
-          );
+          (this.user as User) = this.user as User; // convert from provider to user
         }
       },
       error: (err) => {
@@ -91,8 +76,9 @@ export class UserProfileComponent implements OnInit {
     const updatedEmail = this.emailInput.nativeElement.value;
     const updatedPhone = this.phoneInput.nativeElement.value;
     const updatedAddress = this.addressInput.nativeElement.value;
+
     console.log('new nam3 ', updatedName);
-    const updatedUser = new User(
+    const updatedUser = new Provider(
       this.user?.id ?? '',
       updatedName,
       updatedEmail,
