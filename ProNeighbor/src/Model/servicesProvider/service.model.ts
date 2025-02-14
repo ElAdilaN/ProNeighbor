@@ -75,3 +75,29 @@ export class Service {
     this.category = category;
   }
 }
+
+export class Category {
+  private _name: string;
+  constructor(name: string) {
+    this._name = name;
+  }
+  get name(): string {
+    return this._name;
+  }
+  set name(name: string) {
+    this._name = name;
+  }
+}
+
+export class Categories {
+  private categories: Category[];
+  constructor(categories: Category[]) {
+    this.categories = categories;
+  }
+  get Categories(): Category[] {
+    return this.categories;
+  }
+  set Categories(categories) {
+    this.categories = categories;
+  }
+}
