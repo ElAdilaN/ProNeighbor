@@ -26,6 +26,7 @@
       id="email"
       name="email"
       [value]="user?.email"
+      [(ngModel)]="user!.email"
       [readonly]="!isEditMode"
       aria-required="true"
       aria-invalid="false"
@@ -42,6 +43,7 @@
       id="phone"
       name="phone"
       [value]="user?.phone"
+      [(ngModel)]="user!.phone"
       [readonly]="!isEditMode"
       aria-describedby="phone-error"
     />
@@ -56,6 +58,7 @@
       id="address"
       name="address"
       [value]="user?.address"
+      [(ngModel)]="user!.address"
       [readonly]="!isEditMode"
       aria-describedby="address-error"
     />

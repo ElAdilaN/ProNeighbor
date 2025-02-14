@@ -14,7 +14,6 @@ class Service {
         ORDER BY created_at DESC;
       `;
       const result = await pool.request().query(query);
-      console.log(result.recordset);
       return result.recordset;
     } else {
       const offset = (page - 1) * limit;
@@ -31,7 +30,6 @@ class Service {
         .input("limit", sql.Int, limit) // Make sure sql.Int is being used correctly
         .query(query);
 
-      console.log(result.recordset);
       return result.recordset;
     }
   }
@@ -54,12 +52,12 @@ class Service {
       const result = await pool
         .request()
         .input("provider_id", sql.UniqueIdentifier, provider_id)
-        .input("category_id", sql.UniqueIdentifier, category_id)
+        .input("category_id", sql.VarChar, category_id)
         .input("name", sql.NVarChar, name)
         .input("price", sql.Decimal, price)
         .input("description", sql.NVarChar, description)
         .input("location", sql.NVarChar, location).query(`
-          INSERT INTO services (provider_id, category_id, name, price, description, location)
+          INSERT INTO services (provider_id, category, name, price, description, location)
           VALUES (@provider_id, @category_id, @name, @price, @description, @location);
           SELECT SCOPE_IDENTITY() AS id;
         `);
@@ -90,7 +88,7 @@ class Service {
         .input("category_id", sql.UniqueIdentifier, category_id) // Use UniqueIdentifier for UUIDs
         .query(`
           UPDATE services
-          SET name = @name, price = @price, description = @description, location = @location, category_id = @category_id
+          SET name = @name, price = @price, description = @description, location = @location, category = @category_id
           WHERE id = @id
         `);
       return result.rowsAffected[0]; // Return the number of affected rows
@@ -101,18 +99,24 @@ class Service {
 
   // Delete service
   static async deleteService(id) {
-    const result = await sql.query`DELETE FROM services WHERE id = ${id}`;
-    return result.rowsAffected[0];
+    try {
+      const result = await sql.query`DELETE FROM services WHERE id = ${id}`;
+      return result.rowsAffected[0];
+    } catch (error) {
+      console.error("Error deleting service:", error);
+      throw new Error("Failed to delete service");
+    }
   }
-
   // Get services by category
   static async getServicesByCategory(category_id) {
     const result =
-      await sql.query`SELECT * FROM services WHERE category_id = ${category_id}`;
+      await sql.query`SELECT * FROM services WHERE category = ${category_id}`;
     return result.recordset;
   }
 
   // Search services by name, category, or location
+
+  //join to add provider info
   static async searchServices(search) {
     try {
       const pool = await poolPromise;
@@ -130,6 +134,15 @@ class Service {
       throw new Error("Error searching services: " + err.message);
     }
   }
-}
 
+  static async GetAllCategories() {
+    try {
+      const result = await sql.query`SELECT * FROM categories`;
+      return result.recordset;
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      throw new Error("Failed to fetch categories");
+    }
+  }
+}
 module.exports = Service;
