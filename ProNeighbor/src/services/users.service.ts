@@ -9,7 +9,7 @@ import { User, Provider } from '../Model/user/user.model';
 })
 export class UsersService {
   constructor(private http: HttpClient) {}
-  private getHeaders(): HttpHeaders {
+  getHeaders(): HttpHeaders {
     // const token = localStorage.getItem('token'); // Adjust based on where you store the token
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MzAxREY3LUU0QTYtNEVGMS1BMEMwLTIzQzdEM0RGQkQwOCIsImlhdCI6MTczOTM4NjU3NCwiZXhwIjoxNzM5MzkwMTc0fQ.8Kg2fdtQQ3Q_bqNmwVns10dLZkuZS1-VvjKUdfC6H_w';
