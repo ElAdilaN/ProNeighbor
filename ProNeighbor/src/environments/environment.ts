@@ -5,4 +5,5 @@ export const environment = {
   api_url_PutProfileInfo: 'http://localhost:3000/api/user/profile',
   api_url_GetAllCategories: 'http://localhost:3000/api/services/categories',
   api_url_CreateService: 'http://localhost:3000/api/services',
+  api_url_GetAllServices: 'http://localhost:3000/api/services',
 };

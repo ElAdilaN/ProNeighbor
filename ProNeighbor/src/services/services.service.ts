@@ -1,10 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  Categories,
-  Category,
-  Service,
-} from '../Model/servicesProvider/service.model';
+import { Categories, Service } from '../Model/servicesProvider/service.model';
 import { environment } from '../environments/environment';
 import { UsersService } from './users.service';
 import { Observable } from 'rxjs';
@@ -21,7 +17,10 @@ export class ServicesService {
   }
 
   createService(service: Service) {
-    console.log(service);
     return this.http.post<any>(environment.api_url_CreateService, service);
+  }
+
+  getAllServices(): Observable<Service[]> {
+    return this.http.get<any>(environment.api_url_CreateService);
   }
 }
