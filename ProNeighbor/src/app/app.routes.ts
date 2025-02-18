@@ -8,6 +8,7 @@ import { UnauthorizedComponent } from '../Components/unauthorized/unauthorized.c
 import { UserAreaComponent } from '../Components/user-area/user-area.component';
 import { ProviderAreaComponent } from '../Components/provider-area/provider-area.component';
 import { UserProfileComponent } from '../Components/Forms/Profiles/user-profile/user-profile.component';
+import { ServiceComponent } from '../Components/Forms/serviceRegister/service.component';
 authGuard;
 export const routes: Routes = [
   {
@@ -50,5 +51,9 @@ export const routes: Routes = [
   {
     path: 'UserProfile',
     component: UserProfileComponent,
+  },
+  {
+    path: 'CreateService',
+    component: ServiceComponent,
   },
 ];
