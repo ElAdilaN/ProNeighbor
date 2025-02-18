@@ -1,0 +1,22 @@
+.service-card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+.service-card:hover {
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
+}
+.btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.btn:hover {
+  background: #0056b3;
+}

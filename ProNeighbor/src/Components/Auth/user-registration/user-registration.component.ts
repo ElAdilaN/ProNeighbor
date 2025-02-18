@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../../services/auth.service';
-import { ROLS } from '../../../../Model/user/enum';
 import { Router } from '@angular/router';
+import { ROLS } from '../../../Model/user/enum';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-user-registration',

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
-import { UserRegistrationComponent } from '../Components/Forms/Auth/user-registration/user-registration.component';
-import { LoginComponent } from '../Components/Forms/Auth/login/login.component';
+
 import { HomeComponent } from '../Components/home/home.component';
 import { authGuard } from '../guards/auth.guard';
 import { ROLS } from '../Model/user/enum';
@@ -8,8 +7,11 @@ import { UnauthorizedComponent } from '../Components/unauthorized/unauthorized.c
 import { UserAreaComponent } from '../Components/user-area/user-area.component';
 import { ProviderAreaComponent } from '../Components/provider-area/provider-area.component';
 import { UserProfileComponent } from '../Components/Forms/Profiles/user-profile/user-profile.component';
-import { ServiceComponent } from '../Components/Forms/serviceRegister/service.component';
-authGuard;
+import { ServiceComponent } from '../Components/AppServices/serviceRegister/service.component';
+import { ServiceListComponent } from '../Components/AppServices/service-list/service-list.component';
+import { LoginComponent } from '../Components/Auth/login/login.component';
+import { UserRegistrationComponent } from '../Components/Auth/user-registration/user-registration.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -55,5 +57,9 @@ export const routes: Routes = [
   {
     path: 'CreateService',
     component: ServiceComponent,
+  },
+  {
+    path: 'ServiceList',
+    component: ServiceListComponent,
   },
 ];
