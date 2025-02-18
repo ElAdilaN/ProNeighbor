@@ -97,4 +97,21 @@ describe('ServiceComponent', () => {
     const submitButton = fixture.nativeElement.querySelector("button");
     expect(submitButton.disabled).toBeFalse();
   });
+
+  
+  it("should disable the submit button when the form is invalid", () => {
+    // Set invalid values for form fields
+    component.serviceData.name = "";
+    component.serviceData.price = -1;
+    component.serviceData.description = "";
+    component.serviceData.location = "";
+    component.serviceData.category = "";
+
+    fixture.detectChanges();
+
+    // Check if the submit button is disabled
+    const submitButton = fixture.nativeElement.querySelector("button");
+    expect(submitButton.disabled).toBeTrue();
+  });
+
 });
