@@ -58,4 +58,29 @@ describe('ServiceComponent', () => {
     // Now we are comparing the Categories class
     expect(component.categories?.Categories).toEqual(mockCategories);
   });
+  it("should display the correct form validation errors", () => {
+    // Set invalid values for form fields
+    component.serviceData.name = "";
+    component.serviceData.price = -1;
+    component.serviceData.description = "";
+    component.serviceData.location = "";
+    component.serviceData.category = "";
+
+    fixture.detectChanges();
+
+    // Check if the error messages are displayed correctly
+    const nameError = fixture.nativeElement.querySelector("#name-error");
+    const priceError = fixture.nativeElement.querySelector("#price-error");
+    const descError = fixture.nativeElement.querySelector("#desc-error");
+    const locationError =
+      fixture.nativeElement.querySelector("#location-error");
+    const categoryError =
+      fixture.nativeElement.querySelector("#category-error");
+
+    expect(nameError.textContent).toContain("Service name is required");
+    expect(priceError.textContent).toContain("Valid price is required");
+    expect(descError.textContent).toContain("Description is required");
+    expect(locationError.textContent).toContain("Location is required");
+    expect(categoryError.textContent).toContain("Please select a category");
+  });
 });
