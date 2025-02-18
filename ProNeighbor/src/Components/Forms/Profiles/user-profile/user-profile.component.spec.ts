@@ -11,9 +11,24 @@ describe('UserProfileComponent', () => {
   let userService: UsersService;
 
   beforeEach(async () => {
+    // Mock UsersService
+    const userServiceMock = {
+      getUserProfile: jasmine.createSpy().and.returnValue(
+        of({
+          id: '85755A9C-8010-414C-8E46-10AA36F0BA41',
+          name: 'John Doe',
+          email: 'johndoe@example.com',
+          phone: '+123456789',
+          address: '123 Main St',
+        })
+      ),
+    };
+
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, FormsModule],
-      providers: [UsersService],
+      providers: [
+        { provide: UsersService, useValue: userServiceMock }, // Use mock here
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserProfileComponent);
@@ -24,6 +39,7 @@ describe('UserProfileComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
   it('should display "Modify Profile" button and have read-only inputs when not in edit mode', () => {
     // Arrange
     component.isEditMode = false;
@@ -63,6 +79,7 @@ describe('UserProfileComponent', () => {
     expect(saveButton).toBeTruthy();
     expect(cancelButton).toBeTruthy();
   });
+
   it('should make input fields editable when in edit mode', () => {
     // Arrange
     const modifyButton = fixture.nativeElement.querySelector('button');
@@ -87,7 +104,7 @@ describe('UserProfileComponent', () => {
     component.isEditMode = true;
     fixture.detectChanges();
     expect(component.isEditMode).toBeTrue();
-    
+
     // Act
     const cancelButton = fixture.nativeElement.querySelector(
       'button:nth-of-type(2)'
