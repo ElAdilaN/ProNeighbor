@@ -23,4 +23,10 @@ export class ServicesService {
   getAllServices(): Observable<Service[]> {
     return this.http.get<any>(environment.api_url_CreateService);
   }
+
+  getAllServicesByProvider(id: string): Observable<Service[]> {
+    return this.http.get<any>(
+      `${environment.api_url_GetAllServicesByProvider}${id}`
+    );
+  }
 }
