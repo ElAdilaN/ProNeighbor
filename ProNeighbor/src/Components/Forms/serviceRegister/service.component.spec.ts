@@ -83,4 +83,18 @@ describe('ServiceComponent', () => {
     expect(locationError.textContent).toContain("Location is required");
     expect(categoryError.textContent).toContain("Please select a category");
   });
+  it("should enable the submit button when the form is valid", () => {
+    // Set valid values for form fields
+    component.serviceData.name = "Valid Service";
+    component.serviceData.price = 50;
+    component.serviceData.description = "This is a valid description";
+    component.serviceData.location = "Valid Location";
+    component.serviceData.category = "Category 1";
+
+    fixture.detectChanges();
+
+    // Check if the submit button is enabled
+    const submitButton = fixture.nativeElement.querySelector("button");
+    expect(submitButton.disabled).toBeFalse();
+  });
 });
