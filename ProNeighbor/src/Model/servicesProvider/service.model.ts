@@ -89,7 +89,7 @@ export class Category {
   }
 }
 
-export class Categories {
+export class Categories implements Iterable<Category> {
   private categoriesList: Category[];
   constructor(categories: Category[]) {
     this.categoriesList = categories;
@@ -99,5 +99,8 @@ export class Categories {
   }
   set Categories(list: Category[]) {
     this.categoriesList = list;
+  }
+  [Symbol.iterator]() {
+    return this.categoriesList[Symbol.iterator](); // This will allow iteration over Categories
   }
 }
