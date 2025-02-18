@@ -22,6 +22,18 @@ exports.getAllServices = async (req, res) => {
       .json({ success: false, message: "Server error", error: err.message });
   }
 };
+exports.getAllServicesByProvider = async (req, res) => {
+  try {
+    const services = await Service.getAllServicesByProvider(req.params.id);
+
+    // Return response
+    res.status(200).json({ success: true, services });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ success: false, message: "Server error", error: err.message });
+  }
+};
 
 // Get a service by ID
 exports.getServiceById = async (req, res) => {

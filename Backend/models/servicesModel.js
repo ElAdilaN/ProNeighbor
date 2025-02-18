@@ -39,6 +39,11 @@ class Service {
     const result = await sql.query`SELECT * FROM services WHERE id = ${id}`;
     return result.recordset[0];
   }
+  static async getAllServicesByProvider(id) {
+    const result =
+      await sql.query`SELECT * FROM services WHERE provider_id = ${id}`;
+    return result.recordsets;
+  }
 
   // Create a new service
   static async createService(serviceData) {

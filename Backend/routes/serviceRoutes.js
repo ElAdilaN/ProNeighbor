@@ -7,6 +7,7 @@ router.get("/", serviceController.getAllServices);
 router.get("/categories", serviceController.getAllCategories);
 router.post("/", serviceController.createService);
 router.get("/search", serviceController.searchServices);
+router.get("/ByProvider/:id", serviceController.getAllServicesByProvider);
 router.get("/:id", serviceController.getServiceById);
 router.put("/:id", serviceController.updateService);
 router.delete("/:id", serviceController.deleteService);
