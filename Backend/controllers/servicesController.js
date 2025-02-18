@@ -44,41 +44,42 @@ exports.getServiceById = async (req, res) => {
 exports.createService = async (req, res) => {
   try {
     // Destructure data from the request body
-    const { provider_id, category_id, name, price, description, location } =
-      req.body;
+    const { _id, _category, _name, _price, _description, _location } = req.body;
 
     // Validate that all required fields are provided
     if (
-      !provider_id ||
-      !category_id ||
-      !name ||
-      !price ||
-      !description ||
-      !location
+      !_id ||
+      !_category ||
+      !_name ||
+      !_price ||
+      !_description ||
+      !_location
     ) {
       return res.status(400).json({
         success: false,
         message:
-          "All fields (provider_id, category_id, name, price, description, location) are required",
+          "All fields (id, category, name, price, description, location) are required",
       });
     }
 
     // Validate price to be a positive number
-    if (isNaN(price) || price <= 0) {
+    if (isNaN(_price) || _price <= 0) {
       return res.status(400).json({
         success: false,
         message: "Price must be a valid positive number",
       });
     }
 
+    console.log(_id, _category, _name, _price, _description, _location);
+
     // Pass validated data to the model for insertion into the database
     const newService = await Service.createService({
-      provider_id,
-      category_id,
-      name,
-      price,
-      description,
-      location,
+      _id,
+      _category,
+      _name,
+      _price,
+      _description,
+      _location,
     });
 
     // Return success response

@@ -42,7 +42,7 @@ class Service {
 
   // Create a new service
   static async createService(serviceData) {
-    const { provider_id, category_id, name, price, description, location } =
+    const { _id, _category, _name, _price, _description, _location } =
       serviceData;
 
     const pool = await poolPromise; // Get a connection from the pool
@@ -51,12 +51,12 @@ class Service {
       // SQL query to insert a new service and return the inserted ID
       const result = await pool
         .request()
-        .input("provider_id", sql.UniqueIdentifier, provider_id)
-        .input("category_id", sql.VarChar, category_id)
-        .input("name", sql.NVarChar, name)
-        .input("price", sql.Decimal, price)
-        .input("description", sql.NVarChar, description)
-        .input("location", sql.NVarChar, location).query(`
+        .input("provider_id", sql.UniqueIdentifier, _id)
+        .input("category_id", sql.VarChar, _category)
+        .input("name", sql.NVarChar, _name)
+        .input("price", sql.Decimal, _price)
+        .input("description", sql.NVarChar, _description)
+        .input("location", sql.NVarChar, _location).query(`
           INSERT INTO services (provider_id, category, name, price, description, location)
           VALUES (@provider_id, @category_id, @name, @price, @description, @location);
           SELECT SCOPE_IDENTITY() AS id;
