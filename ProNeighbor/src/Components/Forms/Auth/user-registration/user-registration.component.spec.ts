@@ -1,14 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UserRegistrationComponent } from './user-registration.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // <-- Import HttpClientTestingModule
 
 describe('UserRegistrationComponent', () => {
   let component: UserRegistrationComponent;
   let fixture: ComponentFixture<UserRegistrationComponent>;
   let compiled: HTMLElement;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserRegistrationComponent],
+      imports: [UserRegistrationComponent, HttpClientTestingModule], // <-- Add HttpClientTestingModule
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserRegistrationComponent);
@@ -78,9 +79,15 @@ describe('UserRegistrationComponent', () => {
   });
 
   it('should show error message if passwords do not match', () => {
-    const passwordInput = compiled.querySelector('#password') as HTMLInputElement;
-    const confirmPasswordInput = compiled.querySelector('#confirm-password') as HTMLInputElement;
-    const errorMessage = compiled.querySelector('#password-match-error') as HTMLElement;
+    const passwordInput = compiled.querySelector(
+      '#password'
+    ) as HTMLInputElement;
+    const confirmPasswordInput = compiled.querySelector(
+      '#confirm-password'
+    ) as HTMLInputElement;
+    const errorMessage = compiled.querySelector(
+      '#password-match-error'
+    ) as HTMLElement;
 
     passwordInput.value = 'password123';
     confirmPasswordInput.value = 'wrongpassword';
@@ -93,5 +100,4 @@ describe('UserRegistrationComponent', () => {
     expect(errorMessage).toBeTruthy();
     expect(errorMessage.textContent).toContain('Passwords do not match');
   });
-
 });
