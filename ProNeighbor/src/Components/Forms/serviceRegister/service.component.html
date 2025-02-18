@@ -1,1 +1,125 @@
-<p>service works!</p>
+<fieldset>
+  <legend>Service Details</legend>
+
+  <!-- Name Field -->
+  <div>
+    <label for="name">Service Name:</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      [(ngModel)]="serviceData.name"
+      required
+      aria-required="true"
+      [attr.aria-invalid]="!serviceData.name ? 'true' : 'false'"
+      aria-describedby="name-error"
+    />
+    <span id="name-error" class="error" aria-live="polite">
+      {{ !serviceData.name ? "Service name is required" : "" }}
+    </span>
+  </div>
+
+  <!-- Price Field -->
+  <div>
+    <label for="price">Price (€):</label>
+    <input
+      type="number"
+      id="price"
+      name="price"
+      [(ngModel)]="serviceData.price"
+      required
+      aria-required="true"
+      [attr.aria-invalid]="
+        !serviceData.price || serviceData.price <= 0 ? 'true' : 'false'
+      "
+      aria-describedby="price-error"
+    />
+    <span id="price-error" class="error" aria-live="polite">
+      {{
+        !serviceData.price || serviceData.price <= 0
+          ? "Valid price is
+      required"
+          : ""
+      }}
+    </span>
+  </div>
+
+  <!-- Description Field -->
+  <div>
+    <label for="description">Description:</label>
+    <textarea
+      id="description"
+      name="description"
+      [(ngModel)]="serviceData.description"
+      required
+      aria-required="true"
+      [attr.aria-invalid]="!serviceData.description ? 'true' : 'false'"
+      aria-describedby="desc-error"
+    ></textarea>
+    <span id="desc-error" class="error" aria-live="polite">
+      {{ !serviceData.description ? "Description is required" : "" }}
+    </span>
+  </div>
+
+  <!-- Location Field -->
+  <div>
+    <label for="location">Location:</label>
+    <input
+      type="text"
+      id="location"
+      name="location"
+      [(ngModel)]="serviceData.location"
+      required
+      aria-required="true"
+      [attr.aria-invalid]="!serviceData.location ? 'true' : 'false'"
+      aria-describedby="location-error"
+    />
+    <span id="location-error" class="error" aria-live="polite">
+      {{ !serviceData.location ? "Location is required" : "" }}
+    </span>
+  </div>
+
+  <!-- Category Dropdown -->
+  <div>
+    <label for="category">Category:</label>
+    <select
+      id="category"
+      name="category"
+      [(ngModel)]="serviceData.category"
+      required
+      aria-required="true"
+      [attr.aria-invalid]="!serviceData.category ? 'true' : 'false'"
+      aria-describedby="category-error"
+    >
+      @if( categories?.Categories?.length === 0){
+      <option disabled>No categories available</option>
+      }@else{ @for(cat of categories?.Categories; track cat){
+
+      <option [value]="cat.name">{{ cat.name }}</option>
+
+      } }
+    </select>
+    <span id="category-error" class="error" aria-live="polite">
+      {{ !serviceData.category ? "Please select a category" : "" }}
+    </span>
+  </div>
+
+  <!-- Submit Button -->
+  <div>
+    <button
+      (click)="submitForm()"
+      type="submit"
+      [disabled]="
+        !serviceData.name ||
+        !serviceData.price ||
+        serviceData.price <= 0 ||
+        !serviceData.description ||
+        !serviceData.location ||
+        !serviceData.category
+      "
+      aria-label="Submit Service"
+    >
+      Create Service
+    </button>
+  </div>
+</fieldset>
