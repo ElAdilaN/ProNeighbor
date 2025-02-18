@@ -1,11 +1,11 @@
 export class Service {
-  private id: string;
-  private name: string;
-  private price: number;
-  private description: string;
-  private location: string;
-  private created_at: Date;
-  private category: string;
+  private _id: string;
+  private _name: string;
+  private _price: number;
+  private _description: string;
+  private _location: string;
+  private _created_at: Date;
+  private _category: string;
 
   constructor(
     id: string,
@@ -16,63 +16,63 @@ export class Service {
     created_at: Date,
     category: string
   ) {
-    this.id = id;
-    this.name = name;
-    this.price = price;
-    this.description = description;
-    this.location = location;
-    this.created_at = created_at;
-    this.category = category;
+    this._id = id;
+    this._name = name;
+    this._price = price;
+    this._description = description;
+    this._location = location;
+    this._created_at = created_at;
+    this._category = category;
   }
 
   // Getters
-  getId(): string {
-    return this.id;
+  get id(): string {
+    return this._id;
   }
 
-  getName(): string {
-    return this.name;
+  get name(): string {
+    return this._name;
   }
 
-  getPrice(): number {
-    return this.price;
+  get price(): number {
+    return this._price;
   }
 
-  getDescription(): string {
-    return this.description;
+  get description(): string {
+    return this._description;
   }
 
-  getLocation(): string {
-    return this.location;
+  get location(): string {
+    return this._location;
   }
 
-  getCreatedAt(): Date {
-    return this.created_at;
+  get created_at(): Date {
+    return this._created_at;
   }
 
-  getCategory(): string {
-    return this.category;
+  get category(): string {
+    return this._category;
   }
 
   // Setters
-  setName(name: string): void {
-    this.name = name;
+  set name(name: string) {
+    this._name = name;
   }
 
-  setPrice(price: number): void {
-    this.price = price;
+  set price(price: number) {
+    this._price = price;
   }
 
-  setDescription(description: string): void {
-    this.description = description;
+  set description(description: string) {
+    this._description = description;
   }
 
-  setLocation(location: string): void {
-    this.location = location;
+  set location(location: string) {
+    this._location = location;
   }
 
-  setCategory(category: string): void {
-    this.category = category;
+  set category(category: string) {
+    this._category = category;
   }
 }
 
@@ -90,14 +90,14 @@ export class Category {
 }
 
 export class Categories {
-  private categories: Category[];
+  private categoriesList: Category[];
   constructor(categories: Category[]) {
-    this.categories = categories;
+    this.categoriesList = categories;
   }
   get Categories(): Category[] {
-    return this.categories;
+    return this.categoriesList;
   }
-  set Categories(categories) {
-    this.categories = categories;
+  set Categories(list: Category[]) {
+    this.categoriesList = list;
   }
 }
