@@ -56,4 +56,18 @@ describe('ServiceListComponent', () => {
     expect(servicesService.getAllServices).toHaveBeenCalled();
     expect(component.services.length).toBe(2);
   });
+  it('should handle error when getAllServices() fails', () => {
+    spyOn(servicesService, 'getAllServices').and.returnValue(
+      throwError(() => new Error('API failure'))
+    );
+
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(servicesService.getAllServices).toHaveBeenCalled();
+    expect(component.errorMessage).toBe('Failed to load services');
+    expect(component.isLoading).toBeFalse();
+  });
+
+
 });
