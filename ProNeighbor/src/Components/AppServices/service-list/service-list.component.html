@@ -1,0 +1,15 @@
+<section aria-labelledby="available-services">
+  <h2 id="available-services">Available Services</h2>
+
+  @if(isLoading){
+  <div role="alert" aria-live="polite">Loading services...</div>
+  } @if(errorMessage){
+  <div class="error" role="alert" aria-live="assertive">{{ errorMessage }}</div>
+  } @if(!isLoading && !errorMessage){
+  <div class="service-grid" role="list">
+    @for(service of services; track service){
+    <app-service-card [service]="service" role="listitem"></app-service-card>
+    }
+  </div>
+  }
+</section>
