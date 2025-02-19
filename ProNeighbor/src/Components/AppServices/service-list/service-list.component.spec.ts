@@ -68,6 +68,14 @@ describe('ServiceListComponent', () => {
     expect(component.errorMessage).toBe('Failed to load services');
     expect(component.isLoading).toBeFalse();
   });
+  it('should show loading message while fetching services', () => {
+    component.isLoading = true;
+    fixture.detectChanges();
 
+    const loadingElement = fixture.debugElement.query(By.css('[role="alert"]'));
+    expect(loadingElement.nativeElement.textContent).toContain(
+      'Loading services...'
+    );
+  });
 
 });
