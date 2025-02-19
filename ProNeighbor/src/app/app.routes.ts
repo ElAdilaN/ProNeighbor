@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-
 import { HomeComponent } from '../Components/home/home.component';
 import { authGuard } from '../guards/auth.guard';
 import { ROLS } from '../Model/user/enum';
@@ -11,6 +10,7 @@ import { ServiceComponent } from '../Components/AppServices/serviceRegister/serv
 import { ServiceListComponent } from '../Components/AppServices/service-list/service-list.component';
 import { LoginComponent } from '../Components/Auth/login/login.component';
 import { UserRegistrationComponent } from '../Components/Auth/user-registration/user-registration.component';
+import { ServiceDetailsComponent } from '../Components/AppServices/service-details/service-details.component';
 
 export const routes: Routes = [
   {
@@ -62,4 +62,6 @@ export const routes: Routes = [
     path: 'ServiceList',
     component: ServiceListComponent,
   },
+
+  { path: 'ServiceList/:id', component: ServiceDetailsComponent }, // Service details page
 ];

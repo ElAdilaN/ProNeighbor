@@ -19,7 +19,7 @@ export class ServiceComponent {
   constructor(private ServicesService: ServicesService) {}
   public categories?: Categories;
   serviceData: Service = new Service(
-    'BFB2FDF9-07FF-4360-BE9E-222C2EAA4AED',
+    '952B94B5-92AC-4594-B5C5-CD32B069E725',
     '',
     0,
     '',
