@@ -1,0 +1,42 @@
+<div
+  class="service-card"
+  role="article"
+  tabindex="0"
+  [attr.aria-labelledby]="'service-title-' + service.id"
+>
+  <h3 [id]="'service-title-' + service.id">{{ service.name }}</h3>
+
+  <p>
+    <strong>Category:</strong>
+    <span [attr.aria-label]="'Service category ' + service.category">{{
+      service.category
+    }}</span>
+  </p>
+  <p>
+    <strong>Location:</strong>
+    <span [attr.aria-label]="'Service location ' + service.location">{{
+      service.location
+    }}</span>
+  </p>
+  <p>
+    <strong>Price:</strong>
+    <span [attr.aria-label]="'Service price ' + service.price + ' dollars'"
+      >{{ service.price }}$</span
+    >
+  </p>
+  <p>
+    <strong>Description:</strong>
+    <span [attr.aria-label]="'Service description ' + service.description">{{
+      service.description
+    }}</span>
+  </p>
+
+  <a
+    [routerLink]="['/ServiceList', service.id]"
+    class="btn"
+    [attr.aria-label]="'View details for ' + service.name"
+    role="button"
+  >
+    View Details
+  </a>
+</div>
