@@ -55,4 +55,22 @@ describe('ServiceCardComponent', () => {
     expect(locationElement.textContent).toContain(mockService.location);
     expect(descriptionElement.textContent).toContain(mockService.description);
   });
+
+  it('should have correct "View Details" link', () => {
+    const mockService: Service = new Service(
+      '123',
+      'Test Service',
+      50,
+      'Fixing Pipes',
+      'New Yok',
+      new Date(),
+      'Plumbing'
+    );
+
+    component.service = mockService;
+    fixture.detectChanges();
+
+    const linkElement = fixture.debugElement.query(By.css('a')).nativeElement;
+    expect(linkElement.getAttribute('href')).toBe('/ServiceList/123');
+  });
 });
