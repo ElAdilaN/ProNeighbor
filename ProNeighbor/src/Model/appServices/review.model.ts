@@ -1,18 +1,22 @@
 export class Review {
   constructor(
-    private _id: number,
-    private _service_id: number,
-    private _rating: number,
-    private _comment: string,
-    private _created_at: Date
+    private _id: string = '',
+    private _service_id: string = '',
+    private _rating: number = 0,
+    private _comment: string = '',
+    private _created_at: Date = new Date(),
+    private _user_id: string = ''
   ) {}
 
   // Getters
-  get id(): number {
+  get id(): string {
     return this._id;
   }
+  get user_id(): string {
+    return this._user_id;
+  }
 
-  get service_id(): number {
+  get service_id(): string {
     return this._service_id;
   }
 
@@ -29,11 +33,14 @@ export class Review {
   }
 
   // Setters
-  set id(id: number) {
+  set id(id: string) {
     this._id = id;
   }
+  set user_id(user_id: string) {
+    this._user_id = user_id;
+  }
 
-  set service_id(serviceId: number) {
+  set service_id(serviceId: string) {
     this._service_id = serviceId;
   }
 
@@ -51,9 +58,46 @@ export class Review {
 }
 export class ReviewDTO {
   constructor(
-    public id: number,
-    public service_name: string,
-    public rating: number,
-    public comment: string
+    private _id: string,
+    private _service_id: string,
+    private _rating: number,
+    private _comment: string,
+    private _created_at: Date,
+    private _user_id: string,
+    private _user_name: string = 'Unknown' // Default value
   ) {}
+
+  // Getters
+  get id(): string {
+    return this._id;
+  }
+
+  get service_id(): string {
+    return this._service_id;
+  }
+
+  get rating(): number {
+    return this._rating;
+  }
+
+  get comment(): string {
+    return this._comment;
+  }
+
+  get created_at(): Date {
+    return this._created_at;
+  }
+
+  get user_id(): string {
+    return this._user_id;
+  }
+
+  get user_name(): string {
+    return this._user_name;
+  }
+
+  // Setters
+  set user_name(name: string) {
+    this._user_name = name.trim() || 'Unknown'; // Prevent empty values
+  }
 }

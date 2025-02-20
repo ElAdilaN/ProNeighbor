@@ -45,11 +45,13 @@ export class AuthService {
   }
 
   saveToken(token: string): void {
-    localStorage.setItem('authToken', token);
+    this.clearToken();
+    localStorage.setItem('AuthToken', token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('authToken');
+    return localStorage.getItem('AuthToken');
+    //return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk1MkI5NEI1LTkyQUMtNDU5NC1CNUM1LUNEMzJCMDY5RTcyNSIsImlhdCI6MTczOTk4Mzg0NSwiZXhwIjoxNzM5OTg3NDQ1fQ.LC0YYA13_z8d7kiy4RSNZb5VjBYNZs7GGfBcH0RGvPk';
   }
   getUserType = (token: string | null): ROLS | null => {
     try {
@@ -100,7 +102,7 @@ export class AuthService {
   };
 
   clearToken(): void {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('AuthToken');
 
     localStorage.removeItem('user_type');
   }
