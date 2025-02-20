@@ -23,7 +23,7 @@ router.post(
 
 router.get("/profile-image/:id", getUserProfileImage);
 
-router.get("/userById", protect, userById);
+router.get("/userById/:id", protect, userById);
 
 router.get("/profile", protect, getUserProfile);
 

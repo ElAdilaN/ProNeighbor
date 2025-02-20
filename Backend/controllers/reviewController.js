@@ -5,7 +5,6 @@ exports.addReview = async (req, res, next) => {
   try {
     const { service_id, rating, comment } = req.body;
     const user_id = req.user.id; // Get user ID from token
-
     if (!service_id || !rating) {
       return res
         .status(400)

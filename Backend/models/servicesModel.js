@@ -40,11 +40,20 @@ class Service {
     return result.recordset[0];
   }
   static async getAllServicesByProvider(id) {
-    const result =
-      await sql.query`SELECT * FROM services WHERE provider_id = ${id}`;
-    return result.recordsets;
-  }
+    try {
+      const pool = await poolPromise; // Make sure you're getting the SQL pool connection
 
+      const result = await pool
+        .request()
+        .input("provider_id", sql.UniqueIdentifier, id).query(`
+          SELECT * FROM services WHERE provider_id = @provider_id
+        `);
+
+      return result.recordset;
+    } catch (err) {
+      throw new Error("Error fetching services: " + err.message);
+    }
+  }
   // Create a new service
   static async createService(serviceData) {
     const { _id, _category, _name, _price, _description, _location } =

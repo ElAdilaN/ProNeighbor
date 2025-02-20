@@ -20,7 +20,7 @@ exports.getUserProfile = async (req, res) => {
   }
 };
 exports.userById = async (req, res) => {
-  const { id } = req.body; // Assuming the ID is passed as a route parameter
+  const id = req.params.id;
 
   try {
     const user = await userModel.getUserById(id); // Fetch the user by ID
