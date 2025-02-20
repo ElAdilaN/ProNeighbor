@@ -10,9 +10,9 @@ import { User, Provider } from '../Model/user/user.model';
 export class UsersService {
   constructor(private http: HttpClient) {}
   getHeaders(): HttpHeaders {
-    //const token = localStorage.getItem('token'); // Adjust based on where you store the token
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk1MkI5NEI1LTkyQUMtNDU5NC1CNUM1LUNEMzJCMDY5RTcyNSIsImlhdCI6MTczOTk4NTU2NywiZXhwIjoxNzM5OTg5MTY3fQ.8JD9fAECo1mZBLoO6UBxwaZsvLOypqUei7j6T959JCE';
+    const token = localStorage.getItem('AuthToken'); // Adjust based on where you store the token
+    //const token =
+    //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk1MkI5NEI1LTkyQUMtNDU5NC1CNUM1LUNEMzJCMDY5RTcyNSIsImlhdCI6MTczOTk4NTU2NywiZXhwIjoxNzM5OTg5MTY3fQ.8JD9fAECo1mZBLoO6UBxwaZsvLOypqUei7j6T959JCE';
     //'http://localhost:4200/ReviewsList/1B0C31C6-5500-4CBB-81AE-FF11CE0AEAE8';
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,

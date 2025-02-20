@@ -13,11 +13,11 @@ export const authGuard: CanActivateFn = (route, state) => {
   const userType = authService.getUserType(token);
   const requiredRoles: ROLS[] = route.data?.['roles'] || [];
 
+  console.log('user Type ', userType);
   // If no token or no user type, redirect to login
   if (!token) {
     authService.clearToken(); // Clear any stored data
     router.navigate(['/login']); // Redirect to login page
-    console.log('to login bro ');
     return false;
   }
 

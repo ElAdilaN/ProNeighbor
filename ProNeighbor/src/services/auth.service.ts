@@ -65,9 +65,9 @@ export class AuthService {
         }
 
         if (decoded && typeof decoded.role === 'string') {
-          if (decoded.role === '38BDC97C-44EA-45D4-84AB-FA6BA9A5D435') {
+          if (decoded.role === 'customer') {
             return ROLS.USER;
-          } else if (decoded.role === '6845C548-22DB-46B4-AFA8-D5536261791B') {
+          } else if (decoded.role === 'provider') {
             return ROLS.PROVIDER;
           }
         }
