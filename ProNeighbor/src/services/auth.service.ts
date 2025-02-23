@@ -53,8 +53,10 @@ export class AuthService {
     return localStorage.getItem('AuthToken');
     //return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk1MkI5NEI1LTkyQUMtNDU5NC1CNUM1LUNEMzJCMDY5RTcyNSIsImlhdCI6MTczOTk4Mzg0NSwiZXhwIjoxNzM5OTg3NDQ1fQ.LC0YYA13_z8d7kiy4RSNZb5VjBYNZs7GGfBcH0RGvPk';
   }
-  getUserType = (token: string | null): ROLS | null => {
+  getUserType = (): ROLS | null => {
     try {
+      let token = this.getToken();
+
       if (token) {
         const decoded = jwtDecode<TokenPayload>(token);
 
