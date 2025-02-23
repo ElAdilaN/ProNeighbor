@@ -1,0 +1,20 @@
+@if(isLoading){
+<div>Loading service details...</div>
+} @if(errorMessage){
+<div class="error">{{ errorMessage }}</div>
+} @if(service){
+
+<div class="service-details">
+  <h1>{{ service.name }}</h1>
+  <p><strong>Category:</strong> {{ service.id }}</p>
+  <p><strong>Category:</strong> {{ service.category }}</p>
+  <p><strong>Location:</strong> {{ service.location }}</p>
+  <p><strong>Price:</strong> {{ service.price }}$</p>
+  <p><strong>Description:</strong> {{ service.description }}</p>
+
+  <!-- Reuse Review List Component -->
+  <section>
+    <app-review-list [serviceId]="service.id"></app-review-list>
+  </section>
+</div>
+}
