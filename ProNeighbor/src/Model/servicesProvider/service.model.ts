@@ -55,6 +55,9 @@ export class Service {
   }
 
   // Setters
+  set id(id: string) {
+    this._id = id;
+  }
   set name(name: string) {
     this._name = name;
   }

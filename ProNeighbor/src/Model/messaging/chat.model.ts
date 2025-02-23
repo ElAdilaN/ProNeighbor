@@ -1,59 +1,86 @@
 export class Chat {
+  private _id: string;
+  private _created_by: string;
+  private _service_id: string | null;
+  private _created_at: Date;
+  private _is_group: boolean;
+  private _chatName: string | null;
+
   constructor(
-    private _id: number,
-    private _created_by: number,
-    private _service_id: number,
-    private _created_at: Date,
-    private _is_group: boolean
-  ) {}
+    id: string,
+    created_by: string,
+    service_id: string | null,
+    created_at: string,
+    is_group: boolean,
+    chatName: string | null
+  ) {
+    this._id = id;
+    this._created_by = created_by;
+    this._service_id = service_id;
+    this._created_at = new Date(created_at);
+    this._is_group = is_group;
+    this._chatName = chatName;
+  }
 
   // Getters
-  get id(): number {
+  public get id(): string {
     return this._id;
   }
 
-  get created_by(): number {
+  public get created_by(): string {
     return this._created_by;
   }
 
-  get service_id(): number {
+  public get service_id(): string | null {
     return this._service_id;
   }
 
-  get created_at(): Date {
+  public get created_at(): Date {
     return this._created_at;
   }
 
-  get is_group(): boolean {
+  public get is_group(): boolean {
     return this._is_group;
   }
 
+  public get chatName(): string | null {
+    return this._chatName;
+  }
+
   // Setters
-  set id(id: number) {
+  public set id(id: string) {
     this._id = id;
   }
 
-  set created_by(createdBy: number) {
-    this._created_by = createdBy;
+  public set created_by(created_by: string) {
+    this._created_by = created_by;
   }
 
-  set service_id(serviceId: number) {
-    this._service_id = serviceId;
+  public set service_id(service_id: string | null) {
+    this._service_id = service_id;
   }
 
-  set created_at(createdAt: Date) {
-    this._created_at = createdAt;
+  public set created_at(created_at: string) {
+    this._created_at = new Date(created_at);
   }
 
-  set is_group(isGroup: boolean) {
-    this._is_group = isGroup;
+  public set is_group(is_group: boolean) {
+    this._is_group = is_group;
   }
-}
 
-export class ChatDTO {
-  constructor(
-    public id: number,
-    public created_by_name: string,
-    public is_group: boolean
-  ) {}
+  public set chatName(chatName: string | null) {
+    this._chatName = chatName;
+  }
+
+  // Static method to convert API response to Chat objects
+  public static fromJson(json: any): Chat {
+    return new Chat(
+      json.id,
+      json.created_by,
+      json.service_id,
+      json.created_at,
+      json.is_group,
+      json.chatName
+    );
+  }
 }

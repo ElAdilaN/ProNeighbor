@@ -1,82 +1,66 @@
-import { MESSAGESTATUS } from '../user/enum';
+export class message {
+  private _chat_id: string;
+  private _user_id: string;
+  private _message: string;
+  private _timestamp: string;
+  private _status: string | null;
 
-export class Message {
   constructor(
-    private _id: number,
-    private _chat_id: number,
-    private _user_id: number,
-    private _service_id: number | null,
-    private _message: string,
-    private _timestamp: Date,
-    private _status: MESSAGESTATUS
-  ) {}
-
-  // Getters
-  get id(): number {
-    return this._id;
+    chat_id: string,
+    user_id: string,
+    message: string,
+    timestamp: string,
+    status: string | null
+  ) {
+    this._chat_id = chat_id;
+    this._user_id = user_id;
+    this._message = message;
+    this._timestamp = timestamp;
+    this._status = status;
   }
 
-  get chat_id(): number {
+  // Getter and Setter for chat_id
+  get chat_id(): string {
     return this._chat_id;
   }
 
-  get user_id(): number {
+  set chat_id(value: string) {
+    this._chat_id = value;
+  }
+
+  // Getter and Setter for user_id
+  get user_id(): string {
     return this._user_id;
   }
 
-  get service_id(): number | null {
-    return this._service_id;
+  set user_id(value: string) {
+    this._user_id = value;
   }
 
+  // Getter and Setter for message
   get message(): string {
     return this._message;
   }
 
-  get timestamp(): Date {
+  set message(value: string) {
+    this._message = value;
+  }
+
+  // Getter and Setter for timestamp
+  get timestamp(): string {
     return this._timestamp;
   }
 
-  get status(): MESSAGESTATUS {
+  set timestamp(value: string) {
+    this._timestamp = value;
+  }
+
+  // Getter and Setter for status
+  get status(): string | null {
     return this._status;
   }
 
-  // Setters
-  set id(id: number) {
-    this._id = id;
+  set status(value: string | null) {
+    this._status = value;
   }
-
-  set chat_id(chatId: number) {
-    this._chat_id = chatId;
-  }
-
-  set user_id(userId: number) {
-    this._user_id = userId;
-  }
-
-  set service_id(serviceId: number | null) {
-    this._service_id = serviceId;
-  }
-
-  set message(message: string) {
-    this._message = message;
-  }
-
-  set timestamp(timestamp: Date) {
-    this._timestamp = timestamp;
-  }
-
-  set status(status: MESSAGESTATUS) {
-    this._status = status;
-  }
-}
-
-export class MessageDTO {
-  constructor(
-    public id: number,
-    public chat_id: number,
-    public user_name: string,
-    public message: string,
-    public timestamp: Date,
-    public status: MESSAGESTATUS
-  ) {}
 }
