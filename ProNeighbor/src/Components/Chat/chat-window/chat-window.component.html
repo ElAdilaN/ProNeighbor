@@ -1,0 +1,24 @@
+<!-- Chat messages-->
+CHAT MESSAGES
+<div class="messages">
+  @for( message of messages.slice().reverse(); track message){
+
+  <div>
+    <strong>{{ message.user_id }}:</strong> {{ message.message }}
+  </div>
+  }
+</div>
+
+<!-- Message input -->
+<div class="message-input">
+  <input [(ngModel)]="newMessage" placeholder="Type your message..." />
+  <button (click)="sendMessage()">Send</button>
+</div>
+
+<!-- Chat actions -->
+<div class="chat-actions">
+  <button [routerLink]="['/dashboard/chat', chatId, 'info']">Chat Info</button>
+  <button [routerLink]="['/dashboard/chat', chatId, 'add-participant']">
+    Add Participant
+  </button>
+</div>
