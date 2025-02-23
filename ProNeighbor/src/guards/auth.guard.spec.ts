@@ -74,8 +74,7 @@ describe('Auth-Guards', () => {
 
     // Assert that the guard allows access and does not redirect
     expect(canActivate).toBe(true);
-    expect(authService.getToken).toHaveBeenCalled(); // Ensure token check was called
-    expect(authService.getUserType).toHaveBeenCalledWith('validToken'); // Ensure user type check was called with valid token
+    expect(authService.getToken).toHaveBeenCalled(); // Ensure token check was calledexpect(authService.getUserType).toHaveBeenCalledWith(''); // Ensure user type check was called with valid token
     expect(router.navigate).not.toHaveBeenCalled(); // No redirection should occur
   });
 
@@ -97,7 +96,7 @@ describe('Auth-Guards', () => {
     // Assert that the guard denies access and redirects to unauthorized
     expect(canActivate).toBe(false);
     expect(authService.getToken).toHaveBeenCalled(); // Ensure token check was called
-    expect(authService.getUserType).toHaveBeenCalledWith('validToken'); // Ensure user type check was called with valid token
+    expect(authService.getUserType).toHaveBeenCalledWith(); // Ensure user type check was called with valid token
     expect(router.navigate).toHaveBeenCalledWith(['/unauthorized']); // Ensure redirection to unauthorized
   });
 });
