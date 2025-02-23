@@ -1,1 +1,24 @@
-<p>review-card works!</p>
+<article class="review-card">
+  <header>
+    <h3>{{ review.user_name }}</h3>
+    <p class="review-date">{{ review.created_at }}</p>
+  </header>
+
+  <p class="review-comment">{{ review.comment }}</p>
+
+  <!-- Rating Display -->
+  <div class="review-rating">
+    Rating: @for( star of [].constructor(review.rating); track $index ) {
+    <span>★</span>
+    }
+  </div>
+
+  <!-- If the review belongs to the logged-in user, show buttons -->
+  @if(review.user_id === loggedInUserId){
+
+  <div class="review-actions">
+    <button (click)="editReview(review)" class="edit-btn">Edit</button>
+    <button (click)="deleteReview(review.id)" class="delete-btn">Delete</button>
+  </div>
+  }
+</article>
