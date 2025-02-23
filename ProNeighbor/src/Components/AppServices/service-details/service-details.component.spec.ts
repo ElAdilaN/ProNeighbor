@@ -66,4 +66,13 @@ describe('ServiceDetailsComponent', () => {
     expect(component.errorMessage).toBe('Failed to load service details.');
     expect(component.isLoading).toBeFalse();
   });
+  it('should show loading message while fetching service details', () => {
+    component.isLoading = true;
+    fixture.detectChanges();
+
+    const loadingElement = fixture.debugElement.query(By.css('div'));
+    expect(loadingElement.nativeElement.textContent).toContain(
+      'Loading service details...'
+    );
+  });
 });
