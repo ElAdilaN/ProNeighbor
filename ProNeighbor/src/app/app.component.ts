@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +11,20 @@ import { AuthService } from '../services/auth.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
+
+  isAuthRoute: boolean = false;
 
   ngOnInit() {
     this.authService.authTokenChanged.subscribe(() => {
       this.handleAuthTokenChange();
     });
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        const authRoutes = ['/login', '/register'];
+        this.isAuthRoute = authRoutes.includes(event.url);
+      });
   }
 
   handleAuthTokenChange() {
