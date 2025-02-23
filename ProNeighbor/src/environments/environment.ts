@@ -14,4 +14,12 @@ export const environment = {
   api_url_UpdateReview: 'http://localhost:3000/api/reviews/',
   api_url_DeleteReview: 'http://localhost:3000/api/reviews/',
   api_url_AddReview: 'http://localhost:3000/api/reviews',
+  api_url_GetServiceById: 'http://localhost:3000/api/services/',
+  api_url_CreateChat: 'http://localhost:3000/api/messages/chat',
+  api_url_GetChatsForUser: 'http://localhost:3000/api/messages/chats',
+  api_url_GetMessagesForChat: 'http://localhost:3000/api/messages/chat/', // <-- Add this
+  api_url_SendMessage: 'http://localhost:3000/api/messages/message', // <-- Add this
+  api_url_GetAllUsers: 'http://localhost:3000/api/user/GetAllUsers', // <-- Add this
+  api_url_AddParticipant: 'http://localhost:3000/api/messages/chat/participant', // <-- Add this
+  api_url_GetChatInfo: 'http://localhost:3000/api/messages/ChatInfo/', // <-- Add this
 };
