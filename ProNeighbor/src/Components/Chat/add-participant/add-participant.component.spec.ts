@@ -85,4 +85,15 @@ describe('AddParticipantComponent', () => {
     component.toggleUserSelection('1');
     expect(component.selectedUserIds).not.toContain('1');
   });
+  it('should not allow more than 3 users to be selected', () => {
+    component.users = mockUsers();
+    component.selectedUserIds = ['1', '2', '3'];
+    spyOn(window, 'alert');
+
+    component.toggleUserSelection('4');
+    expect(window.alert).toHaveBeenCalledWith(
+      'You can select a maximum of 3 users.'
+    );
+    expect(component.selectedUserIds.length).toBe(3);
+  });
 });
