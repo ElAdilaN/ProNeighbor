@@ -1,0 +1,51 @@
+<div class="chat-card">
+  <h2>Chat Details</h2>
+  <div class="chat-info">
+    <p><strong>Chat ID:</strong> {{ chatDetails.chat_id }}</p>
+    <p><strong>Created By:</strong> {{ chatDetails.created_by }}</p>
+    <p>
+      <strong>Created At:</strong>
+      {{ chatDetails.created_at }}
+    </p>
+    @if(chatDetails.service_name || chatDetails.service_category ||
+    chatDetails.service_description){
+
+    <div>
+      <h3>Service Information</h3>
+      <p>
+        <strong>Service Name:</strong> {{ chatDetails.service_name || "N/A" }}
+      </p>
+      <p>
+        <strong>Category:</strong> {{ chatDetails.service_category || "N/A" }}
+      </p>
+      <p>
+        <strong>Price:</strong>
+        {{
+          chatDetails.service_price > 0
+            ? "$" + chatDetails.service_price
+            : "Free"
+        }}
+      </p>
+      <p>
+        <strong>Description:</strong>
+        {{ chatDetails.service_description || "No description available" }}
+      </p>
+    </div>
+
+    }
+    <h3>Participants</h3>
+    <ul class="participant-list">
+      @for(participant of chatDetails.participants ; track participant) {
+
+      <li>
+        <p><strong>Name:</strong> {{ participant.user_name }}</p>
+        <p><strong>Email:</strong> {{ participant.user_email }}</p>
+        @if(participant.user_phone){
+
+        <p><strong>Phone:</strong> {{ participant.user_phone }}</p>
+        }
+      </li>
+      }
+    </ul>
+  </div>
+</div>
