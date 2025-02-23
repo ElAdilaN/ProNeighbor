@@ -5,6 +5,7 @@ import { of, throwError } from 'rxjs';
 import { Service } from '../../../Model/servicesProvider/service.model';
 import { By } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
 
 describe('ServiceListComponent', () => {
   let component: ServiceListComponent;
@@ -14,7 +15,13 @@ describe('ServiceListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ServicesService],
+      providers: [
+        ServicesService,
+        {
+          provide: ActivatedRoute,
+          useValue: {}, // Mocking ActivatedRoute
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ServiceListComponent);
@@ -33,7 +40,7 @@ describe('ServiceListComponent', () => {
         'Test Service',
         50,
         'Fixing Pipes',
-        'New Yok',
+        'New York',
         new Date(),
         'Plumbing'
       ),
@@ -41,10 +48,10 @@ describe('ServiceListComponent', () => {
         '456',
         'Test Service',
         60,
-        'Catalan teacher ',
-        'Olot ',
+        'Catalan teacher',
+        'Olot',
         new Date(),
-        'Taching'
+        'Teaching'
       ),
     ];
 
@@ -56,6 +63,7 @@ describe('ServiceListComponent', () => {
     expect(servicesService.getAllServices).toHaveBeenCalled();
     expect(component.services.length).toBe(2);
   });
+
   it('should handle error when getAllServices() fails', () => {
     spyOn(servicesService, 'getAllServices').and.returnValue(
       throwError(() => new Error('API failure'))
@@ -68,6 +76,7 @@ describe('ServiceListComponent', () => {
     expect(component.errorMessage).toBe('Failed to load services');
     expect(component.isLoading).toBeFalse();
   });
+
   it('should show loading message while fetching services', () => {
     component.isLoading = true;
     fixture.detectChanges();
@@ -77,5 +86,4 @@ describe('ServiceListComponent', () => {
       'Loading services...'
     );
   });
-
 });
