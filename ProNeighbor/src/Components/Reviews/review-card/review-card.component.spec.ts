@@ -62,4 +62,12 @@ describe('ReviewCardComponent', () => {
     );
     expect(reviewCommentElement.textContent).toContain(mockReview['_comment']);
   });
+
+  it('should display rating stars based on the rating value', () => {
+    const starElements = fixture.debugElement.queryAll(
+      By.css('.review-rating span')
+    );
+    expect(starElements.length).toBe(mockReview['_rating']);
+  });
+
 });
