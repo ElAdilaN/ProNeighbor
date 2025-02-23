@@ -1,19 +1,32 @@
 const messageModel = require("../models/messageModel");
+const socket = require("../socket"); // Import the socket module
 
 // Create a new chat
 exports.createChat = async (req, res, next) => {
   try {
-    const { serviceId } = req.body; // Optionally serviceId
+    const { serviceId, ChatName } = req.body; // Now receiving ChatName
     const createdBy = req.user.id; // User from JWT
-    console.log("id", createdBy);
-    // Create chat and get the new chat ID
-    const chatId = await messageModel.createChat(createdBy, serviceId);
-    console.log("chaaatid", chatId);
-    // Add creator to participants
-    await messageModel.addParticipant(chatId, createdBy); // Add creator to participants
+
+    if (!ChatName) {
+      return res.status(400).json({ message: "ChatName is required." });
+    }
+
+    console.log("Creating chat with name:", ChatName);
+
+    // Create chat and get the new chat ID, pass ChatName
+    const chatId = await messageModel.createChat(
+      createdBy,
+      serviceId,
+      ChatName
+    );
+    console.log("Created chat ID:", chatId);
+
+    // Add creator as a participant
+    await messageModel.addParticipant(chatId, createdBy);
 
     res.status(201).json({ message: "Chat created successfully", chatId });
   } catch (error) {
+    console.error("Error in createChat:", error);
     next(error);
   }
 };
@@ -31,23 +44,40 @@ exports.getChatsForUser = async (req, res, next) => {
 
 // Send a message
 exports.sendMessage = async (req, res, next) => {
+  console.log("HTTP sendMessage called with:", req.body);
+  const { chatId, message } = req.body;
   try {
     const { chatId, message } = req.body;
-    const senderId = req.user.id;
+    const senderId = req.user.id; // Ensure this is coming from authentication middleware
 
-    if (!message) {
-      return res.status(400).json({ message: "Message content is required" });
+    console.log("Parsed data from HTTP:", { chatId, message, senderId });
+    if (!message || !chatId) {
+      console.log("Invalid message request");
+      return res.status(400).json({ message: "Invalid message request" });
     }
-    if (!chatId) {
-      return res.status(400).json({ message: "Chat id  is required" });
-    }
+
+    console.log("Saving HTTP message to DB...");
+    // Save message to database
     await messageModel.sendMessage(chatId, senderId, message);
-    res.status(201).json({ message: "Message sent successfully" });
+    console.log("HTTP message saved.");
+    const newMessage = {
+      chatId,
+      user_id: senderId, // Ensure user_id is included
+      message,
+      timestamp: new Date(),
+    };
+
+    console.log("Emitting HTTP newMessage:", newMessage);
+    // Emit message via Socket.io
+    const io = socket.getIO();
+    io.emit("newMessage", newMessage);
+
+    res.status(201).json({ message: "Message sent successfully", newMessage });
   } catch (error) {
+    console.error("Error sending message:", error);
     next(error);
   }
 };
-
 // Get messages for a chat with pagination
 exports.getMessagesForChat = async (req, res, next) => {
   try {
@@ -92,6 +122,22 @@ exports.updateMessageStatus = async (req, res, next) => {
 
     await messageModel.updateMessageStatus(messageId, status);
     res.status(200).json({ message: "Message status updated successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+exports.getChatInfo = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    console.log("data ", id);
+    const chatData = await messageModel.getChatById(id);
+
+    if (!chatData) {
+      return res.status(404).json({ message: "Chat not found" });
+    }
+
+    // Send the result as JSON response
+    res.status(200).json(chatData);
   } catch (error) {
     next(error);
   }

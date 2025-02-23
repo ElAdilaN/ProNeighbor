@@ -6,7 +6,7 @@ const {
   sendMessage,
   getMessagesForChat,
   addParticipant,
-  updateMessageStatus,
+  updateMessageStatus,getChatInfo
 } = require("../controllers/messageController");
 
 const router = express.Router();
@@ -16,6 +16,7 @@ router.post("/chat", protect, createChat);
 
 // Get all chats for the logged-in user
 router.get("/chats", protect, getChatsForUser);
+router.get("/ChatInfo/:id", protect, getChatInfo);
 
 // Send a message
 router.post("/message", protect, sendMessage);

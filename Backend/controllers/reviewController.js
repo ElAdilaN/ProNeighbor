@@ -4,6 +4,7 @@ const reviewModel = require("../models/reviewModel");
 exports.addReview = async (req, res, next) => {
   try {
     const { service_id, rating, comment } = req.body;
+    console.log(service_id, rating, comment);
     const user_id = req.user.id; // Get user ID from token
     if (!service_id || !rating) {
       return res

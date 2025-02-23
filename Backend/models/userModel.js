@@ -70,6 +70,38 @@ const updateUserProfileImage = async (id, imageBinary) => {
   }
 };
 
+const getAllUsers = async () => {
+  try {
+    const pool = await poolPromise;
+    const result = await pool.request().query("Select id , email  from users ");
+
+    return result.recordset;
+  } catch (error) {
+    console.error("Error retrieving  users:", error);
+    throw new Error("Database error while retrieving users ");
+  }
+};
+const GetAllUsersThatDoesntExistOnChat = async (chatId) => {
+  try {
+    const pool = await poolPromise;
+
+    const result = await pool.request().input("chatId", chatId) // Proper parameter binding for MSSQL
+      .query(`
+        SELECT id , email 
+        FROM users u
+        WHERE u.id NOT IN (
+            SELECT cp.user_id
+            FROM chat_participants cp
+            WHERE cp.chat_id = @chatId
+        );
+      `);
+
+    return result.recordset; // Return the users to be handled by the controller
+  } catch (error) {
+    console.error("Error retrieving users:", error);
+    throw new Error("Database error while retrieving users.");
+  }
+};
 const getUserProfileImage = async (id) => {
   try {
     const pool = await poolPromise;
@@ -92,7 +124,6 @@ const getUserProfileImage = async (id) => {
 const updateUserProfile = async (id, name, email, phone, address) => {
   try {
     const pool = await poolPromise;
-    
 
     await pool
       .request()
@@ -117,4 +148,6 @@ module.exports = {
   getUserById,
   getUserProfileImage,
   updateUserProfileImage,
+  getAllUsers,
+  GetAllUsersThatDoesntExistOnChat,
 };

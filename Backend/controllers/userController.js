@@ -2,6 +2,17 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 
+exports.GetAllUsersThatDoesntExistOnChat = async (req, res) => {
+  const chatId = req.params.id;
+
+  try {
+    const users = await userModel.GetAllUsersThatDoesntExistOnChat(chatId);
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 exports.getUserProfile = async (req, res) => {
   try {
     const userId = req.user.id; // Get ID from token

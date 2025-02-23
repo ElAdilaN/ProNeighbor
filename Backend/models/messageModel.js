@@ -1,38 +1,33 @@
 const sql = require("mssql");
 
 // Create a new chat
-const createChat = async (createdBy, serviceId) => {
+const createChat = async (createdBy, serviceId, ChatName) => {
   try {
-    // Handle createdBy and serviceId as necessary (quotes for strings)
+    if (!ChatName) throw new Error("ChatName is required");
+
     const createdByValue =
       typeof createdBy === "string" ? `'${createdBy}'` : createdBy;
-    const serviceIdValue = serviceId
-      ? typeof serviceId === "string"
-        ? `'${serviceId}'`
-        : serviceId
-      : null;
+    const serviceIdValue = serviceId ? `'${serviceId}'` : "NULL";
+    const chatNameValue = `'${ChatName.replace(/'/g, "''")}'`; // Escape single quotes for SQL safety
 
-    // Building query dynamically
+    // Query to insert into the Chats table with ChatName
     let query = `
-  INSERT INTO Chats (created_by ${serviceId ? ", ServiceId" : ""}) 
-  VALUES (${createdByValue}${serviceIdValue ? `, ${serviceIdValue}` : ""});
+      INSERT INTO Chats (created_by, service_id, chatName) 
+      VALUES (${createdByValue}, ${serviceIdValue}, ${chatNameValue});
 
-  SELECT TOP 1 Id FROM Chats WHERE created_by = ${createdByValue} ORDER BY created_at DESC;
-`;
+      SELECT TOP 1 Id FROM Chats WHERE created_by = ${createdByValue} AND chatName = ${chatNameValue} ORDER BY created_at DESC;
+    `;
 
-    // Debug: Log the query to verify correctness
-
-    // Execute the query
+    // Execute query and return the new chat ID
     const result = await sql.query(query);
-    // Check if result.recordset is not empty
     if (result.recordset && result.recordset.length > 0) {
       return result.recordset[0].Id;
     } else {
-      throw new Error("Chat creation failed, no ChatID returned");
+      throw new Error("Chat creation failed, no ChatID returned.");
     }
   } catch (error) {
     console.error("Error creating chat:", error);
-    throw new Error("Failed to create chat");
+    throw error;
   }
 };
 
@@ -87,6 +82,7 @@ const sendMessage = async (chatId, senderId, messageContent) => {
 // Get messages for a chat with pagination
 const getMessagesForChat = async (chatId, page = 1, limit = 20) => {
   const offset = (page - 1) * limit;
+
   const result = await sql.query`
     SELECT * FROM Messages
     WHERE chat_id = ${chatId}
@@ -98,19 +94,75 @@ const getMessagesForChat = async (chatId, page = 1, limit = 20) => {
 
 // Update message status
 const updateMessageStatus = async (messageId, status) => {
-  console.log(`
-    UPDATE Messages
-    SET status_uuid = (select id from message_status where status =  '${status}' ) 
-    WHERE id = ${messageId};
-  `);
-
   await sql.query`
     UPDATE Messages
     SET status_uuid = (select id from message_status where status =  '${status}' ) 
     WHERE id = ${messageId};
   `;
 };
+const getChatById = async (chatId) => {
+  try {
+    // Ensure chatId is valid
+    if (!chatId) {
+      throw new Error("Chat ID is required.");
+    }
 
+    // Use parameterized query to prevent SQL injection
+    const query = `
+     SELECT 
+    c.id AS chat_id,
+    creator.email AS created_by,
+    c.created_at,
+    ISNULL(s.name, '') AS service_name,
+    ISNULL(s.category, '') AS service_category,
+    ISNULL(s.price, 0) AS service_price,
+    ISNULL(s.description, '') AS service_description,
+    (
+        SELECT 
+            u.id AS user_id,
+            u.name AS user_name,
+            u.email AS user_email,
+            u.phone AS user_phone
+        FROM chat_participants cp
+        JOIN users u ON cp.user_id = u.id
+        WHERE cp.chat_id = c.id
+        FOR JSON PATH
+    ) AS participants
+FROM chats c
+LEFT JOIN services s ON c.service_id = s.id
+LEFT JOIN users creator ON c.created_by = creator.id
+WHERE c.id = @chatId
+    `;
+
+    // Execute query using parameterized input
+    const pool = await sql.connect(); // Ensure you're connected to the DB
+    const result = await pool
+      .request()
+      .input("chatId", chatId) // Use parameterized query
+      .query(query);
+
+    if (!result.recordset || result.recordset.length === 0) {
+      throw new Error("Chat not found.");
+    }
+
+    // Extract the JSON string from the recordset
+    const chatJson = result.recordset[0];
+
+    // Ensure we properly parse the JSON string
+    const chatData =
+      typeof chatJson === "string" ? JSON.parse(chatJson) : chatJson;
+
+    // Parse the participants field if it exists and is a valid JSON string
+    if (chatData.participants && typeof chatData.participants === "string") {
+      chatData.participants = JSON.parse(chatData.participants);
+    }
+
+    return chatData;
+  } catch (error) {
+    console.error("Error in getChatById:", error.message);
+    throw new Error("Error fetching chat data.");
+  }
+};
 module.exports = {
   createChat,
   addParticipant,
@@ -118,4 +170,5 @@ module.exports = {
   sendMessage,
   getMessagesForChat,
   updateMessageStatus,
+  getChatById,
 };
