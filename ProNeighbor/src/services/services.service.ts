@@ -29,4 +29,8 @@ export class ServicesService {
       `${environment.api_url_GetAllServicesByProvider}${id}`
     );
   }
+
+  getServiceById(id: string): Observable<Service> {
+    return this.http.get<any>(`${environment.api_url_GetServiceById}${id}`);
+  }
 }
