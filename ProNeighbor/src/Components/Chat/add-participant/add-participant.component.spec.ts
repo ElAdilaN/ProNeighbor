@@ -76,4 +76,13 @@ describe('AddParticipantComponent', () => {
     expect(component.users.length).toBe(3);
     expect(component.users[0]).toBeInstanceOf(User);
   });
+  it('should toggle user selection', () => {
+    component.users = mockUsers();
+
+    component.toggleUserSelection('1');
+    expect(component.selectedUserIds).toContain('1');
+
+    component.toggleUserSelection('1');
+    expect(component.selectedUserIds).not.toContain('1');
+  });
 });
