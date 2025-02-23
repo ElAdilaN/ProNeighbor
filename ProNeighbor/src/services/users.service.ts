@@ -34,8 +34,13 @@ export class UsersService {
     });
   }
   updateUserProfile(profileData: User | undefined): Observable<any> {
-    console.log('service : ', profileData);
     return this.http.put<any>(environment.api_url_PutProfileInfo, profileData, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getAllUsers(chatId: string): Observable<User[]> {
+    return this.http.get<any>(`${environment.api_url_GetAllUsers}/${chatId}`, {
       headers: this.getHeaders(),
     });
   }
