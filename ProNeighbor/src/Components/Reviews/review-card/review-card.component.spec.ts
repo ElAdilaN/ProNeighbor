@@ -69,5 +69,27 @@ describe('ReviewCardComponent', () => {
     );
     expect(starElements.length).toBe(mockReview['_rating']);
   });
+  it('should call editReview when the edit button is clicked', () => {
+    spyOn(component, 'editReview'); // Spy on the method
 
+    const editButton = fixture.debugElement.query(
+      By.css('.edit-btn')
+    ).nativeElement;
+    editButton.click();
+
+    expect(component.editReview).toHaveBeenCalledWith(mockReview);
+  });
+
+  it('should call deleteReview when the delete button is clicked', () => {
+    spyOn(component, 'deleteReview').and.callThrough(); // Spy on deleteReview
+
+    const deleteButton = fixture.debugElement.query(
+      By.css('.delete-btn')
+    ).nativeElement;
+    spyOn(window, 'confirm').and.returnValue(true); // Simulate confirmation dialog
+
+    deleteButton.click();
+
+    expect(component.deleteReview).toHaveBeenCalledWith(mockReview['_id']);
+  });
 });
