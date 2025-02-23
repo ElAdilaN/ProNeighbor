@@ -54,4 +54,16 @@ describe('ServiceDetailsComponent', () => {
     expect(servicesService.getServiceById).toHaveBeenCalledWith('123');
     expect(component.isLoading).toBeFalse();
   });
+  it('should handle error when getServiceById() fails', () => {
+    spyOn(servicesService, 'getServiceById').and.returnValue(
+      throwError(() => new Error('API failure'))
+    );
+
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(servicesService.getServiceById).toHaveBeenCalledWith('123');
+    expect(component.errorMessage).toBe('Failed to load service details.');
+    expect(component.isLoading).toBeFalse();
+  });
 });
