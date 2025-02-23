@@ -66,4 +66,23 @@ describe('ChatInfoComponent', () => {
     expect(component.chatDetails.chat_id).toBe('chat123');
     expect(component.chatDetails.created_by).toBe('user1');
   });
+
+  it('should display chat details in the template', () => {
+    spyOn(chatService, 'getChatInfo').and.returnValue(of(mockChatDetails));
+  
+    component.ngOnInit();
+    fixture.detectChanges();
+  
+    const compiled = fixture.nativeElement;
+  
+    // Check that elements are rendered correctly
+    expect(compiled.querySelector('p').textContent).toContain('Chat ID: chat123');
+    expect(compiled.querySelector('p').textContent).toContain('Created By: user1');
+    expect(compiled.querySelector('p').textContent).toContain('Created At: 2025-02-23T12:00:00Z');
+    expect(compiled.querySelector('h3').textContent).toContain('Service Information');
+    expect(compiled.querySelector('li').textContent).toContain('User One');
+    expect(compiled.querySelector('li').textContent).toContain('user1@example.com');
+  });
+  
+
 });
