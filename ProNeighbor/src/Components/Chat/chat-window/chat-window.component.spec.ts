@@ -82,4 +82,12 @@ describe('ChatWindowComponent', () => {
     );
     expect(component.newMessage).toBe('');
   });
+  it('should handle errors when fetching messages fails', () => {
+    spyOn(chatService, 'getAllMessagesForChat').and.returnValue(of([]));
+
+    component.getMessages();
+    fixture.detectChanges();
+
+    expect(component.messages.length).toBe(0);
+  });
 });
