@@ -65,4 +65,21 @@ describe('ChatWindowComponent', () => {
     expect(component.messages.length).toBe(2);
     expect(component.messages[0].message).toBe('Hello');
   });
+  it('should send a message when sendMessage is called', () => {
+    spyOn(authService, 'getUserIdFromToken').and.returnValue('user1');
+    spyOn(socketService, 'sendMessage');
+
+    component.chatId = 'chat1';
+    component.newMessage = 'New message';
+
+    component.sendMessage();
+    fixture.detectChanges();
+
+    expect(socketService.sendMessage).toHaveBeenCalledWith(
+      'chat1',
+      'New message',
+      'user1'
+    );
+    expect(component.newMessage).toBe('');
+  });
 });
