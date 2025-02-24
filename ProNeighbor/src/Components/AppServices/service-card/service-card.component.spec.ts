@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ServiceCardComponent } from './service-card.component';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { Service } from '../../../Model/servicesProvider/service.model';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ServiceCardComponent', () => {
   let component: ServiceCardComponent;
@@ -10,7 +11,7 @@ describe('ServiceCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      providers: [provideHttpClient(), provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ServiceCardComponent);
@@ -27,7 +28,7 @@ describe('ServiceCardComponent', () => {
       'Test Service',
       50,
       'Fixing Pipes',
-      'New Yok',
+      'New York',
       new Date(),
       'Plumbing'
     );
@@ -62,7 +63,7 @@ describe('ServiceCardComponent', () => {
       'Test Service',
       50,
       'Fixing Pipes',
-      'New Yok',
+      'New York',
       new Date(),
       'Plumbing'
     );
