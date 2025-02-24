@@ -1,22 +1,53 @@
+/* Service Card */
 .service-card {
-  border: 1px solid #ddd;
-  padding: 16px;
+  background-color: var(--background-color);
+  border: 1px solid var(--light-gray);
   border-radius: 8px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-  transition: 0.3s;
+  padding: 20px;
+  margin: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.service-card:hover {
-  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
+
+/* Main Title (Service Name) */
+.service-card h3 {
+  text-align: center;
+  font-size: 1.5rem; /* Larger size */
+  font-weight: 500; /* Semi-bold for elegance */
+  font-family: "Georgia", serif; /* Elegant serif font */
+  color: var(--text-color); /* Unique color from your palette */
+  margin-bottom: 15px;
+  text-transform: uppercase; /* Makes it stand out */
+  letter-spacing: 1px; /* Adds some spacing for a refined look */
 }
-.btn {
+
+/* Paragraphs */
+.service-card p {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin: 10px 0;
+}
+
+/* Labels in Paragraphs */
+.service-card p strong {
+  color: var(--primary-color);
+}
+
+/* Buttons */
+.service-card a.btn {
   display: inline-block;
-  margin-top: 10px;
-  padding: 8px 12px;
-  background: #007bff;
-  color: white;
+  padding: 10px 15px;
+  margin: 5px 5px 0 0;
   text-decoration: none;
+  background-color: var(--button-color);
+  color: #fff;
   border-radius: 4px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s;
+  text-align: center;
 }
-.btn:hover {
-  background: #0056b3;
+
+.service-card a.btn:hover {
+  background-color: var(--success-color);
+  transform: scale(1.05);
 }
