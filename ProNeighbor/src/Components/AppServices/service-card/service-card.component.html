@@ -32,11 +32,20 @@
   </p>
 
   <a
-    [routerLink]="['/ServiceList', service.id]"
+    [routerLink]="['/dashboard/ServiceDetail', service.id]"
     class="btn"
     [attr.aria-label]="'View details for ' + service.name"
     role="button"
   >
     View Details
+  </a>
+  <a
+    href="javascript:void(0);"
+    class="btn"
+    (click)="openChatDialog(service.id, service.name)"
+    [attr.aria-label]="'Chat with ' + service.name"
+    role="button"
+  >
+    Chat Now
   </a>
 </div>
