@@ -1,0 +1,123 @@
+/* Global Form Container */
+fieldset {
+  max-width: 400px;
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  background-color: var(--light-gray);
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Form Heading */
+fieldset h2 {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+/* Form Groups */
+fieldset div {
+  margin-bottom: 1rem;
+}
+
+/* Input Fields */
+fieldset input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--light-gray);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+fieldset input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Error Messages */
+span.error {
+  color: var(--error-color);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+div[role="alert"].error {
+  background-color: rgba(255, 0, 0, 0.1);
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: var(--error-color);
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+/* Checkbox and Label Alignment */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between checkbox and text */
+  font-size: 0.9rem;
+}
+
+input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  vertical-align: middle;
+}
+
+/* Submit Button */
+fieldset button {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: var(--button-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+fieldset button:hover:not(:disabled) {
+  background-color: darken(var(--button-color), 10%);
+}
+
+fieldset button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Sign-in Link */
+fieldset p {
+  text-align: center;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+fieldset a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+fieldset a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 480px) {
+  fieldset {
+    max-width: 100%;
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  input,
+  button {
+    font-size: 14px;
+  }
+}
