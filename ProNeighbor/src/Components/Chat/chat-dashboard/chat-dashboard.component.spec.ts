@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChatDashboardComponent } from './chat-dashboard.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ChatDashboardComponent', () => {
   let component: ChatDashboardComponent;
@@ -8,9 +11,9 @@ describe('ChatDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChatDashboardComponent]
-    })
-    .compileComponents();
+      imports: [ChatDashboardComponent, RouterTestingModule],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ChatDashboardComponent);
     component = fixture.componentInstance;

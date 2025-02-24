@@ -1,1 +1,66 @@
-<p>review-form works!</p>
+<fieldset>
+  <legend>Leave a Review</legend>
+
+  <!-- Rating Field -->
+  <div>
+    <label for="rating">Rating (1-5):</label>
+    <input
+      type="number"
+      id="rating"
+      name="rating"
+      [(ngModel)]="review.rating"
+      required
+      min="1"
+      max="5"
+      aria-required="true"
+      [attr.aria-invalid]="
+        review.rating < 1 || review.rating > 5 ? 'true' : 'false'
+      "
+      aria-describedby="rating-error"
+    />
+    <span id="rating-error" class="error" aria-live="polite">
+      {{
+        review.rating < 1 || review.rating > 5
+          ? "Rating must be between 1 and 5"
+          : ""
+      }}
+    </span>
+  </div>
+
+  <!-- Comment Field -->
+  <div>
+    <label for="comment">Comment:</label>
+    <textarea
+      id="comment"
+      name="comment"
+      [(ngModel)]="review.comment"
+      required
+      aria-required="true"
+      [attr.aria-invalid]="review.comment.trim().length < 5 ? 'true' : 'false'"
+      aria-describedby="comment-error"
+    ></textarea>
+    <span id="comment-error" class="error" aria-live="polite">
+      {{
+        review.comment.trim().length < 5
+          ? "Comment must be at least 5 characters long"
+          : ""
+      }}
+    </span>
+  </div>
+
+  <!-- Submit Button -->
+  <div>
+    <button
+      (click)="onSubmit()"
+      type="submit"
+      [disabled]="
+        review.rating < 1 ||
+        review.rating > 5 ||
+        review.comment.trim().length < 5
+      "
+      aria-label="Submit Review"
+    >
+      Submit Review
+    </button>
+  </div>
+</fieldset>

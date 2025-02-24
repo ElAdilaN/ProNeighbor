@@ -66,9 +66,7 @@ export class UserRegistrationComponent {
                   this.authService.saveToken(loginResponse.token);
 
                   // Redirect based on role or to home page
-                  const userRole = this.authService.getUserType(
-                    loginResponse.token
-                  );
+                  const userRole = this.authService.getUserType();
                   if (userRole) {
                     this.authService.redirectToRoleBasedPage(userRole);
                   } else {

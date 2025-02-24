@@ -1,5 +1,5 @@
 <fieldset>
-  <legend>User Registration</legend>
+  <h2>User Registration</h2>
 
   <div>
     <label for="name">Name:</label>
@@ -14,7 +14,6 @@
       aria-describedby="name-error"
     />
     @if(!user.name){
-
     <span id="name-error" class="error">Name is required</span>
     }
   </div>
@@ -32,7 +31,6 @@
       aria-describedby="email-error"
     />
     @if(!user.email){
-
     <span id="email-error" class="error">Email is required</span>
     }
   </div>
@@ -64,15 +62,12 @@
       aria-describedby="password-match-error"
     />
     @if(user.password !== user.confirmPassword && user.confirmPassword){
-
-    <span id="password-match-error" class="error">
-      Passwords do not match
-    </span>
+    <span id="password-match-error" class="error">Passwords do not match</span>
     }
   </div>
 
   <div>
-    <label>
+    <label class="checkbox-container">
       <input
         type="checkbox"
         [(ngModel)]="user.acceptedTerms"
@@ -83,12 +78,19 @@
       I accept the <a href="/terms" target="_blank">terms and conditions</a>
     </label>
   </div>
-@if(!isFormValid && formSubmitted){
 
-    <div role="alert"  class="error">
-        Please correct the highlighted fields before submitting.
-    </div>
-}
+  @if(!isFormValid && formSubmitted){
+  <div role="alert" class="error">
+    Please correct the highlighted fields before submitting.
+  </div>
+  }
 
   <button (click)="onSubmit()" [disabled]="!isFormValid">Submit</button>
+
+  <div>
+    <p>
+      Already have an account?
+      <a href="/login" aria-label="Login to your account">Login here</a>
+    </p>
+  </div>
 </fieldset>

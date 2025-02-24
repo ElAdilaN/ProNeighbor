@@ -27,6 +27,7 @@ export class LoginComponent {
 
   onLogin() {
     localStorage.setItem('blaba', 'teeeeee');
+    localStorage.setItem('test ', 'teeeeee');
 
     const { email, password } = this.loginData;
 
@@ -35,13 +36,12 @@ export class LoginComponent {
       .pipe(
         tap((response) => {
           this.authService.saveToken(response.token);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/dashboard']);
           this.message = 'Successfully logged in!';
           console.log('Token:', response.token); // Debugging
           console.log('id', this.authService.getUserIdFromToken());
         }),
         catchError((error) => {
-          // Handle errors
           this.message =
             error.error?.message || 'An error occurred while logging in.';
           console.error('Login error:', error);

@@ -1,1 +1,22 @@
-<p>review-list works!</p>
+<section aria-labelledby="reviews-section">
+  <h2 id="reviews-section">Reviews</h2>
+  @if(isLoading) {
+  <div role="alert">Loading reviews...</div>
+  } @if(errorMessage) {
+  <div class="error" role="alert">{{ errorMessage }}</div>
+  } @if(!isLoading && !errorMessage) {
+  <div class="review-list">
+    @if(serviceId){
+    <app-review-form
+      [serviceId]="serviceId"
+      (reviewAdded)="loadReviews(serviceId)"
+    ></app-review-form>
+    } @for(review of reviews; track review) {
+    <app-review-card
+      [review]="review"
+      (reviewDeleted)="ngOnInit()"
+    ></app-review-card>
+    }
+  </div>
+  }
+</section>
