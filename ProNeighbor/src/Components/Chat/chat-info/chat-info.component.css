@@ -1,0 +1,34 @@
+/* Chat Card Styling */
+.chat-card {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.chat-card h2,
+.chat-card h3 {
+  text-align: center;
+  color: #333;
+}
+
+.chat-info p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.participant-list {
+  list-style: none;
+  padding: 0;
+}
+
+.participant-list li {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}

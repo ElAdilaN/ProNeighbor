@@ -1,0 +1,65 @@
+/* Container */
+div {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: auto;
+}
+
+/* Title */
+h2 {
+  text-align: center;
+  color: #6a1b9a;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+/* User List */
+div > div {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  accent-color: #8e24aa; /* Purple checkbox */
+}
+
+/* Disabled Checkboxes */
+input[type="checkbox"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Button */
+button {
+  display: block;
+  width: 100%;
+  background: #8e24aa;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 16px;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background: #ab47bc;
+}
