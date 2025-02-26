@@ -1,6 +1,15 @@
 <div class="dashboard">
   <!-- Sidebar (Fixed) -->
   <div class="sidebar">
+    <div class="sidebar-header">
+      <img
+        src="logo.png"
+        alt="Company Logo : worker emoji "
+        class="logo"
+        aria-hidden="false"
+      />
+      <p>ProNeighbor App</p>
+    </div>
     <ul>
       <li>
         <button
@@ -31,66 +40,69 @@
       </li>
 
       <!-- User-specific links -->
-      @if (userRole === 'USER') {
-      <ng-container>
-        <li>
-          <button
-            [routerLink]="'userArea'"
-            routerLinkActive="active"
-            aria-current="page"
-          >
-            User Dashboard
-          </button>
-        </li>
-        <li>
-          <button
-            [routerLink]="'ReviewForm'"
-            routerLinkActive="active"
-            aria-current="page"
-          >
-            Add Review
-          </button>
-        </li>
-      </ng-container>
+      @if (userRole === "USER") {
+        <ng-container>
+          <li>
+            <button
+              [routerLink]="'userArea'"
+              routerLinkActive="active"
+              aria-current="page"
+            >
+              User Dashboard
+            </button>
+          </li>
+          <li>
+            <button
+              [routerLink]="'ReviewForm'"
+              routerLinkActive="active"
+              aria-current="page"
+            >
+              Add Review
+            </button>
+          </li>
+        </ng-container>
       }
 
       <!-- Provider-specific links -->
-      @if (userRole === 'provider') {
-      <li>
-        <button
-          [routerLink]="['ServiceList', userId]"
-          routerLinkActive="active"
-          aria-current="page"
-        >
-          My Services
-        </button>
-      </li>
-      <ng-container>
+      @if (userRole === "provider") {
         <li>
           <button
-            [routerLink]="'providerArea'"
+            [routerLink]="['ServiceList', userId]"
             routerLinkActive="active"
             aria-current="page"
           >
-            Provider Dashboard
+            My Services
           </button>
         </li>
-        <li>
-          <button
-            [routerLink]="'CreateService'"
-            routerLinkActive="active"
-            aria-current="page"
-          >
-            Add Service
-          </button>
-        </li>
-      </ng-container>
+        <ng-container>
+          <li>
+            <button
+              [routerLink]="'providerArea'"
+              routerLinkActive="active"
+              aria-current="page"
+            >
+              Provider Dashboard
+            </button>
+          </li>
+          <li>
+            <button
+              [routerLink]="'CreateService'"
+              routerLinkActive="active"
+              aria-current="page"
+            >
+              Add Service
+            </button>
+          </li>
+        </ng-container>
       }
     </ul>
   </div>
 
   <!-- Main Content Area -->
   <div class="content">
+    <div class="breadcrumb">
+      <span>Dashboard</span> > <span>{{pageTitle}}</span>
+    </div>
     <router-outlet></router-outlet>
   </div>
 </div>

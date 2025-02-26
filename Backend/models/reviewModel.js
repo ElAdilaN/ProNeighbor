@@ -1,5 +1,5 @@
 const sql = require("mssql");
-const { poolPromise } = require("../config/db");
+const { getPool } = require("../config/db");
 
 // Get reviews for a specific service
 const getReviewsByServiceId = async (serviceId) => {
@@ -27,7 +27,7 @@ const addReview = async (userId, serviceId, rating, comment) => {
 // Update a review
 const updateReview = async (reviewId, userId, rating, comment) => {
   try {
-    const pool = await poolPromise; // Make sure you're getting the SQL pool connection
+    const pool = await getPool(); // Make sure you're getting the SQL pool connection
 
     // Build the query with parameterized inputs
     await pool

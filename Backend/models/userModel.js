@@ -1,11 +1,11 @@
-const { poolPromise } = require("../config/db");
+const { getPool } = require("../config/db");
 const sql = require("mssql"); // Ensure that mssql is imported correctly
 
 const db = require("../config/db"); // Import your DB connection
 
 const getUserById = async (id) => {
   try {
-    const pool = await poolPromise; // Make sure you're getting the SQL pool connection
+    const pool = await getPool(); // Make sure you're getting the SQL pool connection
 
     // Fetch user info with role
     /*   const userResult = await pool
@@ -57,7 +57,7 @@ const getUserById = async (id) => {
 
 const updateUserProfileImage = async (id, imageBinary) => {
   try {
-    const pool = await poolPromise;
+    const pool = await getPool();
     // Use sql.UniqueIdentifier for GUID and sql.VarBinary for binary data
     await pool
       .request()
@@ -72,7 +72,7 @@ const updateUserProfileImage = async (id, imageBinary) => {
 
 const getAllUsers = async () => {
   try {
-    const pool = await poolPromise;
+    const pool = await getPool();
     const result = await pool.request().query("Select id , email  from users ");
 
     return result.recordset;
@@ -83,7 +83,7 @@ const getAllUsers = async () => {
 };
 const GetAllUsersThatDoesntExistOnChat = async (chatId) => {
   try {
-    const pool = await poolPromise;
+    const pool = await getPool();
 
     const result = await pool.request().input("chatId", chatId) // Proper parameter binding for MSSQL
       .query(`
@@ -104,7 +104,7 @@ const GetAllUsersThatDoesntExistOnChat = async (chatId) => {
 };
 const getUserProfileImage = async (id) => {
   try {
-    const pool = await poolPromise;
+    const pool = await getPool();
     const result = await pool
       .request()
       .input("id", sql.UniqueIdentifier, id) // Ensure UniqueIdentifier is used for GUIDs
@@ -123,7 +123,7 @@ const getUserProfileImage = async (id) => {
 
 const updateUserProfile = async (id, name, email, phone, address) => {
   try {
-    const pool = await poolPromise;
+    const pool = await getPool();
 
     await pool
       .request()

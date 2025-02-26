@@ -1,4 +1,3 @@
-// config/db.js
 require("dotenv").config();
 const sql = require("mssql");
 
@@ -14,18 +13,50 @@ const dbConfig = {
   },
 };
 
-const poolPromise = sql
-  .connect(dbConfig)
-  .then((pool) => {
-    console.log("Connected to SQL Server");
-    return pool;
-  })
-  .catch((error) => {
-    console.error("Database connection failed:", error.message);
-    throw error;
-  });
+let pool;
+
+const connectWithRetry = async (retries = 5, delay = 5000) => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      console.log("Attempting to connect to SQL Server...");
+      pool = await sql.connect(dbConfig);
+      console.log("✅ Connected to SQL Server");
+
+      // Listen for connection loss
+      pool.on("error", async (err) => {
+        console.error("SQL Pool Error:", err);
+        console.log("🔄 Reconnecting to SQL Server...");
+        await connectWithRetry(); // Reconnect on error
+      });
+
+      return pool;
+    } catch (error) {
+      console.error(
+        `❌ Database connection failed (Attempt ${i + 1}/${retries}):`,
+        error.message
+      );
+      if (i < retries - 1) {
+        console.log(`🔄 Retrying in ${delay / 1000} seconds...`);
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      } else {
+        console.error(
+          "🚨 Maximum retry attempts reached. Database connection failed."
+        );
+        throw error;
+      }
+    }
+  }
+};
+
+const getPool = async () => {
+  if (!pool || !pool.connected) {
+    console.log("⏳ Pool is down, reconnecting...");
+    pool = await connectWithRetry();
+  }
+  return pool;
+};
 
 module.exports = {
   sql,
-  poolPromise,
+  getPool,
 };

@@ -15,9 +15,10 @@
       placeholder="Enter your email"
       (input)="validateInput()"
     />
-    @if(email.invalid && email.touched){
-
-    <div class="error-message">Please enter a valid email address.</div>
+    @if (email.invalid && email.touched) {
+      <div class="error-message" role="alert" aria-live="assertive">
+        Please enter a valid email address.
+      </div>
     }
   </div>
 
@@ -35,11 +36,10 @@
       placeholder="Enter your password"
       (input)="validateInput()"
     />
-    @if(password.invalid && password.touched){
-
-    <div class="error-message">
-      Password must be at least 8 characters long.
-    </div>
+    @if (password.invalid && password.touched) {
+      <div class="error-message">
+        Password must be at least 8 characters long.
+      </div>
     }
   </div>
 
@@ -48,6 +48,7 @@
       type="button"
       [disabled]="email.invalid || password.invalid"
       (click)="onLogin()"
+      accesskey="l"
     >
       Login
     </button>

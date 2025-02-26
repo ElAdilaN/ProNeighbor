@@ -1,11 +1,11 @@
 const sql = require("mssql");
 
-const { poolPromise } = require("../config/db");
+const { getPool } = require("../config/db");
 
 class Service {
   // Get all services with pagination
   static async getAllServices(page = 1, limit = 10) {
-    const pool = await poolPromise; // Make sure you're getting the SQL pool connection
+    const pool = await getPool(); // Make sure you're getting the SQL pool connection
 
     if (limit === 0) {
       // If limit is 0, select all services without pagination
@@ -41,7 +41,7 @@ class Service {
   }
   static async getAllServicesByProvider(id) {
     try {
-      const pool = await poolPromise; // Make sure you're getting the SQL pool connection
+      const pool = await getPool(); // Make sure you're getting the SQL pool connection
 
       const result = await pool
         .request()
@@ -59,7 +59,7 @@ class Service {
     const { _id, _category, _name, _price, _description, _location } =
       serviceData;
 
-    const pool = await poolPromise; // Get a connection from the pool
+    const pool = await getPool(); // Get a connection from the pool
 
     try {
       // SQL query to insert a new service and return the inserted ID
@@ -88,7 +88,7 @@ class Service {
     const { name, price, description, location, category_id } = serviceData;
 
     // Get the SQL pool connection
-    const pool = await poolPromise;
+    const pool = await getPool();
 
     try {
       // SQL query to update the service with UUIDs
@@ -133,7 +133,7 @@ class Service {
   //join to add provider info
   static async searchServices(search) {
     try {
-      const pool = await poolPromise;
+      const pool = await getPool();
 
       const result = await pool.request().input("search", sql.NVarChar, search)
         .query(`

@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const http = require("http");
+const rateLimit = require("express-rate-limit");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -23,6 +24,19 @@ app.use(
     allowedHeaders: "Content-Type,Authorization",
   })
 );
+
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // 100 requests per IP
+  message: {
+    success: false,
+    message: "Too many requests from this IP, please try again later.",
+  },
+  headers: true,
+});
+
+// Apply global limiter to all routes
+app.use(globalLimiter);
 
 // Middleware for parsing JSON
 app.use(bodyParser.json());

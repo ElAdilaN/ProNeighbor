@@ -36,6 +36,7 @@
     class="btn"
     [attr.aria-label]="'View details for ' + service.name"
     role="button"
+    accesskey="v"
   >
     View Details
   </a>
@@ -44,6 +45,7 @@
     class="btn"
     (click)="openChatDialog(service.id, service.name)"
     [attr.aria-label]="'Chat with ' + service.name"
+    accesskey="c"
     role="button"
   >
     Chat Now

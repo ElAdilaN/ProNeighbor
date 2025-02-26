@@ -37,8 +37,7 @@
     <span id="price-error" class="error" aria-live="polite">
       {{
         !serviceData.price || serviceData.price <= 0
-          ? "Valid price is
-      required"
+          ? "Valid price is required"
           : ""
       }}
     </span>
@@ -91,13 +90,13 @@
       [attr.aria-invalid]="!serviceData.category ? 'true' : 'false'"
       aria-describedby="category-error"
     >
-      @if( categories?.Categories?.length === 0){
-      <option disabled>No categories available</option>
-      }@else{ @for(cat of categories?.Categories; track cat){
-
-      <option [value]="cat.name">{{ cat.name }}</option>
-
-      } }
+      @if (categories?.Categories?.length === 0) {
+        <option disabled>No categories available</option>
+      } @else {
+        @for (cat of categories?.Categories; track cat) {
+          <option [value]="cat.name">{{ cat.name }}</option>
+        }
+      }
     </select>
     <span id="category-error" class="error" aria-live="polite">
       {{ !serviceData.category ? "Please select a category" : "" }}
@@ -117,6 +116,7 @@
         !serviceData.location ||
         !serviceData.category
       "
+      accesskey="c"
       aria-label="Submit Service"
     >
       Create Service

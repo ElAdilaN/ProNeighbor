@@ -1,12 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+/* Accessible Color Variables */
 :root {
-  --primary-color: #007bff;
-  --secondary-color: #28a745;
-  --background-color: #ffffff;
-  --text-color: #333333;
-  --button-color: #ff9800;
-  --success-color: #4caf50;
-  --error-color: #f44336;
-  --light-gray: #f1f1f1;
+  --primary-color: #023e8a; /* Deep blue for sidebar */
+  --secondary-color: #0077b6; /* Vibrant blue for buttons */
+  --background-color: #f9f9f9; /* Light background for contrast */
+  --text-color: #222222; /* Dark gray for readability */
+  --button-color: #ff6f00; /* Bright orange for hover state */
+  --success-color: #2e7d32; /* Dark green for active links */
+  --error-color: #d32f2f; /* Strong red for errors */
+  --light-gray: #e0e0e0; /* Light gray for backgrounds */
+  --sidebar-header-bg: #f1f1f1; /* Header background for contrast */
 }
-

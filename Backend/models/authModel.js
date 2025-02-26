@@ -1,9 +1,9 @@
-const { poolPromise } = require("../config/db");
+const { getPool } = require("../config/db");
 
 // Check if user already exists
 const checkUserExists = async (email) => {
   try {
-    const pool = await poolPromise;
+    const pool = await getPool();
     const result = await pool
       .request()
       .input("Email", email)
@@ -18,7 +18,7 @@ const checkUserExists = async (email) => {
 // Insert a new user
 const insertUser = async (name, email, password, userType) => {
   try {
-    const pool = await poolPromise;
+    const pool = await getPool();
     await pool
       .request()
       .input("Name", name)
@@ -37,7 +37,7 @@ const insertUser = async (name, email, password, userType) => {
 // Get user by email
 const getUserByEmail = async (email) => {
   try {
-    const pool = await poolPromise;
+    const pool = await getPool();
     const result = await pool
       .request()
       .input("Email", email)
