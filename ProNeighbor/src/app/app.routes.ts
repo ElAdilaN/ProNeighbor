@@ -19,6 +19,7 @@ import { ChatListComponent } from '../Components/Chat/chat-list/chat-list.compon
 import { ChatWindowComponent } from '../Components/Chat/chat-window/chat-window.component';
 import { ChatInfoComponent } from '../Components/Chat/chat-info/chat-info.component';
 import { AddParticipantComponent } from '../Components/Chat/add-participant/add-participant.component';
+import { SaqComponent } from '../Components/saq/saq.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -33,6 +34,7 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'UserProfile', component: UserProfileComponent },
       { path: 'ServiceList/:id', component: ServiceListComponent },
+      { path: 'faq', component: SaqComponent },
       { path: 'ServiceDetail/:id', component: ServiceDetailsComponent },
       {
         path: 'ReviewsList/:id',

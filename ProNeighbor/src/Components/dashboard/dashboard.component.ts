@@ -69,8 +69,15 @@ export class DashboardComponent implements OnInit {
       case 'CreateService':
         this.pageTitle = 'Add Service';
         break;
+      case 'faq':
+        this.pageTitle = 'Q&A';
+        break;
       default:
         this.pageTitle = 'Dashboard';
     }
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

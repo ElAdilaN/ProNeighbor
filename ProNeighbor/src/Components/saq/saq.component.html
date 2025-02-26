@@ -1,0 +1,18 @@
+<div class="faq-container">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-list">
+    @for (faq of faqs; track $index) {
+      <div class="faq-item">
+        <button class="faq-question" (click)="toggleFAQ($index)">
+          {{ faq.question }}
+          <span class="arrow" [class.open]="faq.open">▼</span>
+        </button>
+        @if (faq.open) {
+          <div class="faq-answer">
+            {{ faq.answer }}
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

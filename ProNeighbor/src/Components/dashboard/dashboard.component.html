@@ -93,6 +93,25 @@
               Add Service
             </button>
           </li>
+
+          <li>
+            <button
+              [routerLink]="'faq'"
+              routerLinkActive="active"
+              aria-current="page"
+            >
+              Q&A
+            </button>
+          </li>
+          <li>
+            <button
+              style="background-color: red"
+              (click)="logout()"
+              aria-label="Logout"
+            >
+              Logout
+            </button>
+          </li>
         </ng-container>
       }
     </ul>
@@ -101,7 +120,7 @@
   <!-- Main Content Area -->
   <div class="content">
     <div class="breadcrumb">
-      <span>Dashboard</span> > <span>{{pageTitle}}</span>
+      <span>Dashboard</span> > <span>{{ pageTitle }}</span>
     </div>
     <router-outlet></router-outlet>
   </div>

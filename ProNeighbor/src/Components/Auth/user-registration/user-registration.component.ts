@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ROLS } from '../../../Model/user/enum';
 import { AuthService } from '../../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-registration',
@@ -24,7 +25,10 @@ export class UserRegistrationComponent {
   formSubmitted = false;
   isSubmitting = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   validateForm(): void {
     const { name, email, password, confirmPassword, acceptedTerms } = this.user;
@@ -41,45 +45,53 @@ export class UserRegistrationComponent {
     this.formSubmitted = true;
 
     if (this.isFormValid && !this.isSubmitting) {
-      this.isSubmitting = true; // Disable the button
-      this.errorMessage = null; // Clear previous errors
+      this.isSubmitting = true;
+      this.errorMessage = null;
 
-      // First, register the user
       this.authService
         .register(
           this.user.name,
           this.user.email,
           this.user.password,
-          ROLS.USER
+          ROLS.USER,
         )
         .subscribe({
           next: (response) => {
             console.log('Registration successful:', response);
 
-            // Automatically log in the user
+            Swal.fire({
+              title: 'Success!',
+              text: 'Registration successful. Logging in...',
+              icon: 'success',
+              timer: 2000,
+              showConfirmButton: false,
+            });
+
             this.authService
               .login(this.user.email, this.user.password)
               .subscribe({
                 next: (loginResponse) => {
                   console.log('Login successful:', loginResponse);
-                  // Save the token
                   this.authService.saveToken(loginResponse.token);
 
-                  // Redirect based on role or to home page
                   const userRole = this.authService.getUserType();
                   if (userRole) {
                     this.authService.redirectToRoleBasedPage(userRole);
                   } else {
-                    this.router.navigate(['/home']); // Fallback to home
+                    this.router.navigate(['/home']);
                   }
 
-                  this.isSubmitting = false; // Re-enable the button
+                  this.isSubmitting = false;
                 },
                 error: (loginError) => {
                   console.error('Login failed after registration:', loginError);
-                  this.errorMessage =
-                    'An unexpected error occurred during login. Please try logging in manually.';
-                  this.isSubmitting = false; // Re-enable the button
+                  Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred during login. Please try logging in manually.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                  });
+                  this.isSubmitting = false;
                 },
               });
           },
@@ -95,12 +107,24 @@ export class UserRegistrationComponent {
               this.errorMessage =
                 'An unexpected error occurred. Please try again later.';
             }
-            alert(this.errorMessage);
-            this.isSubmitting = false; // Re-enable the button
+
+            Swal.fire({
+              title: 'Registration Failed',
+              text: this.errorMessage,
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+
+            this.isSubmitting = false;
           },
         });
     } else if (!this.isFormValid) {
-      console.error('Form submission failed. Please fix the errors.');
+      Swal.fire({
+        title: 'Form Error',
+        text: 'Please fill all fields correctly and accept the terms.',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+      });
     }
   }
 }
