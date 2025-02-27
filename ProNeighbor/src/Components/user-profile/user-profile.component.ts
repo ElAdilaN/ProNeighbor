@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Provider, User } from '../../Model/user/user.model';
+import { User } from '../../Model/user/user.model';
 import { UsersService } from '../../services/users.service';
 import { FormsModule } from '@angular/forms';
 import { ROLS } from '../../Model/user/enum';
 import { Service } from '../../Model/servicesProvider/service.model';
+import { Provider } from '../../Model/user/provider.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -37,7 +38,7 @@ export class UserProfileComponent implements OnInit {
           data.roles,
           new Date(data.created_at),
           data.phone,
-          data.address
+          data.address,
         );
         if (data.role === ROLS.PROVIDER) {
           this.user.setServices(data.services);

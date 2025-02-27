@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
-import { User, Provider } from '../Model/user/user.model';
+import { User } from '../Model/user/user.model';
+import { Provider } from '../Model/user/provider.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,7 @@ export class UsersService {
       `${environment.api_url_GetProfileInfoById}${id}`,
       {
         headers: this.getHeaders(),
-      }
+      },
     );
   }
 

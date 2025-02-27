@@ -16,7 +16,7 @@ export class User {
     _roles: ROLS,
     _created_at: Date,
     _phone?: string,
-    _address?: string
+    _address?: string,
   ) {
     this._id = _id;
     this._name = _name;
@@ -33,8 +33,7 @@ export class User {
   }
 
   get name(): string {
-    
-    return this._name || '' ;
+    return this._name || '';
   }
 
   get email(): string {
@@ -91,31 +90,5 @@ export class User {
 
   set roles(roles: ROLS) {
     this._roles = roles;
-  }
-}
-
-export class Provider extends User {
-  private services: Service[] = [];
-
-  constructor(
-    id: string,
-    name: string,
-    email: string,
-    role: ROLS,
-    created_at: Date,
-    phone?: string,
-    address?: string
-  ) {
-    super(id, name, email, role, created_at, phone, address);
-  }
-
-  // Getter for services
-  getServices(): Service[] {
-    return this.services;
-  }
-
-  // Setter for services
-  setServices(services: Service[]): void {
-    this.services = services;
   }
 }

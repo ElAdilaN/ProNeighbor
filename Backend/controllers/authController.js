@@ -5,7 +5,7 @@ const userModel = require("../models/authModel");
 // Generate JWT token
 const generateToken = (userId, userType) => {
   return jwt.sign({ id: userId, role: userType }, process.env.JWT_SECRET, {
-    expiresIn: "1m",
+    expiresIn:process.env.JWT_EXPIRATION,
   });
 };
 
