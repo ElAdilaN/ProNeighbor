@@ -15,6 +15,25 @@ exports.protect = (req, res, next) => {
     req.user = decoded; // Attach decoded user info to the request
     req.token = token; // Attach the token to the request
     req.userId = decoded.id; // Attach
+
+    const currentTime = Math.floor(Date.now() / 1000);
+    const timeLeft = decoded.exp - currentTime;
+
+    console.log("Token verification...");
+    if (timeLeft < 900) {
+      console.log("Token is about to expire. Renewing...");
+
+      // Use correct values from decoded token
+      const newToken = jwt.sign(
+        { id: decoded.id, role: decoded.role }, // Ensure correct user data
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRATION || "5m" } // Default to 5 minutes if env is missing
+      );
+      console.log("new token: ", newToken);
+
+      // Set the new token in the response header
+      res.setHeader("Authorization", `Bearer ${newToken}`);
+    }
     next();
   } catch (err) {
     return res.status(401).json({ message: "Token is not valid" });
