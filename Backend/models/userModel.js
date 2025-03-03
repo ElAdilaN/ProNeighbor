@@ -7,17 +7,7 @@ const getUserById = async (id) => {
   try {
     const pool = await getPool(); // Make sure you're getting the SQL pool connection
 
-    // Fetch user info with role
-    /*   const userResult = await pool
-      .request()
-      .input("UserId", sql.UniqueIdentifier, id).query(`
-          SELECT 
-              u.id, u.name, u.email, u.phone, u.address, u.created_at, r.role AS role
-          FROM users u
-          JOIN roles r ON u.roles = r.id
-          WHERE u.id = @UserId
-      `);
- */
+  
     const userResult = await pool
       .request()
       .input("UserId", sql.UniqueIdentifier, id).query(`

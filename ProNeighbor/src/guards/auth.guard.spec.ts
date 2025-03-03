@@ -9,24 +9,29 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { of } from 'rxjs';
-import { HomeComponent } from '../Components/home/home.component';
+
 import { authGuard } from '../guards/auth.guard';
-import { ROLS } from '../Model/user/enum';
+import { ROLS } from '../enums/enum';
 import { AuthService } from '../services/auth.service';
+import { DashboardComponent } from '../Components/dashboard/dashboard.component';
+import { LoginComponent } from '../Components/Auth/login/login.component';
 // Define mock routes with guard applied
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, canActivate: [authGuard] }, // Home route protected by the authGuard
-  { path: 'login', component: HomeComponent }, // Mock LoginComponent for redirection
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [authGuard],
+  }, // Home route protected by the authGuard
+  { path: 'login', component: LoginComponent }, // Mock LoginComponent for redirection
 ];
 describe('Auth-Guards', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+  let component: DashboardComponent;
+  let fixture: ComponentFixture<DashboardComponent>;
   let authService: AuthService;
   let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomeComponent],
       providers: [
         provideRouter(routes),
         provideHttpClient(),
@@ -34,7 +39,7 @@ describe('Auth-Guards', () => {
         AuthService,
       ],
     }).compileComponents();
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges(); // Trigger change detection
     authService = TestBed.inject(AuthService);
@@ -49,7 +54,7 @@ describe('Auth-Guards', () => {
     const state = {} as RouterStateSnapshot; // Mock state object
     // Run the guard in an Angular injection context
     const canActivate = TestBed.runInInjectionContext(() =>
-      authGuard(route, state)
+      authGuard(route, state),
     );
     // Assert that the guard denies access and redirects to login
     expect(canActivate).toBe(false);
@@ -69,7 +74,7 @@ describe('Auth-Guards', () => {
 
     // Run the guard in an Angular injection context
     const canActivate = TestBed.runInInjectionContext(() =>
-      authGuard(route, state)
+      authGuard(route, state),
     );
 
     // Assert that the guard allows access and does not redirect
@@ -90,7 +95,7 @@ describe('Auth-Guards', () => {
 
     // Run the guard in an Angular injection context
     const canActivate = TestBed.runInInjectionContext(() =>
-      authGuard(route, state)
+      authGuard(route, state),
     );
 
     // Assert that the guard denies access and redirects to unauthorized

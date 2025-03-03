@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ROLS } from '../../../Model/user/enum';
+import { ROLS } from '../../../enums/enum';
 import { AuthService } from '../../../services/auth.service';
 import Swal from 'sweetalert2';
 

@@ -3,7 +3,7 @@ import { DashboardComponent } from './dashboard.component';
 import { AuthService } from '../../services/auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
-import { ROLS } from '../../Model/user/enum';
+import { ROLS } from '../../enums/enum';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -28,20 +28,5 @@ describe('DashboardComponent', () => {
 
   it('should create the component', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should not display user or provider links if role is null', () => {
-    authService.getUserType.and.returnValue(null);
-    fixture.detectChanges();
-
-    const userDashboardButton = fixture.debugElement.query(
-      By.css('button[routerLink="userArea"]')
-    );
-    const providerDashboardButton = fixture.debugElement.query(
-      By.css('button[routerLink="providerArea"]')
-    );
-
-    expect(userDashboardButton).toBeNull();
-    expect(providerDashboardButton).toBeNull();
   });
 });

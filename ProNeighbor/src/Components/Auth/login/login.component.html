@@ -46,11 +46,11 @@
   <div>
     <button
       type="button"
-      [disabled]="email.invalid || password.invalid"
+      [disabled]="email.invalid || password.invalid || loading"
       (click)="onLogin()"
       accesskey="l"
     >
-      Login
+      {{ loading ? "Logging in..." : "Login" }}
     </button>
   </div>
 

@@ -1,7 +1,6 @@
 import { Service } from '../servicesProvider/service.model';
-import { ROLS } from './enum';
+import { ROLS } from '../../enums/enum';
 import { User } from './user.model';
-
 
 export class Provider extends User {
   private services: Service[] = [];

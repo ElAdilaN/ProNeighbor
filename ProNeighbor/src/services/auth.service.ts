@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, effect, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
-import { ROLS } from '../Model/user/enum';
+import { ROLS } from '../enums/enum';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 interface TokenPayload {
@@ -17,10 +17,13 @@ interface TokenPayload {
 export class AuthService {
   public authTokenChanged: EventEmitter<void> = new EventEmitter<void>(); // Event emitter for token change
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {
     // Listen for changes in localStorage from other tabs/windows
     window.addEventListener('storage', (event) => {
-      if (event.key === 'authToken') {
+      if (event.key === 'AuthToken') {
         this.authTokenChanged.emit(); // Emit the event when the authToken changes in another tab
       }
     });
@@ -34,7 +37,7 @@ export class AuthService {
     name: string,
     email: string,
     password: string,
-    user_type: string
+    user_type: string,
   ): Observable<any> {
     return this.http.post(environment.api_url_register, {
       name,

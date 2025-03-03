@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { User } from '../../../Model/user/user.model';
-import { ROLS } from '../../../Model/user/enum';
+import { ROLS } from '../../../enums/enum';
 
 describe('AddParticipantComponent', () => {
   let component: AddParticipantComponent;
@@ -28,7 +28,7 @@ describe('AddParticipantComponent', () => {
       ROLS.USER,
       new Date(),
       '1234567890',
-      '123 Main St'
+      '123 Main St',
     ),
     new User(
       '2',
@@ -37,7 +37,7 @@ describe('AddParticipantComponent', () => {
       ROLS.PROVIDER,
       new Date(),
       '0987654321',
-      '456 Elm St'
+      '456 Elm St',
     ),
     new User('3', 'User Three', 'user3@example.com', ROLS.PROVIDER, new Date()),
   ];
@@ -92,7 +92,7 @@ describe('AddParticipantComponent', () => {
 
     component.toggleUserSelection('4');
     expect(window.alert).toHaveBeenCalledWith(
-      'You can select a maximum of 3 users.'
+      'You can select a maximum of 3 users.',
     );
     expect(component.selectedUserIds.length).toBe(3);
   });

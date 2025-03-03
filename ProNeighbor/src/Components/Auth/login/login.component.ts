@@ -12,13 +12,17 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   loginData = {
     email: '',
     password: '',
   };
   message: string = '';
+  loading: boolean = false;
 
   validateInput() {
     // This method is for general input validation and triggers on input change
@@ -26,8 +30,9 @@ export class LoginComponent {
   }
 
   onLogin() {
-    localStorage.setItem('blaba', 'teeeeee');
-    localStorage.setItem('test ', 'teeeeee');
+    if (this.loading) return; // Prevent multiple clicks
+
+    this.loading = true; // Start loading
 
     const { email, password } = this.loginData;
 
@@ -46,8 +51,10 @@ export class LoginComponent {
             error.error?.message || 'An error occurred while logging in.';
           console.error('Login error:', error);
           return of(null); // Return a safe fallback value
-        })
+        }),
       )
-      .subscribe();
+      .subscribe({
+        complete: () => (this.loading = false), // Stop loading after response
+      });
   }
 }

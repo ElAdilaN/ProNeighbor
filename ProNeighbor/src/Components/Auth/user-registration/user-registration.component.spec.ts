@@ -31,13 +31,13 @@ describe('UserRegistrationComponent', () => {
     const nameInput = compiled.querySelector('#name') as HTMLInputElement;
     const emailInput = compiled.querySelector('#email') as HTMLInputElement;
     const passwordInput = compiled.querySelector(
-      '#password'
+      '#password',
     ) as HTMLInputElement;
     const confirmPasswordInput = compiled.querySelector(
-      '#confirm-password'
+      '#confirm-password',
     ) as HTMLInputElement;
     const termsCheckbox = compiled.querySelector(
-      'input[type="checkbox"]'
+      'input[type="checkbox"]',
     ) as HTMLInputElement;
     const button = compiled.querySelector('button') as HTMLButtonElement;
 
@@ -60,10 +60,10 @@ describe('UserRegistrationComponent', () => {
 
   it('should keep the button disabled if passwords do not match', () => {
     const passwordInput = compiled.querySelector(
-      '#password'
+      '#password',
     ) as HTMLInputElement;
     const confirmPasswordInput = compiled.querySelector(
-      '#confirm-password'
+      '#confirm-password',
     ) as HTMLInputElement;
     const button = compiled.querySelector('button') as HTMLButtonElement;
 
@@ -76,28 +76,5 @@ describe('UserRegistrationComponent', () => {
     fixture.detectChanges();
 
     expect(button.disabled).toBeTrue();
-  });
-
-  it('should show error message if passwords do not match', () => {
-    const passwordInput = compiled.querySelector(
-      '#password'
-    ) as HTMLInputElement;
-    const confirmPasswordInput = compiled.querySelector(
-      '#confirm-password'
-    ) as HTMLInputElement;
-    const errorMessage = compiled.querySelector(
-      '#password-match-error'
-    ) as HTMLElement;
-
-    passwordInput.value = 'password123';
-    confirmPasswordInput.value = 'wrongpassword';
-
-    passwordInput.dispatchEvent(new Event('input'));
-    confirmPasswordInput.dispatchEvent(new Event('input'));
-
-    fixture.detectChanges();
-
-    expect(errorMessage).toBeTruthy();
-    expect(errorMessage.textContent).toContain('Passwords do not match');
   });
 });

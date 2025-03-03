@@ -30,7 +30,7 @@ describe('ServiceCardComponent', () => {
       'Fixing Pipes',
       'New York',
       new Date(),
-      'Plumbing'
+      'Plumbing',
     );
 
     component.service = mockService;
@@ -38,16 +38,16 @@ describe('ServiceCardComponent', () => {
 
     const nameElement = fixture.debugElement.query(By.css('h3')).nativeElement;
     const categoryElement = fixture.debugElement.query(
-      By.css('p strong')
+      By.css('p strong'),
     ).nativeElement;
     const priceElement = fixture.debugElement.query(
-      By.css('p:nth-of-type(3) span')
+      By.css('p:nth-of-type(3) span'),
     ).nativeElement;
     const locationElement = fixture.debugElement.query(
-      By.css('p:nth-of-type(2) span')
+      By.css('p:nth-of-type(2) span'),
     ).nativeElement;
     const descriptionElement = fixture.debugElement.query(
-      By.css('p:nth-of-type(4) span')
+      By.css('p:nth-of-type(4) span'),
     ).nativeElement;
 
     expect(nameElement.textContent).toContain(mockService.name);
@@ -65,13 +65,15 @@ describe('ServiceCardComponent', () => {
       'Fixing Pipes',
       'New York',
       new Date(),
-      'Plumbing'
+      'Plumbing',
     );
 
     component.service = mockService;
     fixture.detectChanges();
 
     const linkElement = fixture.debugElement.query(By.css('a')).nativeElement;
-    expect(linkElement.getAttribute('href')).toBe('/ServiceList/123');
+    expect(linkElement.getAttribute('href')).toBe(
+      '/dashboard/ServiceDetail/123',
+    );
   });
 });

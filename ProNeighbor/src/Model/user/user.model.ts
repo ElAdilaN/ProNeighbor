@@ -1,5 +1,5 @@
 import { Service } from '../servicesProvider/service.model';
-import { ROLS } from './enum';
+import { ROLS } from '../../enums/enum';
 
 export class User {
   private _id: string;

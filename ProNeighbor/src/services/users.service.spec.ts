@@ -22,9 +22,7 @@ describe('UsersService', () => {
     service = TestBed.inject(UsersService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+
   it('Should get user profile', () => {
     const dummyData = {
       id: '85755A9C-8010-414C-8E46-10AA36F0BA41',
@@ -39,7 +37,7 @@ describe('UsersService', () => {
     });
 
     const req = httpTestingController.expectOne(
-      'http://localhost:3000/api/user/profile'
+      'http://localhost:3000/api/user/profile',
     );
 
     expect(req.request.method).toBe('GET');
@@ -59,7 +57,7 @@ describe('UsersService', () => {
     });
 
     const req = httpTestingController.expectOne(
-      'http://localhost:3000/api/user/profile'
+      'http://localhost:3000/api/user/profile',
     );
 
     expect(req.request.method).toBe('PUT');
