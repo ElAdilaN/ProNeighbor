@@ -4,7 +4,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { AddParticipantComponent } from './add-participant.component';
+
 import { UsersService } from '../../../services/User/users.service';
 import { ChatServiceService } from '../../../services/chat/chat-service.service';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +12,7 @@ import { of, throwError } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { User } from '../../../Model/user/user.model';
 import { ROLS } from '../../../enums/enum';
+import { AddParticipantComponent } from '../../../Components/Chat/add-participant/add-participant.component';
 
 describe('AddParticipantComponent', () => {
   let component: AddParticipantComponent;

@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardComponent } from './dashboard.component';
-import { AuthService } from '../../services/auth.service';
+
 import { RouterTestingModule } from '@angular/router/testing';
-import { By } from '@angular/platform-browser';
-import { ROLS } from '../../enums/enum';
+import { DashboardComponent } from '../../../Components/dashboard/dashboard.component';
+import { ROLS } from '../../../enums/enum';
+import { AuthService } from '../../../services/auth/auth.service';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;

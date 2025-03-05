@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReviewCardComponent } from './review-card.component';
-import { AuthService } from '../../../services/auth.service';
+
 import { ReviewsService } from '../../../services/reviews/reviews.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { ReviewDTO } from '../../../Model/appServices/review.model';
+import { ReviewCardComponent } from '../../../Components/Reviews/review-card/review-card.component';
+import { AuthService } from '../../../services/auth/auth.service';
 
 describe('ReviewCardComponent', () => {
   let component: ReviewCardComponent;

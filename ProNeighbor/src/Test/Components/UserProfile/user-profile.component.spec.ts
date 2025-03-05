@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UsersService } from '../../services/users.service';
+
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { of } from 'rxjs';
-import { UserProfileComponent } from './user-profile.component';
+
+import { UsersService } from '../../../services/User/users.service';
+import { UserProfileComponent } from '../../../Components/user-profile/user-profile.component';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
@@ -20,7 +22,7 @@ describe('UserProfileComponent', () => {
           email: 'johndoe@example.com',
           phone: '+123456789',
           address: '123 Main St',
-        })
+        }),
       ),
     };
 
@@ -69,10 +71,10 @@ describe('UserProfileComponent', () => {
     fixture.detectChanges();
 
     const saveButton = fixture.nativeElement.querySelector(
-      'button:nth-of-type(1)'
+      'button:nth-of-type(1)',
     );
     const cancelButton = fixture.nativeElement.querySelector(
-      'button:nth-of-type(2)'
+      'button:nth-of-type(2)',
     );
 
     // Assert
@@ -107,7 +109,7 @@ describe('UserProfileComponent', () => {
 
     // Act
     const cancelButton = fixture.nativeElement.querySelector(
-      'button:nth-of-type(2)'
+      'button:nth-of-type(2)',
     );
 
     cancelButton.click();

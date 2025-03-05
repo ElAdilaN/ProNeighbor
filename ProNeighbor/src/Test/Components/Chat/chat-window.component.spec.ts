@@ -1,14 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChatWindowComponent } from './chat-window.component';
+
 import { ChatServiceService } from '../../../services/chat/chat-service.service';
 import { SocketService } from '../../../services/Socket/socket.service';
-import { AuthService } from '../../../services/auth.service';
+
 import { ActivatedRoute } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing'; // Importing HttpClientTestingModule
+import { AuthService } from '../../../services/auth/auth.service';
+import { ChatWindowComponent } from '../../../Components/Chat/chat-window/chat-window.component';
 
 describe('ChatWindowComponent', () => {
   let component: ChatWindowComponent;

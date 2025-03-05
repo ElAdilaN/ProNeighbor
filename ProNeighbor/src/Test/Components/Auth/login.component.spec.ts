@@ -8,7 +8,7 @@ import { LoginComponent } from '../../../Components/Auth/login/login.component';
 import { of } from 'rxjs';
 import { ActivatedRoute, provideRouter, Router } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

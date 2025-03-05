@@ -115,10 +115,10 @@ export class AuthService {
   redirectToRoleBasedPage(role: ROLS): void {
     switch (role) {
       case ROLS.USER:
-        this.router.navigate(['/userArea']);
+        this.router.navigate(['/dashboard']);
         break;
       case ROLS.PROVIDER:
-        this.router.navigate(['/providerArea']);
+        this.router.navigate(['/dashboard']);
         break;
       default:
         this.router.navigate(['/login']);

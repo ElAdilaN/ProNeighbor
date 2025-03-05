@@ -37,6 +37,7 @@ export class UserRegistrationComponent {
       !!name &&
       !!email &&
       !!password &&
+      password.length >= 8 && // Enforce password length requirement
       !!confirmPassword &&
       password === confirmPassword &&
       acceptedTerms;
@@ -72,14 +73,27 @@ export class UserRegistrationComponent {
               .login(this.user.email, this.user.password)
               .subscribe({
                 next: (loginResponse) => {
-                  console.log('Login successful:', loginResponse);
+                  if (!loginResponse || !loginResponse.token) {
+                    console.error('No token received after registration.');
+                    Swal.fire({
+                      title: 'Registration Successful',
+                      text: 'Please log in manually. No token received.',
+                      icon: 'info',
+                      confirmButtonText: 'OK',
+                    });
+                    this.isSubmitting = false;
+                    return; // Stop execution here
+                  }
+
+                  console.log(loginResponse.token);
+
                   this.authService.saveToken(loginResponse.token);
 
                   const userRole = this.authService.getUserType();
                   if (userRole) {
                     this.authService.redirectToRoleBasedPage(userRole);
                   } else {
-                    this.router.navigate(['/home']);
+                    this.router.navigate(['/dashboard']);
                   }
 
                   this.isSubmitting = false;

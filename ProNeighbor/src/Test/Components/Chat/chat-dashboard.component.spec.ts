@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChatDashboardComponent } from './chat-dashboard.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ChatDashboardComponent } from '../../../Components/Chat/chat-dashboard/chat-dashboard.component';
 
 describe('ChatDashboardComponent', () => {
   let component: ChatDashboardComponent;

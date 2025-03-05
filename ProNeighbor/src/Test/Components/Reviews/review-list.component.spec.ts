@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { ReviewListComponent } from './review-list.component';
+
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ReviewListComponent } from '../../../Components/Reviews/review-list/review-list.component';
 
 describe('ReviewListComponent', () => {
   beforeEach(() => {

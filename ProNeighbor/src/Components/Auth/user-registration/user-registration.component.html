@@ -13,8 +13,8 @@
       [attr.aria-invalid]="!user.name ? 'true' : null"
       aria-describedby="name-error"
     />
-    @if(!user.name){
-    <span id="name-error" class="error">Name is required</span>
+    @if (!user.name) {
+      <span id="name-error" class="error">Name is required</span>
     }
   </div>
 
@@ -30,8 +30,8 @@
       [attr.aria-invalid]="!user.email ? 'true' : null"
       aria-describedby="email-error"
     />
-    @if(!user.email){
-    <span id="email-error" class="error">Email is required</span>
+    @if (!user.email) {
+      <span id="email-error" class="error">Email is required</span>
     }
   </div>
 
@@ -44,7 +44,14 @@
       (input)="validateForm()"
       required
       aria-required="true"
+      [attr.aria-invalid]="user.password.length < 8 ? 'true' : null"
+      aria-describedby="password-length-error"
     />
+    @if (user.password.length < 8) {
+      <span id="password-length-error" class="error"
+        >Password must be at least 8 characters long</span
+      >
+    }
   </div>
 
   <div>
@@ -61,8 +68,10 @@
       "
       aria-describedby="password-match-error"
     />
-    @if(user.password !== user.confirmPassword && user.confirmPassword){
-    <span id="password-match-error" class="error">Passwords do not match</span>
+    @if (user.password !== user.confirmPassword && user.confirmPassword) {
+      <span id="password-match-error" class="error"
+        >Passwords do not match</span
+      >
     }
   </div>
 
@@ -79,10 +88,10 @@
     </label>
   </div>
 
-  @if(!isFormValid && formSubmitted){
-  <div role="alert" class="error">
-    Please correct the highlighted fields before submitting.
-  </div>
+  @if (!isFormValid && formSubmitted) {
+    <div role="alert" class="error">
+      Please correct the highlighted fields before submitting.
+    </div>
   }
 
   <button (click)="onSubmit()" [disabled]="!isFormValid">Submit</button>
