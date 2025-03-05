@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Review } from '../../../Model/appServices/review.model';
 import { FormsModule } from '@angular/forms';
-import { ReviewsService } from '../../../services/reviews.service';
+import { ReviewsService } from '../../../services/reviews/reviews.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -22,7 +22,7 @@ export class ReviewFormComponent {
   }
   constructor(
     private route: ActivatedRoute,
-    private reviewService: ReviewsService
+    private reviewService: ReviewsService,
   ) {}
 
   onSubmit() {

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Chat } from '../../../Model/messaging/chat.model';
-import { ChatServiceService } from '../../../services/chat-service.service';
-import { UsersService } from '../../../services/users.service';
-import { AuthService } from '../../../services/auth.service';
+import { ChatServiceService } from '../../../services/chat/chat-service.service';
+import { UsersService } from '../../../services/User/users.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-chat-list',
@@ -22,7 +22,7 @@ export class ChatListComponent {
     private route: ActivatedRoute,
     private router: Router,
     private chatService: ChatServiceService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {

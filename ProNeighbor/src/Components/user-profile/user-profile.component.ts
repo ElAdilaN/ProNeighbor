@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../../Model/user/user.model';
-import { UsersService } from '../../services/users.service';
+import { UsersService } from '../../services/User/users.service';
 import { FormsModule } from '@angular/forms';
 import { ROLS } from '../../enums/enum';
 import { Service } from '../../Model/servicesProvider/service.model';

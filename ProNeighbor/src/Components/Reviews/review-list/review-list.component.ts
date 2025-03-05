@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ReviewDTO } from '../../../Model/appServices/review.model';
-import { ReviewsService } from '../../../services/reviews.service';
+import { ReviewsService } from '../../../services/reviews/reviews.service';
 import { ReviewCardComponent } from '../review-card/review-card.component';
 import { ActivatedRoute } from '@angular/router';
 import { ReviewFormComponent } from '../review-form/review-form.component';
@@ -20,7 +20,7 @@ export class ReviewListComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private reviewsService: ReviewsService
+    private reviewsService: ReviewsService,
   ) {}
 
   ngOnInit(): void {

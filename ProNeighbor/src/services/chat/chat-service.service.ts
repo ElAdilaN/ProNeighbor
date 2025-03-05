@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
-import { UsersService } from './users.service';
+import { environment } from '../../environments/environment';
+import { UsersService } from '../User/users.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ChatServiceService {
-  constructor(private http: HttpClient, private userService: UsersService) {}
+  constructor(
+    private http: HttpClient,
+    private userService: UsersService,
+  ) {}
 
   CreateChatForService(service_id: string, ChatName: string): Observable<any> {
     return this.http.post<any>(
@@ -15,7 +18,7 @@ export class ChatServiceService {
       { service_id, ChatName },
       {
         headers: this.userService.getHeaders(),
-      }
+      },
     );
   }
   CreateChatWithProvider(ChatName: string): Observable<any> {
@@ -24,7 +27,7 @@ export class ChatServiceService {
       { ChatName },
       {
         headers: this.userService.getHeaders(),
-      }
+      },
     );
   }
   getAllChatsForUser(): Observable<any> {
@@ -37,7 +40,7 @@ export class ChatServiceService {
       `${environment.api_url_GetMessagesForChat}${chatId}/messages`,
       {
         headers: this.userService.getHeaders(),
-      }
+      },
     );
   }
 
@@ -47,7 +50,7 @@ export class ChatServiceService {
       { chatId, message },
       {
         headers: this.userService.getHeaders(),
-      }
+      },
     );
   }
 
@@ -57,7 +60,7 @@ export class ChatServiceService {
       { chatId, userId },
       {
         headers: this.userService.getHeaders(),
-      }
+      },
     );
   }
 

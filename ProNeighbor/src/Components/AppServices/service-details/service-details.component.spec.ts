@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ServiceDetailsComponent } from './service-details.component';
-import { ServicesService } from '../../../services/services.service';
+import { ServicesService } from '../../../services/AppServices/services.service';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { Service } from '../../../Model/servicesProvider/service.model';
@@ -43,7 +43,7 @@ describe('ServiceDetailsComponent', () => {
       'Fixing Pipes',
       'New York',
       new Date(),
-      'Plumbing'
+      'Plumbing',
     );
 
     spyOn(servicesService, 'getServiceById').and.returnValue(of(mockService));
@@ -56,7 +56,7 @@ describe('ServiceDetailsComponent', () => {
   });
   it('should handle error when getServiceById() fails', () => {
     spyOn(servicesService, 'getServiceById').and.returnValue(
-      throwError(() => new Error('API failure'))
+      throwError(() => new Error('API failure')),
     );
 
     component.ngOnInit();
@@ -72,7 +72,7 @@ describe('ServiceDetailsComponent', () => {
 
     const loadingElement = fixture.debugElement.query(By.css('div'));
     expect(loadingElement.nativeElement.textContent).toContain(
-      'Loading service details...'
+      'Loading service details...',
     );
   });
 });

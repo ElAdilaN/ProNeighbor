@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ChatServiceService } from '../../../services/chat-service.service';
+import { ChatServiceService } from '../../../services/chat/chat-service.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ export class ChatInfoComponent {
   chatId?: string | null;
   constructor(
     private chatService: ChatServiceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
   ngOnInit(): void {
     this.chatId = this.route.snapshot.paramMap.get('chatId');

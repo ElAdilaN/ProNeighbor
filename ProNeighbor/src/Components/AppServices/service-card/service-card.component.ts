@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Service } from '../../../Model/servicesProvider/service.model';
 import { Router, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { ChatServiceService } from '../../../services/chat-service.service';
+import { ChatServiceService } from '../../../services/chat/chat-service.service';
 import Swal from 'sweetalert2';
 
 @Component({

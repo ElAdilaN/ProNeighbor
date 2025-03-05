@@ -6,8 +6,9 @@ import {
   Router,
   NavigationEnd,
 } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+
 import { filter } from 'rxjs';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',

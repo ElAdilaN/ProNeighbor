@@ -1,22 +1,29 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/authModel");
+const { body, validationResult } = require("express-validator");
 
 // Generate JWT token
 const generateToken = (userId, userType) => {
   return jwt.sign({ id: userId, role: userType }, process.env.JWT_SECRET, {
-    expiresIn:process.env.JWT_EXPIRATION,
+    expiresIn: process.env.JWT_EXPIRATION,
   });
 };
 
-// Register User
-exports.register = async (req, res) => {
-  const { name, email, password, user_type } = req.body;
+// Register Userconst { body, validationResult } = require("express-validator");
 
-  // Check if required fields are provided
-  if (!name || !email || !password || !user_type) {
-    return res.status(400).json({ message: "All fields are required" });
+exports.register = async (req, res) => {
+  await body("email")
+    .contains("@")
+    .withMessage("Email must contain '@'")
+    .run(req);
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
+
+  const { name, email, password, user_type } = req.body;
 
   try {
     // Check if user already exists

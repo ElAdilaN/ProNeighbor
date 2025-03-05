@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ROLS } from '../../../enums/enum';
-import { AuthService } from '../../../services/auth.service';
+
 import Swal from 'sweetalert2';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-user-registration',

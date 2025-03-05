@@ -12,9 +12,10 @@ import { of } from 'rxjs';
 
 import { authGuard } from '../guards/auth.guard';
 import { ROLS } from '../enums/enum';
-import { AuthService } from '../services/auth.service';
+
 import { DashboardComponent } from '../Components/dashboard/dashboard.component';
 import { LoginComponent } from '../Components/Auth/login/login.component';
+import { AuthService } from '../services/auth/auth.service';
 // Define mock routes with guard applied
 const routes: Routes = [
   {

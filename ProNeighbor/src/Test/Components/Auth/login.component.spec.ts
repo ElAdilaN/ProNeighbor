@@ -4,7 +4,7 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing'; // Import HttpClientTestingModule
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './login.component';
+import { LoginComponent } from '../../../Components/Auth/login/login.component';
 import { of } from 'rxjs';
 import { ActivatedRoute, provideRouter, Router } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';

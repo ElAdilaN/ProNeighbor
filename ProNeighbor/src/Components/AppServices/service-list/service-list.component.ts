@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Service } from '../../../Model/servicesProvider/service.model';
-import { ServicesService } from '../../../services/services.service';
+import { ServicesService } from '../../../services/AppServices/services.service';
 import { ServiceCardComponent } from '../service-card/service-card.component';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
@@ -22,7 +22,7 @@ export class ServiceListComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private serviceService: ServicesService
+    private serviceService: ServicesService,
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +55,7 @@ export class ServiceListComponent implements OnInit, OnDestroy {
         next: (response: any) => {
           console.log(
             `Services for provider ${this.serviceId}:`,
-            response.services
+            response.services,
           );
           this.services = response.services;
           this.isLoading = false;

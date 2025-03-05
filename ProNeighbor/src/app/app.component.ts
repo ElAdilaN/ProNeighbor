@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+
 import { filter } from 'rxjs';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,10 @@ import { filter } from 'rxjs';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   isAuthRoute: boolean = false;
 

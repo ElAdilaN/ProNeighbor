@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReviewDTO } from '../../../Model/appServices/review.model';
-import { AuthService } from '../../../services/auth.service';
-import { ReviewsService } from '../../../services/reviews.service';
+
+import { ReviewsService } from '../../../services/reviews/reviews.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-review-card',
@@ -18,7 +19,7 @@ export class ReviewCardComponent {
 
   constructor(
     private authService: AuthService,
-    private reviewService: ReviewsService
+    private reviewService: ReviewsService,
   ) {}
 
   ngOnInit() {

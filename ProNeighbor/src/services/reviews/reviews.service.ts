@@ -9,22 +9,25 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { environment } from '../environments/environment';
-import { UsersService } from './users.service';
-import { Review, ReviewDTO } from '../Model/appServices/review.model';
+import { environment } from '../../environments/environment';
+import { UsersService } from '../User/users.service';
+import { Review, ReviewDTO } from '../../Model/appServices/review.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReviewsService {
-  constructor(private http: HttpClient, private userService: UsersService) {}
+  constructor(
+    private http: HttpClient,
+    private userService: UsersService,
+  ) {}
 
   getAllReviewsForService(id: string): Observable<any> {
     return this.http.get<any>(
       `${environment.api_url_GetAllReviewsForService}${id}`,
       {
         headers: this.userService.getHeaders(),
-      }
+      },
     );
   }
 
@@ -33,7 +36,7 @@ export class ReviewsService {
       `${environment.api_url_GetAllReviewsForService}`,
       {
         headers: this.userService.getHeaders(),
-      }
+      },
     );
   }
   updateReview(id: string, review: Partial<Review>): Observable<Review> {
@@ -42,7 +45,7 @@ export class ReviewsService {
       review,
       {
         headers: this.userService.getHeaders(),
-      }
+      },
     );
   }
 
@@ -62,7 +65,7 @@ export class ReviewsService {
       },
       {
         headers: this.userService.getHeaders(),
-      }
+      },
     );
   }
 }

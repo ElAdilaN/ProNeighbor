@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChatWindowComponent } from './chat-window.component';
-import { ChatServiceService } from '../../../services/chat-service.service';
-import { SocketService } from '../../../services/socket.service';
+import { ChatServiceService } from '../../../services/chat/chat-service.service';
+import { SocketService } from '../../../services/Socket/socket.service';
 import { AuthService } from '../../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { of, Subject } from 'rxjs';
@@ -55,7 +55,7 @@ describe('ChatWindowComponent', () => {
     ];
 
     spyOn(chatService, 'getAllMessagesForChat').and.returnValue(
-      of(mockMessages)
+      of(mockMessages),
     );
 
     component.ngOnInit();
@@ -78,7 +78,7 @@ describe('ChatWindowComponent', () => {
     expect(socketService.sendMessage).toHaveBeenCalledWith(
       'chat1',
       'New message',
-      'user1'
+      'user1',
     );
     expect(component.newMessage).toBe('');
   });

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { message } from '../../../Model/messaging/message.model';
-import { ChatServiceService } from '../../../services/chat-service.service';
+import { ChatServiceService } from '../../../services/chat/chat-service.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { SocketService } from '../../../services/socket.service';
-import { UsersService } from '../../../services/users.service';
-import { AuthService } from '../../../services/auth.service';
+import { SocketService } from '../../../services/Socket/socket.service';
+import { UsersService } from '../../../services/User/users.service';
+
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-chat-window',
@@ -25,7 +26,7 @@ export class ChatWindowComponent {
     private chatService: ChatServiceService,
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
-    private socketService: SocketService
+    private socketService: SocketService,
   ) {}
 
   ngOnInit(): void {

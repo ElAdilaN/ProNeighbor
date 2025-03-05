@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChatInfoComponent } from './chat-info.component';
-import { ChatServiceService } from '../../../services/chat-service.service';
+import { ChatServiceService } from '../../../services/chat/chat-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

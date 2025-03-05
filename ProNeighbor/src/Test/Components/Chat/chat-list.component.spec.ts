@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChatListComponent } from './chat-list.component';
-import { ChatServiceService } from '../../../services/chat-service.service';
-import { AuthService } from '../../../services/auth.service';
+import { ChatListComponent } from '../../../Components/Chat/chat-list/chat-list.component';
+import { ChatServiceService } from '../../../services/chat/chat-service.service';
+
 import { Router, RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -9,6 +9,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing'; // Import the testing module
 import { Observable, of, throwError } from 'rxjs';
+import { AuthService } from '../../../services/auth/auth.service';
 
 describe('ChatListComponent', () => {
   let component: ChatListComponent;

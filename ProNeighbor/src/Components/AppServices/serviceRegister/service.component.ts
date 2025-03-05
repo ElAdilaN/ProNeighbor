@@ -3,11 +3,12 @@ import {
   Categories,
   Service,
 } from '../../../Model/servicesProvider/service.model';
-import { ServicesService } from '../../../services/services.service';
+import { ServicesService } from '../../../services/AppServices/services.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
+
 import Swal from 'sweetalert2';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-service',

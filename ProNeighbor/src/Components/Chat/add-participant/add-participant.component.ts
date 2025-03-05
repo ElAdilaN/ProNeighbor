@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { UsersService } from '../../../services/users.service';
+import { UsersService } from '../../../services/User/users.service';
 import { User } from '../../../Model/user/user.model';
-import { ChatServiceService } from '../../../services/chat-service.service';
+import { ChatServiceService } from '../../../services/chat/chat-service.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,7 +18,7 @@ export class AddParticipantComponent {
   constructor(
     private userService: UsersService,
     private chatService: ChatServiceService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
   ngOnInit() {
     this.chatId = this.activatedRoute.snapshot.paramMap.get('chatId');
