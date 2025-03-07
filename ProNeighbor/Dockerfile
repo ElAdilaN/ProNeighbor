@@ -1,4 +1,3 @@
-# Frontend Dockerfile
 FROM node:20 as build
 
 WORKDIR /app
@@ -12,8 +11,11 @@ RUN npm run build --prod
 
 FROM nginx:latest
 
-# Update this line to copy from /app/dist/ProNeighbor
-COPY --from=build /app/dist/ProNeighbor /usr/share/nginx/html
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copy Angular build files
+COPY --from=build /app/dist/ProNeighbor/browser /usr/share/nginx/html
 
 EXPOSE 80
 

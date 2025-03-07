@@ -1,47 +1,49 @@
 services:
-  backend:
-    build: ./backend
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    environment:
-      - DB_SERVER=sqlserver
-      - DB_DATABASE=ProNeighbor2
-      - DB_USER=sa
-      - DB_PASSWORD=StrongP@ssword123
-      - DB_PORT=1433
-      - DB_ENCRYPT=true
-      - DB_TRUST_SERVER_CERTIFICATE=true
-    networks:
-      - app_network
-
   frontend:
-    build: ./ProNeighbor
+    image: proneighborfrontend:latest
+    container_name: proneighbor_frontend
+    build:
+      context: ./proneighbor
     ports:
       - "80:80"
+    networks:
+      - mynetwork
     depends_on:
       - backend
+
+  backend:
+    image: proneighborbackend:latest
+    container_name: proneighbor_backend
+    build:
+      context: ./backend
+    ports:
+      - "3000:3000"
     networks:
-      - app_network
+      - mynetwork
+    depends_on:
+      - db
 
   db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: sqlserver
-    ports:
-      - "1433:1433"
+    image: proneighbor_bd:latest
+    container_name: proneighbor_bd_container
+    build:
+      context: ./db
     environment:
       - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
       - SA_PASSWORD=StrongP@ssword123
+    ports:
+      - "1433:1433"
+    networks:
+      - mynetwork
     volumes:
       - db_data:/var/opt/mssql
-      - ./db/ProNeighbor2_WithData.sql:/docker-entrypoint-initdb.d/ProNeighbor2_WithData.sql
-    networks:
-      - app_network
+    command: /bin/bash -c "/opt/mssql/bin/sqlservr & /init-db.sh"
 
 networks:
-  app_network:
+  mynetwork:
     driver: bridge
 
 volumes:
   db_data:
+    driver: local
