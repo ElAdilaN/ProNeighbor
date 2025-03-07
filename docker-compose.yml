@@ -21,13 +21,12 @@ services:
     networks:
       - mynetwork
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
-    image: proneighbor_bd:latest
+    image: mcr.microsoft.com/mssql/server:latest
     container_name: proneighbor_bd_container
-    build:
-      context: ./db
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_PID=Developer
@@ -38,7 +37,24 @@ services:
       - mynetwork
     volumes:
       - db_data:/var/opt/mssql
-    command: /bin/bash -c "/opt/mssql/bin/sqlservr & /init-db.sh"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/opt/mssql-tools/bin/sqlcmd",
+          "-S",
+          "localhost",
+          "-U",
+          "SA",
+          "-P",
+          "StrongP@ssword123",
+          "-Q",
+          "SELECT 1",
+        ]
+      interval: 10s
+      retries: 5
+      start_period: 20s
+    command: /opt/mssql/bin/sqlservr
 
 networks:
   mynetwork:
