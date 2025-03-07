@@ -11,8 +11,8 @@
 npm-debug.log
 yarn-error.log
 
+/public/*.exe
 
-public/*.exe
 
 
 # IDEs and editors
