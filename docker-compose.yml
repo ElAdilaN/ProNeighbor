@@ -1,0 +1,47 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DB_SERVER=sqlserver
+      - DB_DATABASE=ProNeighbor2
+      - DB_USER=sa
+      - DB_PASSWORD=StrongP@ssword123
+      - DB_PORT=1433
+      - DB_ENCRYPT=true
+      - DB_TRUST_SERVER_CERTIFICATE=true
+    networks:
+      - app_network
+
+  frontend:
+    build: ./ProNeighbor
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=StrongP@ssword123
+    volumes:
+      - db_data:/var/opt/mssql
+      - ./db/ProNeighbor2_WithData.sql:/docker-entrypoint-initdb.d/ProNeighbor2_WithData.sql
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  db_data:
