@@ -1,9 +1,18 @@
+# db/init-db.sh
 #!/bin/bash
+
+echo "Starting SQL Server..."
+/opt/mssql/bin/sqlservr &
+
 echo "Waiting for SQL Server to start..."
-sleep 30s  # Ensure the database engine is up
+until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1" &> /dev/null
+do
+    echo "SQL Server is not ready yet. Waiting..."
+    sleep 2
+done
 
 echo "Running database initialization script..."
 /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -d master -i /init-db.sql
 
 echo "Database setup complete!"
-tail -f /dev/null  # Keep the container running
+wait

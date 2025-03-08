@@ -1,65 +1,57 @@
+# docker-compose.yml
+version: "3.8"
+
 services:
-  frontend:
-    image: proneighborfrontend:latest
-    container_name: proneighbor_frontend
+  sqlserver:
     build:
-      context: ./proneighbor
-    ports:
-      - "80:80"
-    networks:
-      - mynetwork
-    depends_on:
-      - backend
-
-  backend:
-    image: proneighborbackend:latest
-    container_name: proneighbor_backend
-    build:
-      context: ./backend
-    ports:
-      - "3000:3000"
-    networks:
-      - mynetwork
-    depends_on:
-      db:
-        condition: service_healthy
-
-  db:
-    image: mcr.microsoft.com/mssql/server:latest
-    container_name: proneighbor_bd_container
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: sqlserver_container
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_PID=Developer
       - SA_PASSWORD=StrongP@ssword123
     ports:
       - "1433:1433"
-    networks:
-      - mynetwork
     volumes:
-      - db_data:/var/opt/mssql
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "/opt/mssql-tools/bin/sqlcmd",
-          "-S",
-          "localhost",
-          "-U",
-          "SA",
-          "-P",
-          "StrongP@ssword123",
-          "-Q",
-          "SELECT 1",
-        ]
-      interval: 10s
-      retries: 5
-      start_period: 20s
-    command: /opt/mssql/bin/sqlservr
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - proneighbor_network
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend_container
+    environment:
+      - DB_SERVER=sqlserver
+      - DB_DATABASE=ProNeighbor2
+      - DB_USER=sa
+      - DB_PASSWORD=StrongP@ssword123
+      - DB_PORT=1433
+      - DB_ENCRYPT=true
+      - DB_TRUST_SERVER_CERTIFICATE=true
+      - JWT_SECRET=S3cReT!kEy@1234567890&*(A^VeRy$Tr0nG_SeCrEt_K3y
+      - JWT_EXPIRATION=1h
+    ports:
+      - "3000:3000"
+    depends_on:
+      - sqlserver
+    networks:
+      - proneighbor_network
+
+  frontend:
+    build:
+      context: ./ProNeighbor
+      dockerfile: Dockerfile
+    container_name: frontend_container
+    ports:
+      - "80:80"
+    networks:
+      - proneighbor_network
 
 networks:
-  mynetwork:
+  proneighbor_network:
     driver: bridge
 
 volumes:
-  db_data:
+  sqlserver_data:
     driver: local

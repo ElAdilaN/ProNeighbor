@@ -1,21 +1,23 @@
-FROM node:20 as build
+# ProNeighbor/Dockerfile (frontend)
+# Stage 1: Build the Angular application
+FROM node:20 AS build
 
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm install
 
 COPY . .
 
-RUN npm run build --prod
+RUN npm run build -- --configuration production
 
-FROM nginx:latest
+# Stage 2: Serve the built application with Nginx
+FROM nginx:alpine
 
-# Copy custom Nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Copy Angular build files
 COPY --from=build /app/dist/ProNeighbor/browser /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
