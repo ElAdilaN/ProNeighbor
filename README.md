@@ -56,35 +56,7 @@ ProNeighbor is a platform designed to connect users with service providers such 
     ```
     Replace the bracketed values with your actual database and JWT settings.
 
-# Installation & Running with Docker Compose
 
-## Prerequisites
-
-- Ensure you have **Docker** and **Docker Compose** installed.
-  - 👉 [Download Docker here](https://www.docker.com/get-started)
-
-## Run the Project
-
-From the root directory of the project, run:
-
-```bash
-docker-compose up --build
-```
-
-This command will build and start all required containers, including the backend and database.
-
-> **Important:** Before running Docker Compose, make sure the `db/init-db.sh` file has **LF (Line Feed)** line endings instead of **CRLF (Carriage Return Line Feed)**. This is essential for proper execution inside the container.
-
-## How to Fix Line Endings in VS Code:
-
-1. Open `db/init-db.sh` in **VS Code**.
-2. Look at the bottom-right corner—find and click where it says **"CRLF"** (if applicable).
-3. Select **"LF"** from the dropdown menu.
-4. Save the file.
-
-This ensures the database initialization script runs correctly inside the Linux-based Docker container. 🚀
-
----
 
 # Instal·lació i Execució amb Docker Compose
 
