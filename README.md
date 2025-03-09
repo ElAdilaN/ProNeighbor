@@ -95,40 +95,40 @@ Això garantirà que l'script d'inicialització de la base de dades s'executi co
 
 ### Folder Structure
 
-backend/
-├── config/
-│ └── db.js
-├── controllers/
-│ ├── authController.js
-│ ├── messageController.js
-│ ├── reviewController.js
-│ ├── servicesController.js
-│ └── userController.js
-├── middleware/
-│ └── authMiddleware.js
-├── models/
-│ ├── authModel.js
-│ ├── messageModel.js
-│ ├── reviewModel.js
-│ ├── servicesModel.js
-│ └── userModel.js
-├── routes/
-│ ├── authRoutes.js
-│ ├── messageRoutes.js
-│ ├── reviewRoutes.js
-│ ├── serviceRoutes.js
-│ └── userRoutes.js
-├── app.js
-├── Dockerfile
-├── package.json
-├── package-lock.json
-├── .env
-├── .gitignore
+backend/  
+├── config/  
+│ └── db.js  
+├── controllers/  
+│ ├── authController.js  
+│ ├── messageController.js  
+│ ├── reviewController.js  
+│ ├── servicesController.js  
+│ └── userController.js  
+├── middleware/  
+│ └── authMiddleware.js  
+├── models/  
+│ ├── authModel.js  
+│ ├── messageModel.
+│ ├── reviewModel.js  
+│ ├── servicesModel.js  
+│ └── userModel.js  
+├── routes/  
+│ ├── authRoutes.js  
+│ ├── messageRoutes.js  
+│ ├── reviewRoutes.js  
+│ ├── serviceRoutes.js  
+│ └── userRoutes.js  
+├── app.js  
+├── Dockerfile  
+├── package.json  
+├── package-lock.json  
+├── .env  
+├── .gitignore  
 └── socket.js
 
-db/
-├── Dockerfile
-├── init-db.sh
+db/  
+├── Dockerfile  
+├── init-db.sh  
 └── ScriptProNeighbor2.sql
 
 ## Entity-Relationship Diagram
