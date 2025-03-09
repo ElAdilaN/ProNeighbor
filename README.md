@@ -8,7 +8,7 @@ This document provides detailed information about the backend setup and API endp
 - [Backend Setup](#backend-setup)
   - [Installation](#installation)
   - [Environment Configuration](#environment-configuration)
-  - [Starting the Server](#starting-the-server)
+  - [Starting the Server (Docker Compose)](#starting-the-server-docker-compose)
   - [Database Setup](#database-setup)
   - [Folder Structure](#folder-structure)
 - [Entity-Relationship Diagram](#entity-relationship-diagram)
@@ -31,7 +31,7 @@ ProNeighbor is a platform designed to connect users with service providers such 
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/ElAdilaN/ProNeighbor.git
+    git clone [repository-link]
     cd backend
     ```
 2.  **Install Dependencies:**
@@ -42,36 +42,77 @@ ProNeighbor is a platform designed to connect users with service providers such 
 ### Environment Configuration
 
 1.  **Create `.env` File:**
-    Create a `.env` file (if doesn't exist ) in the `backend` directory with the following variables:
-
+    Create a `.env` file in the `backend` directory with the following variables:
     ```
-    DB_SERVER=sqlserver
-    DB_DATABASE=ProNeighbor2
-    DB_USER=sa
-    DB_PASSWORD=StrongP@ssword123
-    DB_PORT=1433
+    DB_SERVER=[your_db_server]
+    DB_DATABASE=[your_db_database]
+    DB_USER=[your_db_user]
+    DB_PASSWORD=[your_db_password]
+    DB_PORT=[your_db_port]
     DB_ENCRYPT=true
     DB_TRUST_SERVER_CERTIFICATE=true
-
-    JWT_SECRET=S3cReT!kEy@1234567890&\*(A^VeRy$Tr0nG_SeCrEt_K3y
+    JWT_SECRET=[your_jwt_secret]
     JWT_EXPIRATION=1h
-
     ```
+    Replace the bracketed values with your actual database and JWT settings.
 
-### Starting the Server
+# Installation & Running with Docker Compose
 
-1.  **Start the Server:**
-    ```bash
-    npm start
-    ```
-    This command will start the Node.js server using `app.js`.
+## Prerequisites
 
-### Database Setup
+- Ensure you have **Docker** and **Docker Compose** installed.
+  - 👉 [Download Docker here](https://www.docker.com/get-started)
 
-1.  **SQL Server Setup:**
-    Ensure you have SQL Server installed and running.
-2.  **Database Creation:**
-    Run the `ScriptProNeighbor2.sql` script located in the `db` directory to create the necessary tables and schema.
+## Run the Project
+
+From the root directory of the project, run:
+
+```bash
+docker-compose up --build
+```
+
+This command will build and start all required containers, including the backend and database.
+
+> **Important:** Before running Docker Compose, make sure the `db/init-db.sh` file has **LF (Line Feed)** line endings instead of **CRLF (Carriage Return Line Feed)**. This is essential for proper execution inside the container.
+
+## How to Fix Line Endings in VS Code:
+
+1. Open `db/init-db.sh` in **VS Code**.
+2. Look at the bottom-right corner—find and click where it says **"CRLF"** (if applicable).
+3. Select **"LF"** from the dropdown menu.
+4. Save the file.
+
+This ensures the database initialization script runs correctly inside the Linux-based Docker container. 🚀
+
+---
+
+# Instal·lació i Execució amb Docker Compose
+
+## Prerequisits
+
+- Assegureu-vos que teniu **Docker** i **Docker Compose** instal·lats.
+  - 👉 [Descarrega Docker aquí](https://www.docker.com/get-started)
+
+## Executar el Projecte
+
+Des de la carpeta arrel del projecte, executeu:
+
+```bash
+docker-compose up --build
+```
+
+Aquesta ordre construirà i iniciarà tots els contenidors necessaris, incloent el backend i la base de dades.
+
+> **Important:** Abans d'executar Docker Compose, assegureu-vos que el fitxer `db/init-db.sh` té terminacions de línia en format **LF (Line Feed)** en lloc de **CRLF (Carriage Return Line Feed)**. Això és essencial perquè s'executi correctament dins del contenidor.
+
+## Com corregir les terminacions de línia a VS Code:
+
+1. Obriu `db/init-db.sh` a **VS Code**.
+2. A la cantonada inferior dreta, feu clic a **"CRLF"** (si apareix).
+3. Seleccioneu **"LF"** al menú desplegable.
+4. Deseu el fitxer.
+
+Això garantirà que l'script d'inicialització de la base de dades s'executi correctament dins del contenidor Docker basat en Linux. 🚀
 
 ### Folder Structure
 
@@ -112,17 +153,6 @@ db/
 └── ScriptProNeighbor2.sql
 
 ## Entity-Relationship Diagram
-
-(You'll need to create a visual ERD and include it here. Tools like draw.io or Lucidchart can be used. For text purposes the relations are as follows)
-
-- Users 1---N Services
-- Users 1---N Reviews
-- Users 1---N Messages
-- Users 1---N Chat_participants
-- Chats 1---N Messages
-- Chats 1---N Chat_participants
-- Services 1---N Chats
-- Services 1---N Reviews
 
 ## Authentication Process
 
