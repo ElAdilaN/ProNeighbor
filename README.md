@@ -101,9 +101,9 @@ Des de la carpeta arrel del projecte, executeu:
 docker-compose up --build
 ```
 
-Aquesta ordre construirà i iniciarà tots els contenidors necessaris, incloent el backend i la base de dades.
+Aquesta ordre construirà i iniciarà tots els contenidors necessaris, incloent el backend , frontend i la base de dades.
 
-> **Important:** Abans d'executar Docker Compose, assegureu-vos que el fitxer `db/init-db.sh` té terminacions de línia en format **LF (Line Feed)** en lloc de **CRLF (Carriage Return Line Feed)**. Això és essencial perquè s'executi correctament dins del contenidor.
+<pre> ```bash # Important: Ensure the file has LF line endings before running Docker Compose # Run the following command to convert CRLF to LF if necessary: sed -i 's/\r$//' db/init-db.sh # OR manually set the correct line endings in your editor. ``` </pre>
 
 ## Com corregir les terminacions de línia a VS Code:
 
