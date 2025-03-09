@@ -1,5 +1,3 @@
-# docker-compose.yml
-version: "3.8"
 
 services:
   sqlserver:
@@ -21,16 +19,7 @@ services:
     build:
       context: ./backend
     container_name: backend_container
-    environment:
-      - DB_SERVER=sqlserver
-      - DB_DATABASE=ProNeighbor2
-      - DB_USER=sa
-      - DB_PASSWORD=StrongP@ssword123
-      - DB_PORT=1433
-      - DB_ENCRYPT=true
-      - DB_TRUST_SERVER_CERTIFICATE=true
-      - JWT_SECRET=S3cReT!kEy@1234567890&*(A^VeRy$Tr0nG_SeCrEt_K3y
-      - JWT_EXPIRATION=1h
+    # REMOVE the environment section
     ports:
       - "3000:3000"
     depends_on:
