@@ -133,6 +133,8 @@ db/
 
 ## Entity-Relationship Diagram
 
+![ERD Diagram](erd.png)
+
 ## Authentication Process
 
 1.  **Registration:**
