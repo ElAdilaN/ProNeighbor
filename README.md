@@ -5,12 +5,14 @@ This document provides detailed information about the backend setup and API endp
 ## Table of Contents
 
 - [Project Overview](#project-overview)
-- [Backend Setup](#backend-setup)
+- [Project Setup](#project-setup)
   - [Installation](#installation)
   - [Environment Configuration](#environment-configuration)
-  - [Starting the Server (Docker Compose)](#starting-the-server-docker-compose)
-  - [Database Setup](#database-setup)
-  - [Folder Structure](#folder-structure)
+- [Installation and Execution with Docker Compose](#instal·lació-i-execució-amb-docker-compose)
+  - [Prerequisites](#prerequisits)
+  - [Running the Project](#executar-el-projecte)
+  - [Fixing Line Endings in VS Code](#com-corregir-les-terminacions-de-línia-a-vs-code)
+- [Folder Structure](#folder-structure)
 - [Entity-Relationship Diagram](#entity-relationship-diagram)
 - [Authentication Process](#authentication-process)
 - [API Endpoints](#api-endpoints)
@@ -25,38 +27,45 @@ This document provides detailed information about the backend setup and API endp
 
 ProNeighbor is a platform designed to connect users with service providers such as teachers, painters, and other professionals. This document focuses on the backend implementation and its configuration.
 
-## Backend Setup
+## Project Setup
 
 ### Installation
 
 1.  **Clone the Repository:**
+
     ```bash
     git clone [repository-link]
-    cd backend
+
     ```
+
 2.  **Install Dependencies:**
     ```bash
+    cd backend
+    npm install
+    ```
+    ```bash
+    cd ProNeighbor
     npm install
     ```
 
 ### Environment Configuration
 
 1.  **Create `.env` File:**
-    Create a `.env` file in the `backend` directory with the following variables:
+    Create a `.env` file ( NO CAL SI JA EXISTEIX) in the `backend` directory with the following variables:
+
     ```
-    DB_SERVER=[your_db_server]
-    DB_DATABASE=[your_db_database]
-    DB_USER=[your_db_user]
-    DB_PASSWORD=[your_db_password]
-    DB_PORT=[your_db_port]
+    DB_SERVER=sqlserver
+    DB_DATABASE=ProNeighbor2
+    DB_USER=sa
+    DB_PASSWORD=StrongP@ssword123
+    DB_PORT=1433
     DB_ENCRYPT=true
     DB_TRUST_SERVER_CERTIFICATE=true
-    JWT_SECRET=[your_jwt_secret]
+
+    JWT_SECRET=S3cReT!kEy@1234567890&\*(A^VeRy$Tr0nG_SeCrEt_K3y
     JWT_EXPIRATION=1h
+
     ```
-    Replace the bracketed values with your actual database and JWT settings.
-
-
 
 # Instal·lació i Execució amb Docker Compose
 
