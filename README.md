@@ -34,23 +34,21 @@ ProNeighbor is a platform designed to connect users with service providers such 
 1.  **Clone the Repository:**
 
     ```bash
-    git clone [repository-link]
+    git clone https://github.com/ElAdilaN/ProNeighbor.git
 
     ```
 
-2.  **Install Dependencies:**
+2.  **Install Dependencies :**
     ```bash
     cd backend
     npm install
-    ```
-    ```bash
-    cd ProNeighbor
+    cd ..\ProNeighbor
     npm install
     ```
 
 ### Environment Configuration
 
-1.  **Create `.env` File:**
+1.  **Create `.env` File:**  
     Create a `.env` file ( NO CAL SI JA EXISTEIX) in the `backend` directory with the following variables:
 
     ```
